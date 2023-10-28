@@ -71,7 +71,7 @@ const ChapterPage = async ({
                 isCompleted={!!userProgress?.isCompleted}
               />
             ) : (
-              <CourseEnrollButton courseId={courseId} price={course.price} />
+              <CourseEnrollButton courseId={courseId} price={course.price!} />
             )}
           </div>
           <Separator />
