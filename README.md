@@ -32,3 +32,30 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+
+##Developer Notes
+
+npx prisma studio   ---> to view database
+
+After schema update, run these
+
+npx prisma generate
+npx prisma db push
+
+FOR reseting db
+
+npx prisma migrate reset
+
+
+##For Stripe
+
+Email => zedme05@gmail.com
+pass => Ola@Test@123
+autheticator code = >kcjd-mwqm-flpg-reul-ojje
+
+
+###Run stripe CLI for dev(requires installation of stripe cli-->https://dashboard.stripe.com/test/webhooks/create?endpoint_location=local)
+
+1. stripe login
+2. stripe listen --forward-to localhost:3000/api/webhook
