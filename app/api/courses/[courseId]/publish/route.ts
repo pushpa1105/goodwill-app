@@ -59,12 +59,15 @@ export async function PATCH(
       });
     }
 
+    const setCourseAsFree = !course.price;
+
     const publishedCourse = await db.course.update({
       where: {
         id: courseId,
       },
       data: {
         isPublished: true,
+        isFree: setCourseAsFree,
       },
     });
 

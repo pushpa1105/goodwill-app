@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { UserButton } from "@clerk/nextjs";
 
 const NavBar = () => {
   const [activeLink, setActiveLink] = useState<string | null>(null);
@@ -27,7 +28,7 @@ const NavBar = () => {
             {/* <Image height={130} width={130} alt="logo" src="/logo.svg" /> */}
             Logo
           </div>
-          <ul className="hidden lg:flex col-start-4 col-end-8 text-black-500  items-center">
+          {/* <ul className="hidden lg:flex col-start-4 col-end-8 text-black-500  items-center">
             <Link
               href="/"
               onClick={() => {
@@ -84,15 +85,17 @@ const NavBar = () => {
             >
               Testimonial
             </Link>
-          </ul>
+          </ul> */}
           <div className="col-start-10 col-end-12 font-medium flex justify-end items-center">
-            <Link
+            <UserButton afterSignOutUrl="/" />
+
+            {/* <Link
               href="/"
               className="text-black-600 mx-2 sm:mx-4 capitalize tracking-wide hover:text-orange-500 transition-all"
             >
                 Sign In
             </Link>
-            <Button>Sign Up</Button>
+            <Button>Sign Up</Button> */}
           </div>
         </nav>
       </header>

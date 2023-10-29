@@ -1,10 +1,10 @@
 .bg-linear-landing, .bg-landing {
-  background: linear-gradient(90deg, #9400ed 0%, #2d0099 100%);
+  background: linear-gradient(90deg, #9400ed 0%, #2d0099 100%) !important;
 }
 
 @media screen and (min-width: 480px) {
   .bg-landing {
-    background: none;
+    background: none !important;
   }
 }
 

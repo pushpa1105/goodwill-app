@@ -54,6 +54,29 @@ export const columns: ColumnDef<Course>[] = [
     },
   },
   {
+    accessorKey: "isFree",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          isFree
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const isFree = row.getValue("isFree") || false;
+
+      return (
+        <Badge className={cn("bg-slate-500", isFree && "bg-sky-700")}>
+          {isFree ? "Yes" : "No"}
+        </Badge>
+      );
+    },
+  },
+  {
     accessorKey: "isPublished",
     header: ({ column }) => {
       return (

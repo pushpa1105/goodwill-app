@@ -29,6 +29,7 @@ export const getChapter = async ({
       },
       select: {
         price: true,
+        isFree: true,
       },
     });
 
@@ -45,7 +46,7 @@ export const getChapter = async ({
     let attachments: Attachment[] = [];
     let nextChapter: Chapter | null = null;
 
-    if (purchase) {
+    if (course.isFree || purchase) {
       attachments = await db.attachment.findMany({
         where: {
           courseId,
@@ -53,7 +54,7 @@ export const getChapter = async ({
       });
     }
 
-    if (chapter.isFree || purchase) {
+    if (course.isFree || chapter.isFree || purchase) {
       muxData = await db.muxData.findUnique({
         where: {
           chapterId,
@@ -74,6 +75,7 @@ export const getChapter = async ({
       });
     }
 
+    console.log('---------------------idFree------', course.isFree)
     const userProgress = await db.userProgress.findUnique({
       where: {
         userId_chapterId: {

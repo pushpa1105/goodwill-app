@@ -19,6 +19,7 @@ model Course {
   description String? @db.Text
   imageUrl    String? @db.Text
   price       Float?
+  isFree      Boolean @default(false)
   isPublished Boolean @default(false)
 
   categoryId String?
@@ -59,6 +60,7 @@ model Chapter {
   id          String  @id @default(uuid())
   title       String
   description String? @db.Text
+  summary     String? @db.Text
   videoUrl    String? @db.Text
   position    Int
   isPublished Boolean @default(false)

@@ -31,7 +31,7 @@ const ChapterPage = async ({
 
   if (!chapter || !course) redirect("/");
 
-  const isLocked = !chapter.isFree && !purchase;
+  const isLocked = !course.isFree && !chapter.isFree && !purchase;
   const completeOnEnd = !!purchase && !userProgress?.isCompleted;
 
   return (
@@ -63,7 +63,7 @@ const ChapterPage = async ({
         <div>
           <div className="p-4 flex flex-col md:flex-row items-center justify-between">
             <h2 className="text-2xl font-semibold mb-2">{chapter.title}</h2>
-            {purchase ? (
+            {purchase || course.isFree ? (
               <CourseProgressButton
                 chapterId={chapterId}
                 courseId={courseId}

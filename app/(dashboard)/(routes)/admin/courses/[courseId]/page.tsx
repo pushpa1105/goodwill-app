@@ -1,6 +1,7 @@
 import { auth } from "@clerk/nextjs";
 import {
   CircleDollarSign,
+  Eye,
   File,
   LayoutDashboard,
   ListChecks,
@@ -20,6 +21,7 @@ import { AttachmentForm } from "./_components/attachment-form";
 import { ChaptersForm } from "./_components/chapters-form";
 import { Banner } from "@/components/banner";
 import { Actions } from "./_components/actions";
+import { CourseAccessForm } from "./_components/course-access-form";
 
 const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
   const { userId } = auth();
@@ -61,7 +63,6 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
     course.title,
     course.description,
     course.imageUrl,
-    course.price,
     course.categoryId,
     course.chapters.some((chapter) => chapter.isPublished),
   ];
@@ -122,8 +123,18 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
             </div>
             <div>
               <div className="flex items-center gap-x-2">
+                <IconBadge icon={Eye} />
+                <h2 className="text-xl">Access Settings</h2>
+              </div>
+              <CourseAccessForm
+                initialData={course}
+                courseId={params.courseId}
+              />
+            </div>
+            <div>
+              <div className="flex items-center gap-x-2">
                 <IconBadge icon={CircleDollarSign} />
-                <h2 className="text-xl">Sell your course</h2>
+                <h2 className="text-xl">Sell your course </h2>
               </div>
               <PriceForm initialData={course} courseId={params.courseId} />
             </div>

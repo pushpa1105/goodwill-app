@@ -18,7 +18,7 @@ export const NavbarRoutes = () => {
   return (
     <div className="flex gap-x-2 ml-auto">
       {isAdminPage || isUserPage ? (
-        <Link href="/">
+        <Link href="/courses">
           <Button>
             <LogOut className="h-4 w-4 mr-2" />
             Exit

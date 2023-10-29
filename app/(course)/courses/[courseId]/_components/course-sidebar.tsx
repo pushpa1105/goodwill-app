@@ -31,11 +31,14 @@ export const CourseSidebar = async ({
       },
     },
   });
+
+  const showProgressBar = course.isFree || purchase;
+  console.log("course-----", course);
   return (
     <div className="h-full border-r flex flex-col overflow-y-auto shadow-sm">
       <div className="p-8 flex flex-col border-b">
         <h1 className="font-semibold">{course.title}</h1>
-        {purchase && (
+        {showProgressBar && (
           <div className="mt-10">
             <CourseProgress variant="success" value={progressCount} />
           </div>

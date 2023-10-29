@@ -10,6 +10,7 @@ import { ChapterAccessForm } from "./_components/chapter-access-form";
 import { ChapterVideoForm } from "./_components/chapter-video-form";
 import { Banner } from "@/components/banner";
 import { ChapterActions } from "./_components/chapter-actions";
+import { ChapterSummaryForm } from "./_components/chapter-summary-form";
 
 const ChapterIdPage = async ({
   params,
@@ -28,6 +29,12 @@ const ChapterIdPage = async ({
     },
     include: {
       muxData: true,
+    },
+  });
+
+  const course = await db.course.findUnique({
+    where: {
+      id: courseId,
     },
   });
 
@@ -88,23 +95,30 @@ const ChapterIdPage = async ({
                 chapterId={chapterId}
                 courseId={courseId}
               />
+              <ChapterSummaryForm
+                initialData={chapter}
+                chapterId={chapterId}
+                courseId={courseId}
+              />
               <ChapterDescriptionForm
                 initialData={chapter}
                 chapterId={chapterId}
                 courseId={courseId}
               />
             </div>
-            <div>
-              <div className="flex items-center gap-x-2">
-                <IconBadge icon={Eye} />
-                <h2 className="text-xl">Access Settings</h2>
+            {!course?.isFree && (
+              <div>
+                <div className="flex items-center gap-x-2">
+                  <IconBadge icon={Eye} />
+                  <h2 className="text-xl">Access Settings</h2>
+                </div>
+                <ChapterAccessForm
+                  initialData={chapter}
+                  chapterId={chapterId}
+                  courseId={courseId}
+                />
               </div>
-              <ChapterAccessForm
-                initialData={chapter}
-                chapterId={chapterId}
-                courseId={courseId}
-              />
-            </div>
+            )}
           </div>
           <div>
             <div className="flex items-center gap-x-2">
