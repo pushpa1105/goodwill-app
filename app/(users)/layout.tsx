@@ -9,7 +9,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
   const isLandingPage = pathname === "/";
   return (
-    <div className="h-full">
+    <div className={cn("h-full", isLandingPage && "bg-linear-landing")}>
       <div className="h-[80px] fixed inset-y-0 w-full z-50">
         <NavBar />
       </div>
