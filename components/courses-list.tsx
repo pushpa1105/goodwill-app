@@ -26,6 +26,7 @@ export const CoursesList = ({ items }: CoursesListProps) => {
             progress={item.progress}
             category={item.category?.name!}
             isFree={item.isFree}
+            description = {item.description!}
           />
         ))}
       </div>

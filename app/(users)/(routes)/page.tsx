@@ -3,8 +3,36 @@ import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import { LandingCarousel } from "../_components/landing-carousel";
+import { db } from "@/lib/db";
+import { CourseCarousel } from "../_components/course-carousel";
+import { auth } from "@clerk/nextjs";
+import { redirect } from "next/navigation";
 
-const LandingPage = () => {
+const LandingPage = async () => {
+  const { userId } = auth();
+  if (!userId) redirect("/");
+  const courses = await db.course.findMany({
+    where: {
+      isPublished: true,
+    },
+    include: {
+      category: true,
+      chapters: {
+        where: {
+          isPublished: true,
+        },
+        select: {
+          id: true,
+        },
+      },
+      purchases: {
+        where: {
+          userId,
+        },
+      },
+    },
+    take: 8,
+  });
   return (
     <>
       <div
@@ -60,13 +88,14 @@ const LandingPage = () => {
         <div className="w-full m-auto flex items-center justify-center mb-16 text-black text-2xl font-bold">
           Top Free Courses
         </div>
-        <LandingCarousel />
+        <CourseCarousel items={courses || []} />
       </div>
       <div className="p-16 bg-linear-landing">
         <div className="w-full m-auto flex items-center justify-center mb-16 text-black text-2xl font-bold">
           Upcoming Webinars
         </div>
-        <LandingCarousel />
+        TODO: webinars
+        {/* <LandingCarousel /> */}
       </div>
     </>
   );
