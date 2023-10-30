@@ -2,13 +2,13 @@ import React from "react";
 import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
-import { Carousel } from "../_components/carousel";
+import { LandingCarousel } from "../_components/landing-carousel";
 
 const LandingPage = () => {
   return (
     <>
       <div
-        className="max-w-screen-xl mt-24 px-8 xl:px-16 mx-auto bg-landing"
+        className="max-w-screen-xl mt-24 px-8 xl:px-16 mx-auto bg-landing pb-16"
         id="about"
       >
         <div className="grid grid-flow-row sm:grid-flow-col grid-rows-2 md:grid-rows-1 sm:grid-cols-2 gap-8 pb-6 sm:pb-16">
@@ -42,13 +42,13 @@ const LandingPage = () => {
             </div>
           </div>
         </div>
-        <div className="relative w-full pb-">
+        <div className="relative w-full pb-8">
           {/* <div className="rounded-lg w-full grid grid-flow-row sm:grid-flow-row grid-cols-1 sm:grid-cols-3 py-9 divide-y-2 sm:divide-y-0 sm:divide-x-2 divide-gray-100 bg-white-500 z-10"> */}
           {/* <h1>TODO: CAROUSEL HERE!!!</h1> */}
           <div className="w-full m-auto flex items-center justify-center mb-4 text-white text-2xl font-bold">
             Explore More
           </div>
-          <Carousel />
+          <LandingCarousel />
           {/* </div> */}
           <div
             className="absolute bg-black-600 opacity-5 w-11/12 roudned-lg h-64 sm:h-48 top-0 mt-8 mx-auto left-0 right-0"
@@ -56,18 +56,18 @@ const LandingPage = () => {
           ></div>
         </div>
       </div>
-      {/* <div className="bg-white p-16">
+      <div className="bg-white p-16">
         <div className="w-full m-auto flex items-center justify-center mb-16 text-black text-2xl font-bold">
           Top Free Courses
         </div>
-        <Carousel />
+        <LandingCarousel />
       </div>
       <div className="p-16 bg-linear-landing">
         <div className="w-full m-auto flex items-center justify-center mb-16 text-black text-2xl font-bold">
           Upcoming Webinars
         </div>
-        <Carousel />
-      </div> */}
+        <LandingCarousel />
+      </div>
     </>
   );
 };
