@@ -19,10 +19,10 @@ interface ChapterCardProps {
   courseId: string;
 }
 
-export const CourseCard = ({ id, title, summary, courseId }: ChapterCardProps) => {
+export const ChapterCard = ({ id, title, summary, courseId }: ChapterCardProps) => {
   return (
     <Link href={`/courses/${courseId}/chapters/${id}`}>
-      <Card className="hover:shadow-sm transition overflow-hidden border rounded-lg">
+      <Card className="group hover:shadow-lg transition overflow-hidden border rounded-lg">
         <CardHeader>
           <CardTitle>Chapter 1</CardTitle>
           <CardDescription>{title}</CardDescription>

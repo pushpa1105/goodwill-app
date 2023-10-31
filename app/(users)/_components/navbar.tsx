@@ -4,9 +4,10 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { UserButton } from "@clerk/nextjs";
+import { UserButton, useAuth } from "@clerk/nextjs";
 
 const NavBar = () => {
+  const { userId } = useAuth();
   const [activeLink, setActiveLink] = useState<string | null>(null);
   const [scrollActive, setScrollActive] = useState(false);
   useEffect(() => {
@@ -19,14 +20,14 @@ const NavBar = () => {
       <header
         className={
           "fixed top-0 w-full  z-30 bg-white-500 transition-all " +
-          (scrollActive ? "bg-white shadow-md pt-0" : " pt-4")
+          (scrollActive ? "bg-white shadow-2xl pt-0" : " pt-4")
         }
       >
         <nav className="max-w-screen-xl px-6 sm:px-8 lg:px-16 mx-auto grid grid-flow-col py-3 sm:py-4">
           <div className="col-start-1 col-end-2 flex items-center">
             {/* <LogoVPN className="h-8 w-auto" /> */}
             {/* <Image height={130} width={130} alt="logo" src="/logo.svg" /> */}
-            Logo
+            Goodwill Logo
           </div>
           {/* <ul className="hidden lg:flex col-start-4 col-end-8 text-black-500  items-center">
             <Link
@@ -87,15 +88,20 @@ const NavBar = () => {
             </Link>
           </ul> */}
           <div className="col-start-10 col-end-12 font-medium flex justify-end items-center">
-            <UserButton afterSignOutUrl="/" />
-
-            {/* <Link
-              href="/"
-              className="text-black-600 mx-2 sm:mx-4 capitalize tracking-wide hover:text-orange-500 transition-all"
-            >
-                Sign In
-            </Link>
-            <Button>Sign Up</Button> */}
+            {userId && <UserButton afterSignOutUrl="/" />}
+            {!userId && (
+              <>
+                <Link
+                  href="/sign-in"
+                  className="text-black-600 mx-2 sm:mx-4 capitalize tracking-wide hover:text-slate-500 transition-all"
+                >
+                    Sign In
+                </Link>
+                <Link href="/sign-up">
+                  <Button>Sign Up</Button>
+                </Link>
+              </>
+            )}
           </div>
         </nav>
       </header>

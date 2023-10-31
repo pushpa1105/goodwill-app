@@ -12,15 +12,27 @@ datasource db {
   relationMode = "prisma"
 }
 
+model User {
+  id         Int     @id @default(autoincrement())
+  externalId String  @unique
+  attributes Json
+  lang       String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 model Course {
-  id          String  @id @default(uuid())
-  userId      String
-  title       String  @db.Text
-  description String? @db.Text
-  imageUrl    String? @db.Text
-  price       Float?
-  isFree      Boolean @default(false)
-  isPublished Boolean @default(false)
+  id               String  @id @default(uuid())
+  userId           String
+  title            String  @db.Text
+  description      String? @db.Text
+  titleHindi       String? @db.Text
+  descriptionHindi String? @db.Text
+  imageUrl         String? @db.Text
+  price            Float?
+  isFree           Boolean @default(false)
+  isPublished      Boolean @default(false)
 
   categoryId String?
   category   Category? @relation(fields: [categoryId], references: [id])
@@ -57,14 +69,17 @@ model Attachment {
 }
 
 model Chapter {
-  id          String  @id @default(uuid())
-  title       String
-  description String? @db.Text
-  summary     String? @db.Text
-  videoUrl    String? @db.Text
-  position    Int
-  isPublished Boolean @default(false)
-  isFree      Boolean @default(false)
+  id               String  @id @default(uuid())
+  title            String
+  description      String? @db.Text
+  summary          String? @db.Text
+  titleHindi       String?
+  descriptionHindi String? @db.Text
+  summaryHindi     String? @db.Text
+  videoUrl         String? @db.Text
+  position         Int
+  isPublished      Boolean @default(false)
+  isFree           Boolean @default(false)
 
   muxData MuxData?
 

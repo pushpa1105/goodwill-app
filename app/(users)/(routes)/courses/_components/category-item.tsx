@@ -3,19 +3,13 @@
 import { cn } from "@/lib/utils";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import qs from "query-string";
-import { IconType } from "react-icons";
 
 interface CategoryItemProps {
   label: string;
   value?: string;
-  icon?: IconType;
 }
 
-export const CategoryItem = ({
-  label,
-  value,
-  icon: Icon,
-}: CategoryItemProps) => {
+export const CategoryItem = ({ label, value }: CategoryItemProps) => {
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -43,12 +37,11 @@ export const CategoryItem = ({
     <button
       className={cn(
         "py-2 px-3 text-sm border border-slate-200 rounded-full flex items-center gap-x-1 hover:border-sky-700 transition mt-2",
-        isSelected && "border-sky-700 bg-sky-200/20 text-sky-800"
+        isSelected && "border-sky-700 bg-sky-200/20 text-sky-800 bg-linear-landing text-white border-none"
       )}
       type="button"
       onClick={onClick}
     >
-      {Icon && <Icon size={20} />}
       <div className="truncate">{label}</div>
     </button>
   );

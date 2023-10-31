@@ -9,8 +9,8 @@ import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
 const LandingPage = async () => {
-  const { userId } = auth();
-  if (!userId) redirect("/");
+  // const { userId } = auth();
+  // if (!userId) redirect("/");
   const courses = await db.course.findMany({
     where: {
       isPublished: true,
@@ -24,12 +24,7 @@ const LandingPage = async () => {
         select: {
           id: true,
         },
-      },
-      purchases: {
-        where: {
-          userId,
-        },
-      },
+      }
     },
     take: 8,
   });
