@@ -33,18 +33,18 @@ const CoursePage = async ({ params }: { params: { courseId: string } }) => {
   return (
     <div className="p-6 w-full lg:w-[85%] m-auto">
       <div className="flex flex-wrap items-center justify-between p-2 bg-linear-landing rounded mb-4">
-        <div className="hidden h-full flex-1 flex-col space-y-8 p-8 md:flex">
-          <div className="flex items-center justify-between space-y-2">
-            <div>
-              <h2 className="text-2xl font-bold tracking-tight text-white">
+        <div className="h-full flex-1 flex-col space-y-8 p-2 md:p-8 md:flex">
+          <div className="flex items-center justify-between space-y-2 flex-wrap">
+            <div className="max-w-[85%]">
+              <h2 className="text-xl lg:text-2xl font-bold tracking-tight text-white mb-4">
                 {course.title}
               </h2>
-              <p className="text-muted-foreground text-white">
+              <p className="text-sm lg:text-md text-muted-foreground text-white">
                 {course.description}
               </p>
             </div>
-            <div>
-              <div className="mb-4 flex items-center gap-x-2 text-sm md:text-md font-bold">
+            <div className="flex lg:block items-center justify-around pt-4">
+              <div className="lg:mb-4  mr-4 lg:mr-0 flex items-center gap-x-2 text-sm md:text-md font-bold">
                 <div className="flex items-center gap-x-1 text-white">
                   <IconBadge size="sm" icon={BookOpen} />
                   <span>

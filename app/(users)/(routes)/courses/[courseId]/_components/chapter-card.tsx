@@ -17,14 +17,21 @@ interface ChapterCardProps {
   title: string;
   summary?: string;
   courseId: string;
+  chapterNumber: number | string;
 }
 
-export const ChapterCard = ({ id, title, summary, courseId }: ChapterCardProps) => {
+export const ChapterCard = ({
+  id,
+  title,
+  summary,
+  courseId,
+  chapterNumber,
+}: ChapterCardProps) => {
   return (
     <Link href={`/courses/${courseId}/chapters/${id}`}>
       <Card className="group hover:shadow-lg transition overflow-hidden border rounded-lg">
         <CardHeader>
-          <CardTitle>Chapter 1</CardTitle>
+          <CardTitle>Chapter {chapterNumber}</CardTitle>
           <CardDescription>{title}</CardDescription>
         </CardHeader>
         <CardContent>
@@ -35,11 +42,11 @@ export const ChapterCard = ({ id, title, summary, courseId }: ChapterCardProps) 
           </Button>
         </div> */}
           <Separator className="my-4" />
-          <div className="space-y-4">
+          <div className="space-y-4 h-[250px] max-h-[250px] min-h-[250px]">
             <h4 className="text-sm font-medium">About this chapter</h4>
             <div className="grid gap-6">
-              <div className="flex items-center justify-between space-x-4">
-                {summary}
+              <div className="flex items-center justify-between space-x-4 mb-2">
+                <p className="line-clamp-7">{summary}</p>
               </div>
             </div>
           </div>
