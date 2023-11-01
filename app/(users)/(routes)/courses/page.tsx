@@ -23,7 +23,8 @@ const Courses = async ({ searchParams }: CoursesPageProps) => {
     },
   });
 
-  const hasLanguage = user?.lang || null;
+  // const hasLanguage = user?.lang || null;
+  const hasLanguage = 'eng'
 
   if (!userId) return redirect("/");
 

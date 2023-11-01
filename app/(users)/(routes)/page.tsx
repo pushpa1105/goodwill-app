@@ -7,6 +7,7 @@ import { db } from "@/lib/db";
 import { CourseCarousel } from "../_components/course-carousel";
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 
 const LandingPage = async () => {
   // const { userId } = auth();
@@ -24,7 +25,7 @@ const LandingPage = async () => {
         select: {
           id: true,
         },
-      }
+      },
     },
     take: 8,
   });
@@ -45,12 +46,14 @@ const LandingPage = async () => {
             <h1 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-white leading-normal lg:mt-4">
               with free courses
             </h1>
-            <Button
-              size="lg"
-              className="rounded-full mt-4 bg-gradient-to-r from-custompurlple to-custompurlplelight shadow-lg text-xl font-bold"
-            >
-              Watch Now
-            </Button>
+            <Link href="/courses">
+              <Button
+                size="lg"
+                className="rounded-full mt-4 bg-gradient-to-r from-custompurlple to-custompurlplelight shadow-lg text-xl font-bold"
+              >
+                Watch Now
+              </Button>
+            </Link>
           </div>
           <div className="flex w-full">
             <div className="h-full w-full">
