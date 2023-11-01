@@ -59,3 +59,8 @@ autheticator code = >kcjd-mwqm-flpg-reul-ojje
 
 1. stripe login
 2. stripe listen --forward-to localhost:3000/api/webhook
+
+
+##Admin
+email => zedme05@gmail.com
+pass=> Zedme@123

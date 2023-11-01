@@ -1,44 +1,11 @@
 import { auth } from "@clerk/nextjs";
-import { Button } from "@/components/ui/button";
 import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
 import { getCourses } from "@/actions/get-courses";
 import { SearchInput } from "@/components/search-input";
 import { Categories } from "./_components/categories";
 import { CoursesList } from "@/components/courses-list";
-
-const LanguagePreference = ({ handleClick }) => {
-  return (
-    <>
-      <div className="flex justify-center items-center h-[75%]">
-        <div className="w-full">
-          <div className="flex justify-center items-center ">
-            <div className="text-4xl font-bold">
-              <div className="w-[90%] lg:w-[60%] flex text-center m-auto justify-center text-white">
-                Choose your preffered language
-              </div>
-            </div>
-          </div>
-
-          <div className="flex flex-wrap justify-around items-center mt-8 lg:w-[60%] m-auto">
-            <Button
-              onClick={() => handleClick("eng")}
-              className="w-[75%] lg:w-[40%] h-[80px] text-black text-2xl font-bold bg-[#d2e7f9] shadow-lg mb-4 hover:bg-[#8aa1b9ed]"
-            >
-              English
-            </Button>
-            <Button
-              onClick={() => handleClick("hindi")}
-              className="w-[75%] lg:w-[40%] h-[80px] text-black  text-2xl font-bold bg-[#d2e7f9] shadow-lg mb-4 hover:bg-[#8aa1b9ed]"
-            >
-              Hindi
-            </Button>
-          </div>
-        </div>
-      </div>
-    </>
-  );
-};
+import { LanguagePreference } from "./_components/language-preference";
 
 interface CoursesPageProps {
   searchParams: {
@@ -48,9 +15,15 @@ interface CoursesPageProps {
 }
 
 const Courses = async ({ searchParams }: CoursesPageProps) => {
-  let hasLanguage = "eng";
-
   const { userId } = auth();
+
+  const user = await db.user.findFirst({
+    where: {
+      externalId: userId as string,
+    },
+  });
+
+  const hasLanguage = user?.lang || null;
 
   if (!userId) return redirect("/");
 
@@ -68,11 +41,7 @@ const Courses = async ({ searchParams }: CoursesPageProps) => {
   return (
     <>
       {!hasLanguage ? (
-        <LanguagePreference
-          handleClick={(event) => {
-            hasLanguage = event;
-          }}
-        />
+        <LanguagePreference />
       ) : (
         <div className="p-6 w-full lg:w-[75%] m-auto">
           <div className="flex flex-wrap items-center justify-between p-2">

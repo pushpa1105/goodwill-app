@@ -37,12 +37,29 @@ async function handler(req: Request) {
       const { id, ...attributes } = evt.data;
 
       const externalId = id as string;
-      await db.user.create({
-        data: {
+      const user = await db.user.findFirst({
+        where: {
           externalId,
-          attributes,
         },
       });
+
+      if (user) {
+        await db.user.updateMany({
+          where: {
+            externalId,
+          },
+          data: {
+            attributes,
+          },
+        });
+      } else {
+        await db.user.create({
+          data: {
+            externalId,
+            attributes,
+          },
+        });
+      }
     }
 
     if (eventType === "user.updated") {
