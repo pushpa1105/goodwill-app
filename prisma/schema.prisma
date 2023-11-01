@@ -14,7 +14,7 @@ datasource db {
 
 model User {
   id         Int     @id @default(autoincrement())
-  externalId String  @unique
+  externalId String
   attributes Json
   lang       String?
 
