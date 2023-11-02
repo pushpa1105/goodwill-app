@@ -95,12 +95,14 @@ const ChapterIdPage = async ({
                 chapterId={chapterId}
                 courseId={courseId}
               />
-              <ChapterSummaryForm
+
+              <ChapterDescriptionForm
                 initialData={chapter}
                 chapterId={chapterId}
                 courseId={courseId}
               />
-              <ChapterDescriptionForm
+
+              <ChapterSummaryForm
                 initialData={chapter}
                 chapterId={chapterId}
                 courseId={courseId}

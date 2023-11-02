@@ -12,6 +12,7 @@ import {
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -30,6 +31,7 @@ const formSchema = z.object({
   description: z.string().min(1, {
     message: "Description is required",
   }),
+  descriptionHindi: z.string(),
 });
 
 export const DescriptionForm = ({
@@ -77,14 +79,34 @@ export const DescriptionForm = ({
         </Button>
       </div>
       {!isEditing ? (
-        <p
-          className={cn(
-            "text-sm mt-2",
-            !initialData.description && "text-slate-500 italic"
-          )}
-        >
-          {initialData.description || "No description"}
-        </p>
+        <>
+          <div className="border rounded shadow-sm bg-violet-100 p-2 mb-2">
+            <p
+              className={cn(
+                "text-sm mt-2",
+                !initialData.description && "text-slate-500 italic"
+              )}
+            >
+              {initialData.description || "No description"}
+            </p>
+            <span className="text-muted-foreground text-xs italic">
+              (English)
+            </span>
+          </div>
+          <div className="border rounded shadow-sm bg-blue-100 p-2">
+            <p
+              className={cn(
+                "text-sm mt-2",
+                !initialData?.descriptionHindi && "text-slate-500 italic"
+              )}
+            >
+              {initialData.descriptionHindi || "No description"}
+            </p>
+            <span className="text-muted-foreground text-xs italic">
+              (Hindi)
+            </span>
+          </div>
+        </>
       ) : (
         <Form {...form}>
           <form
@@ -96,6 +118,25 @@ export const DescriptionForm = ({
               name="description"
               render={({ field }) => (
                 <FormItem>
+                  <FormLabel>For English</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      disabled={isSubmitting}
+                      placeholder="e.g. 'This course is about trading...'"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="descriptionHindi"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>For Hindi</FormLabel>
+
                   <FormControl>
                     <Textarea
                       disabled={isSubmitting}
