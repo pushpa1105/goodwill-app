@@ -5,7 +5,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { UserButton, useAuth } from "@clerk/nextjs";
-import { SwitchLanguage } from "./switch-language";
 
 const NavBar = () => {
   const { userId } = useAuth();
@@ -90,9 +89,6 @@ const NavBar = () => {
           </ul> */}
 
           <div className="col-start-10 col-end-12 font-medium flex justify-end items-center">
-            {/* <div className="mr-2">
-              <SwitchLanguage />
-            </div> */}
             {userId && <UserButton afterSignOutUrl="/" />}
             {!userId && (
               <>

@@ -34,7 +34,7 @@ export const SearchInput = () => {
   }, [debouncedValue, currentCategoryId, router, pathname]);
 
   return (
-    <div className="relative">
+    <div className="relative w-full md:w-auto">
       <Search className="h-4 w-4 absolute top-3 left-3 text-slate-600" />
       <Input
         onChange={(e) => setValue(e.target.value)}

@@ -6,6 +6,7 @@ import { SearchInput } from "@/components/search-input";
 import { Categories } from "./_components/categories";
 import { CoursesList } from "@/components/courses-list";
 import { LanguagePreference } from "./_components/language-preference";
+import { SwitchLanguage } from "./_components/switch-language";
 
 interface CoursesPageProps {
   searchParams: {
@@ -23,8 +24,7 @@ const Courses = async ({ searchParams }: CoursesPageProps) => {
     },
   });
 
-  const hasLanguage = user?.lang || null;
-  // const hasLanguage = 'eng'
+  const language = user?.lang || null;
 
   if (!userId) return redirect("/");
 
@@ -41,7 +41,7 @@ const Courses = async ({ searchParams }: CoursesPageProps) => {
 
   return (
     <>
-      {!hasLanguage ? (
+      {!language ? (
         <LanguagePreference />
       ) : (
         <div className="p-6 w-full lg:w-[75%] m-auto">
@@ -49,7 +49,8 @@ const Courses = async ({ searchParams }: CoursesPageProps) => {
             <div className="w-full md:w-auto text-xl font-bold mb-2">
               Browse Courses
             </div>
-            <div className="w-full md:w-auto">
+            <div className="flex flex-wrap w-full md:w-auto">
+              <SwitchLanguage lang={language} />
               <SearchInput />
             </div>
           </div>
