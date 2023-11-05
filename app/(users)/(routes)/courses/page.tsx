@@ -23,8 +23,8 @@ const Courses = async ({ searchParams }: CoursesPageProps) => {
     },
   });
 
-  // const hasLanguage = user?.lang || null;
-  const hasLanguage = 'eng'
+  const hasLanguage = user?.lang || null;
+  // const hasLanguage = 'eng'
 
   if (!userId) return redirect("/");
 
@@ -54,7 +54,7 @@ const Courses = async ({ searchParams }: CoursesPageProps) => {
             </div>
           </div>
           <Categories items={categories} />
-          <CoursesList items={courses} />
+          <CoursesList items={courses} lang={user?.lang} />
         </div>
       )}
     </>

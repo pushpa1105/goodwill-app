@@ -8,7 +8,7 @@ import { Badge } from "./ui/badge";
 
 interface CourseCardProps {
   id: string;
-  title: string;
+  title: string | null;
   imageUrl: string;
   chaptersLength: number;
   price: number;
