@@ -6,7 +6,7 @@ import { Key } from "lucide-react";
 
 export const CourseReviews = ({ reviewData }: { reviewData: any }) => {
   return (
-    <div className="shadow-sm border rounded mb-4 p-4 md:w-[49%]" id="reviews">
+    <div className="shadow-sm border rounded my-4 p-4 md:w-[49%]" id="reviews">
       <div>
         <h1 className="font-bold text-2xl mb-4">
           Reviews ({reviewData.reviews.length})

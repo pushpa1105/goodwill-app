@@ -54,7 +54,7 @@ export const CourseReviewButton = ({ courseId }: CourseReviewButtonProps) => {
       <Button
         type="button"
         variant="success"
-        className="w-full md:w-auto mr-2"
+        className="w-full md:w-auto mr-2 mb-2"
         // onClick={onClick}
         disabled={isLoading}
       >
