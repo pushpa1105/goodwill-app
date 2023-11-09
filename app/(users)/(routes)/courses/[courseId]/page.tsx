@@ -4,7 +4,13 @@ import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import { ChaptersList } from "./_components/chapters-list";
 import { IconBadge } from "@/components/icon-badge";
-import { BookOpen, BookOpenCheck } from "lucide-react";
+import { BookOpen, BookOpenCheck, UsersIcon } from "lucide-react";
+import { CourseMenuBar } from "./_components/course-menu-bar";
+import { CourseSummary } from "./_components/course-summary";
+import { CourseDetails } from "./_components/course-details";
+import { CourseContent } from "./_components/course-content";
+import { CourseReviews } from "./_components/course-reviews";
+import { getReviews } from "@/actions/get-review-data";
 
 const CoursePage = async ({ params }: { params: { courseId: string } }) => {
   const { userId } = auth();
@@ -27,6 +33,10 @@ const CoursePage = async ({ params }: { params: { courseId: string } }) => {
   });
 
   if (!course) redirect("/");
+
+  const reviewData = await getReviews({ courseId: params.courseId });
+
+  console.log(reviewData);
 
   const progressCount = await getProgress(userId, course.id);
 
@@ -55,8 +65,8 @@ const CoursePage = async ({ params }: { params: { courseId: string } }) => {
               </div>
               <div className="flex items-center gap-x-2 text-sm md:text-md font-bold">
                 <div className="flex items-center gap-x-1 text-white">
-                  <IconBadge size="sm" icon={BookOpenCheck} />
-                  <span>2 Quizes</span>
+                  <IconBadge size="sm" icon={UsersIcon} />
+                  <span>2 Enrolled</span>
                 </div>
               </div>
             </div>
@@ -64,7 +74,21 @@ const CoursePage = async ({ params }: { params: { courseId: string } }) => {
         </div>
         {/* <div className="w-full md:w-auto text-xl font-bold mb-2">Chapters</div> */}
       </div>
-      <ChaptersList items={course.chapters} />
+      <CourseContent course={course} />
+      <CourseReviews reviewData={reviewData}/>
+      {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16 relative">
+        <div className="relative">
+          <CourseMenuBar
+            activeTab={activeTab}
+            updateActiveTab={updateActiveTab}
+          />
+          <CourseSummary initialData={course} />
+          <ChaptersList items={course.chapters} />
+        </div>
+        <div className="space-y-6 sticky top-0">
+          <CourseDetails initialData={course} />
+        </div>
+      </div> */}
     </div>
   );
 };

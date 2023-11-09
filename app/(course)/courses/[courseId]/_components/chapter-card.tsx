@@ -15,10 +15,10 @@ import { Separator } from "@/components/ui/separator";
 interface ChapterCardProps {
   id: string;
   title: string;
-  summary?: string;
+  description?: string;
 }
 
-export const CourseCard = ({ id, title, summary }: ChapterCardProps) => {
+export const CourseCard = ({ id, title, description }: ChapterCardProps) => {
   return (
     <Link href={`/courses/${id}`}>
       <Card>
@@ -40,7 +40,7 @@ export const CourseCard = ({ id, title, summary }: ChapterCardProps) => {
             <h4 className="text-sm font-medium">About this chapter</h4>
             <div className="grid gap-6">
               <div className="flex items-center justify-between space-x-4">
-                {summary}
+                {description}
               </div>
             </div>
           </div>

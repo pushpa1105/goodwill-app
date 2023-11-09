@@ -13,6 +13,7 @@ const progressVariants = cva(
       variant: {
         default: "bg-sky-600",
         success: "bg-emerald-700",
+        theme: "bg-[#8808e3]",
       },
     },
     defaultVariants: {

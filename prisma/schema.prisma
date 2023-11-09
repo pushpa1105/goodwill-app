@@ -14,12 +14,16 @@ datasource db {
 
 model User {
   id         Int     @id @default(autoincrement())
-  externalId String
+  externalId String  @unique
   attributes Json
   lang       String?
+  name       String?
+  email      String?
+  imageUrl   String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  reviews   Review[]
 }
 
 model Course {
@@ -27,8 +31,10 @@ model Course {
   userId           String
   title            String  @db.Text
   description      String? @db.Text
+  summary          String? @db.Text
   titleHindi       String? @db.Text
   descriptionHindi String? @db.Text
+  summaryHindi     String? @db.Text
   imageUrl         String? @db.Text
   price            Float?
   isFree           Boolean @default(false)
@@ -39,6 +45,7 @@ model Course {
 
   chapters    Chapter[]
   attachments Attachment[]
+  reviews     Review[]
 
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
@@ -140,4 +147,22 @@ model StripeCustomer {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Review {
+  id         String @id @default(uuid())
+  stars      Int
+  reviewText String @db.Text
+
+  userId String
+  user   User   @relation(fields: [userId], references: [externalId], onDelete: Cascade)
+
+  courseId String
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, courseId])
+  @@index([courseId])
 }

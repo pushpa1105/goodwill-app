@@ -13,48 +13,50 @@ import { LandingCarouselCard } from "./landing-carousel-card";
 export const LandingCarousel = () => {
   return (
     <div className="landing-box-shadow p-8">
-      <Swiper
-        loop={true}
-        autoplay={{
-          delay: 1500,
-          disableOnInteraction: false,
-        }}
-        breakpoints={{
-          320: { slidesPerView: 1, spaceBetween: 5 },
-          480: { slidesPerView: 2, spaceBetween: 5 },
-          768: { slidesPerView: 3, spaceBetween: 5 },
-          1024: { slidesPerView: 4, spaceBetween: 5 },
-        }}
-        pagination={{
-          clickable: true,
-        }}
-        navigation={true}
-        modules={[Autoplay, Pagination, Navigation]}
-      >
-        <SwiperSlide>
-          <Link href="/courses">
+      <div className="w-[95%] m-auto">
+        <Swiper
+          loop={true}
+          autoplay={{
+            delay: 1500,
+            disableOnInteraction: false,
+          }}
+          breakpoints={{
+            320: { slidesPerView: 1, spaceBetween: 5 },
+            480: { slidesPerView: 2, spaceBetween: 5 },
+            768: { slidesPerView: 3, spaceBetween: 5 },
+            1024: { slidesPerView: 4, spaceBetween: 5 },
+          }}
+          pagination={{
+            clickable: true,
+          }}
+          navigation={true}
+          modules={[Autoplay, Pagination, Navigation]}
+        >
+          <SwiperSlide>
+            <Link href="/courses">
+              <LandingCarouselCard
+                label="Free Webinars"
+                imageUrl="/webinar.jpg"
+              />
+            </Link>
+          </SwiperSlide>
+          <SwiperSlide>
             <LandingCarouselCard
-              label="Free Webinars"
-              imageUrl="/webinar.jpg"
+              label="Account Opening"
+              imageUrl="/open-account.jpg"
             />
-          </Link>
-        </SwiperSlide>
-        <SwiperSlide>
-          <LandingCarouselCard
-            label="Account Opening"
-            imageUrl="/open-account.jpg"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <LandingCarouselCard
-            label="Latest Products"
-            imageUrl="/latest-products.jpg"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <LandingCarouselCard label="Blogs" imageUrl="/blogs.jpg" />
-        </SwiperSlide>
-      </Swiper>
+          </SwiperSlide>
+          <SwiperSlide>
+            <LandingCarouselCard
+              label="Latest Products"
+              imageUrl="/latest-products.jpg"
+            />
+          </SwiperSlide>
+          <SwiperSlide>
+            <LandingCarouselCard label="Blogs" imageUrl="/blogs.jpg" />
+          </SwiperSlide>
+        </Swiper>
+      </div>
     </div>
   );
 };

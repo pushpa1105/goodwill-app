@@ -12,12 +12,12 @@ export const LandingCarouselCard = ({
   imageUrl,
 }: LandingCarouselCardProps) => {
   return (
-    <div className="relative">
-      <div className="rounded h-[100%] relative group">
-        <div className="relative w-full aspect-video rounded-md overflow-hidden">
+    <div className="relative h-[333px] w-[250px]">
+      <div className="rounded h-[100%] relative group w-[100%]">
+        <div className="relative w-full rounded-md overflow-hidden h-[100%] w-[100%]">
           <Image
             fill
-            className="w-full h-auto transform-gpu transition duration-500 group-hover:blur-sm duration-150"
+            className="w-full h-auto transform-gpu transition duration-500 group-hover:blur-sm duration-150 object-cover"
             alt="explore"
             src={imageUrl}
           />

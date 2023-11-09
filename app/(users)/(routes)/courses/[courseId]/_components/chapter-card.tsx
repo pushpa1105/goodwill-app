@@ -2,20 +2,25 @@
 
 import Link from "next/link";
 import { IconBadge } from "@/components/icon-badge";
-import { BookOpen } from "lucide-react";
 import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
+  ArrowDown,
+  BookOpen,
+  ChevronDown,
+  ChevronUp,
+  PlayCircleIcon,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Collapsible,
+  CollapsibleTrigger,
+  CollapsibleContent,
+} from "@radix-ui/react-collapsible";
+import { useState } from "react";
 
 interface ChapterCardProps {
   id: string;
   title: string;
-  summary?: string;
+  description?: string;
   courseId: string;
   chapterNumber: number | string;
 }
@@ -23,35 +28,42 @@ interface ChapterCardProps {
 export const ChapterCard = ({
   id,
   title,
-  summary,
+  description,
   courseId,
   chapterNumber,
 }: ChapterCardProps) => {
+  const [open, setOpen] = useState(false);
   return (
-    <Link href={`/courses/${courseId}/chapters/${id}`}>
-      <Card className="group hover:shadow-lg transition overflow-hidden border rounded-lg">
-        <CardHeader>
-          <CardTitle>Chapter {chapterNumber}</CardTitle>
-          <CardDescription>{title}</CardDescription>
-        </CardHeader>
-        <CardContent>
-          {/* <div className="flex space-x-2">
-          <Input value="http://example.com/link/to/document" readOnly />
-          <Button variant="secondary" className="shrink-0">
-            Copy Link
-          </Button>
-        </div> */}
-          <Separator className="my-4" />
-          <div className="space-y-4 h-[250px] max-h-[250px] min-h-[250px]">
-            <h4 className="text-sm font-medium">About this chapter</h4>
-            <div className="grid gap-6">
-              <div className="flex items-center justify-between space-x-4 mb-2">
-                <p className="line-clamp-7">{summary}</p>
+    <div className="border-b border-gray pb-4">
+      <Collapsible open={open} onOpenChange={setOpen}>
+        <CollapsibleTrigger className="w-[100%] ">
+          <div className="flex justify-between items-center">
+            <div className="text-start">
+              <div className="text-slate-400 text-md font-semibold pt-2">
+                Chapter {chapterNumber}
               </div>
+              <div className="text-slate-500 text-xl font-bold">{title}</div>
+            </div>
+            {open ? <ChevronUp /> : <ChevronDown />}
+          </div>
+        </CollapsibleTrigger>
+        <CollapsibleContent className="CollapsibleContent">
+          <div className="mt-4">
+            <h1 className="mb-4 text-slate-500 fotn-semibold text-md">
+              About this Chapter
+            </h1>
+            <div>{description}</div>
+            <div>
+              <Link href={`/courses/${courseId}/chapters/${id}`}>
+                <Button className="w-[100%] mt-2">
+                  <span className="text-md font-bold">Watch it</span>
+                  <PlayCircleIcon className="ml-2" />
+                </Button>
+              </Link>
             </div>
           </div>
-        </CardContent>
-      </Card>
-    </Link>
+        </CollapsibleContent>
+      </Collapsible>
+    </div>
   );
 };

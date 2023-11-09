@@ -82,7 +82,7 @@ const LandingPage = async () => {
           ></div>
         </div>
       </div>
-      <div className="bg-white p-16">
+      <div className="bg-white mt-6 px-2 md:p-16">
         <div className="w-full m-auto flex items-center justify-center mb-16 text-black text-2xl font-bold">
           Top Free Courses
         </div>

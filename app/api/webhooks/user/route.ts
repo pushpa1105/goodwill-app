@@ -50,6 +50,9 @@ async function handler(req: Request) {
           },
           data: {
             attributes,
+            email: attributes?.email_addresses[0]?.email_address || "",
+            imageUrl: attributes?.image_url,
+            name: `${attributes.first_name} ${attributes.last_name}`,
           },
         });
       } else {
@@ -57,6 +60,9 @@ async function handler(req: Request) {
           data: {
             externalId,
             attributes,
+            email: attributes?.email_addresses[0]?.email_address || "",
+            imageUrl: attributes?.image_url,
+            name: `${attributes.first_name} ${attributes.last_name}`,
           },
         });
       }
@@ -72,6 +78,9 @@ async function handler(req: Request) {
         },
         data: {
           attributes,
+          email: attributes?.email_addresses[0]?.email_address || "",
+          imageUrl: attributes?.image_url,
+          name: `${attributes.first_name} ${attributes.last_name}`,
         },
       });
     }

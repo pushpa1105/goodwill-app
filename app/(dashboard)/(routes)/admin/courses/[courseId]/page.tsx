@@ -22,6 +22,7 @@ import { ChaptersForm } from "./_components/chapters-form";
 import { Banner } from "@/components/banner";
 import { Actions } from "./_components/actions";
 import { CourseAccessForm } from "./_components/course-access-form";
+import { CourseSummaryForm } from "./_components/course-summary-form";
 
 const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
   const { userId } = auth();
@@ -111,6 +112,10 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
                 label: category.name,
                 value: category.id,
               }))}
+            />
+            <CourseSummaryForm
+              initialData={course}
+              courseId={params.courseId}
             />
           </div>
           <div className="space-y-6">

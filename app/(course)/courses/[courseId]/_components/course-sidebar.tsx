@@ -5,6 +5,9 @@ import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
 import { CourseSidebarItem } from "./course-sidebar-item";
 import { CourseProgress } from "@/components/course-progress";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
 
 interface CourseSidebarProps {
   course: Course & {
@@ -36,6 +39,13 @@ export const CourseSidebar = async ({
   return (
     <div className="h-full border-r flex flex-col overflow-y-auto shadow-sm">
       <div className="p-8 flex flex-col border-b">
+        <Link
+          href={`/courses/${course.id}`}
+          className="hover:text-blue-500 flex items-center mb-2"
+        >
+          <ArrowLeft size={20} className="mr-2" />
+          Back
+        </Link>
         <h1 className="font-semibold">{course.title}</h1>
         {showProgressBar && (
           <div className="mt-10">

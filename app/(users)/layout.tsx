@@ -17,7 +17,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
         <Sidebar />
       </div> */}
       <main
-        className={cn("pt-[80px] h-full", isLandingPage && "bg-linear-landing")}
+        className={cn("pt-[80px]", isLandingPage && "bg-linear-landing")}
       >
         {children}
       </main>
