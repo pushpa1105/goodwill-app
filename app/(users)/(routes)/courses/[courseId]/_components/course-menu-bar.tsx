@@ -24,7 +24,7 @@ export const CourseMenuBar = ({
     <div
       className={cn(
         "shadow-sm border rounded mb-4 pt-4",
-        scrollActive && "fixed top-[65px] z-[999] bg-white w-[89%] md:w-[40%]"
+        scrollActive && "fixed top-[65px] z-[999] bg-white w-[89.5%] md:w-[40.6%]"
       )}
     >
       <ul className="flex items-center justify-center">

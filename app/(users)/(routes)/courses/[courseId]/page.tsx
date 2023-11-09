@@ -4,13 +4,14 @@ import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import { ChaptersList } from "./_components/chapters-list";
 import { IconBadge } from "@/components/icon-badge";
-import { BookOpen, BookOpenCheck, UsersIcon } from "lucide-react";
+import { BookOpen, BookOpenCheck, Star, UsersIcon } from "lucide-react";
 import { CourseMenuBar } from "./_components/course-menu-bar";
 import { CourseSummary } from "./_components/course-summary";
 import { CourseDetails } from "./_components/course-details";
 import { CourseContent } from "./_components/course-content";
 import { CourseReviews } from "./_components/course-reviews";
 import { getReviews } from "@/actions/get-review-data";
+import { StarIcon } from "@/components/icons/star-icon";
 
 const CoursePage = async ({ params }: { params: { courseId: string } }) => {
   const { userId } = auth();
@@ -36,8 +37,6 @@ const CoursePage = async ({ params }: { params: { courseId: string } }) => {
 
   const reviewData = await getReviews({ courseId: params.courseId });
 
-  console.log(reviewData);
-
   const progressCount = await getProgress(userId, course.id);
 
   return (
@@ -46,9 +45,17 @@ const CoursePage = async ({ params }: { params: { courseId: string } }) => {
         <div className="h-full flex-1 flex-col space-y-8 p-2 md:p-8 md:flex">
           <div className="flex items-center justify-between space-y-2 flex-wrap">
             <div className="max-w-[85%]">
-              <h2 className="text-xl lg:text-2xl font-bold tracking-tight text-white mb-4">
-                {course.title}
-              </h2>
+              <div className="flex items-center">
+                <div className="text-xl lg:text-2xl font-bold tracking-tight text-white mb-4 mr-2 mt-3">
+                  {course.title}
+                </div>
+                <div className="flex items-center bg-orange-400 w-fit px-2 rounded">
+                  <StarIcon />
+                  <p className="ml-2 text-xl font-semibold text-[#8808e3]">
+                    {reviewData.average}
+                  </p>
+                </div>
+              </div>
               <p className="text-sm lg:text-md text-muted-foreground text-white">
                 {course.description}
               </p>
@@ -66,7 +73,7 @@ const CoursePage = async ({ params }: { params: { courseId: string } }) => {
               <div className="flex items-center gap-x-2 text-sm md:text-md font-bold">
                 <div className="flex items-center gap-x-1 text-white">
                   <IconBadge size="sm" icon={UsersIcon} />
-                  <span>2 Enrolled</span>
+                  <span>3 Enrolled</span>
                 </div>
               </div>
             </div>
@@ -75,7 +82,7 @@ const CoursePage = async ({ params }: { params: { courseId: string } }) => {
         {/* <div className="w-full md:w-auto text-xl font-bold mb-2">Chapters</div> */}
       </div>
       <CourseContent course={course} />
-      <CourseReviews reviewData={reviewData}/>
+      <CourseReviews reviewData={reviewData} />
       {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16 relative">
         <div className="relative">
           <CourseMenuBar

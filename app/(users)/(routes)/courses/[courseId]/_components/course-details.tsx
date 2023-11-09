@@ -15,13 +15,13 @@ export const CourseDetails = ({ id, courseId }: CourseDetailsProps) => {
         <ul>
           <li className="flex p-4 justify-around border-b border-gray">
             <div className="text-center">
-              <div className="font-bold text-2xl">3.2</div>
+              <div className="font-bold text-2xl">3.5</div>
               <div className="font-bold text-xl text-muted-foreground">
                 Hours
               </div>
             </div>
             <div className="text-center">
-              <div className="font-bold text-2xl">300</div>
+              <div className="font-bold text-2xl">3</div>
               <div className="font-bold text-xl text-muted-foreground">
                 Students
               </div>
@@ -36,7 +36,7 @@ export const CourseDetails = ({ id, courseId }: CourseDetailsProps) => {
             Full lifetime access
           </li>
           <li className="flex p-4 border-b border-gray text-sm text-center">
-            <FileStack size={20} className="mr-2" />4 downloadable resources
+            <FileStack size={20} className="mr-2" />Downloadable resources
           </li>
           <li className="flex p-4 border-b border-gray text-sm text-center">
             <MedalIcon size={20} className="mr-2" />

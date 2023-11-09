@@ -8,6 +8,8 @@ import { CourseProgress } from "@/components/course-progress";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
+import { SidebarPageItem } from "./sidebar-page-item";
 
 interface CourseSidebarProps {
   course: Course & {
@@ -64,6 +66,15 @@ export const CourseSidebar = async ({
             isLocked={!course.isFree && !chapter.isFree && !purchase}
           />
         ))}
+      </div>
+      <Separator className="my-4" />
+      <div className="flex flex-col w-full">
+        <h1 className="w-full flex items-center pl-6 font-semibold text-xl">
+          Pages
+        </h1>
+        <SidebarPageItem label="Account Opening" routeName="account-opening" />
+        <SidebarPageItem label="Webinars" routeName="webinars" />
+        <SidebarPageItem label="Blogs" routeName="blogs" />
       </div>
     </div>
   );

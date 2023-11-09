@@ -24,7 +24,7 @@ export const LanguagePreference = () => {
   };
   return (
     <>
-      <div className="bg-linear-landing w-full h-full">
+      <div className="bg-linear-landing w-full h-screen">
         <div className="flex justify-center items-center h-[75%]">
           <div className="w-full">
             <div className="flex justify-center items-center ">
