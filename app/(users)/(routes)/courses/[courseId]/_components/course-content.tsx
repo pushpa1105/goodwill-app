@@ -18,10 +18,6 @@ export const CourseContent = ({ course }: CourseContentProps) => {
 
   const updateActiveTab = (tab: string) => {
     setActiveLink(tab);
-    if (tab === "overview") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      //   window.scrollTo(0, window.scrollY - 250);
-    }
   };
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16 relative">
