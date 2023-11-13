@@ -6,9 +6,14 @@ import Link from "next/link";
 interface CourseDetailsProps {
   id: string;
   courseId: string;
+  enrollerCount: number;
 }
 
-export const CourseDetails = ({ id, courseId }: CourseDetailsProps) => {
+export const CourseDetails = ({
+  id,
+  courseId,
+  enrollerCount,
+}: CourseDetailsProps) => {
   return (
     <>
       <div className="shadow-sm border rounded mb-4 pt-4">
@@ -21,7 +26,7 @@ export const CourseDetails = ({ id, courseId }: CourseDetailsProps) => {
               </div>
             </div>
             <div className="text-center">
-              <div className="font-bold text-2xl">3</div>
+              <div className="font-bold text-2xl">{enrollerCount}</div>
               <div className="font-bold text-xl text-muted-foreground">
                 Students
               </div>
@@ -36,7 +41,8 @@ export const CourseDetails = ({ id, courseId }: CourseDetailsProps) => {
             Full lifetime access
           </li>
           <li className="flex p-4 border-b border-gray text-sm text-center">
-            <FileStack size={20} className="mr-2" />Downloadable resources
+            <FileStack size={20} className="mr-2" />
+            Downloadable resources
           </li>
           <li className="flex p-4 border-b border-gray text-sm text-center">
             <MedalIcon size={20} className="mr-2" />

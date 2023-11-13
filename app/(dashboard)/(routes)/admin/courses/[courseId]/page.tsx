@@ -23,6 +23,7 @@ import { Banner } from "@/components/banner";
 import { Actions } from "./_components/actions";
 import { CourseAccessForm } from "./_components/course-access-form";
 import { CourseSummaryForm } from "./_components/course-summary-form";
+import { CourseVideoForm } from "./_components/course-video-form";
 
 const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
   const { userId } = auth();
@@ -38,6 +39,7 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
       userId,
     },
     include: {
+      courseVideo: true,
       chapters: {
         orderBy: {
           position: "asc",
@@ -64,6 +66,7 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
     course.title,
     course.description,
     course.imageUrl,
+    // course.videoUrl,
     course.categoryId,
     course.chapters.some((chapter) => chapter.isPublished),
   ];
@@ -104,6 +107,7 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
             </div>
             <TitleForm initialData={course} courseId={params.courseId} />
             <DescriptionForm initialData={course} courseId={params.courseId} />
+            <CourseVideoForm initialData={course} courseId={params.courseId} />
             <ImageForm initialData={course} courseId={params.courseId} />
             <CategoryForm
               initialData={course}

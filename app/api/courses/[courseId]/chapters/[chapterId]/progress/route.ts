@@ -25,6 +25,7 @@ export async function PUT(
       create: {
         userId,
         chapterId: params.chapterId,
+        courseId: params.courseId,
         isCompleted,
       },
     });

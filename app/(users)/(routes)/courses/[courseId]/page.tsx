@@ -12,6 +12,7 @@ import { CourseContent } from "./_components/course-content";
 import { CourseReviews } from "./_components/course-reviews";
 import { getReviews } from "@/actions/get-review-data";
 import { StarIcon } from "@/components/icons/star-icon";
+import { getStudents } from "@/actions/get-students";
 
 const CoursePage = async ({ params }: { params: { courseId: string } }) => {
   const { userId } = auth();
@@ -30,6 +31,7 @@ const CoursePage = async ({ params }: { params: { courseId: string } }) => {
           position: "asc",
         },
       },
+      courseVideo: true,
     },
   });
 
@@ -38,6 +40,7 @@ const CoursePage = async ({ params }: { params: { courseId: string } }) => {
   const reviewData = await getReviews({ courseId: params.courseId });
 
   const progressCount = await getProgress(userId, course.id);
+  const enrollerCount = await getStudents(course.id);
 
   return (
     <div className="p-6 w-full lg:w-[85%] m-auto">
@@ -73,7 +76,7 @@ const CoursePage = async ({ params }: { params: { courseId: string } }) => {
               <div className="flex items-center gap-x-2 text-sm md:text-md font-bold">
                 <div className="flex items-center gap-x-1 text-white">
                   <IconBadge size="sm" icon={UsersIcon} />
-                  <span>3 Enrolled</span>
+                  <span>{enrollerCount} Enrolled</span>
                 </div>
               </div>
             </div>
@@ -81,7 +84,7 @@ const CoursePage = async ({ params }: { params: { courseId: string } }) => {
         </div>
         {/* <div className="w-full md:w-auto text-xl font-bold mb-2">Chapters</div> */}
       </div>
-      <CourseContent course={course} />
+      <CourseContent course={course} enrollerCount={enrollerCount}/>
       <CourseReviews reviewData={reviewData} />
       {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16 relative">
         <div className="relative">

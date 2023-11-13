@@ -33,6 +33,7 @@ export async function DELETE(
         chapters: {
           include: { muxData: true },
         },
+        courseVideo: true,
       },
     });
 
@@ -44,6 +45,10 @@ export async function DELETE(
       if (chapter.muxData?.assetId) {
         await Video.Assets.del(chapter.muxData.assetId);
       }
+    }
+
+    if (course.courseVideo?.assetId) {
+      await Video.Assets.del(course.courseVideo.assetId);
     }
 
     const deletedCourse = await db.course.delete({
@@ -72,6 +77,37 @@ export async function PATCH(
 
     if (!userId || !isAuthorized) {
       return new NextResponse("Unauthorized", { status: 401 });
+    }
+
+    if (values.videoUrl) {
+      const existingMuxData = await db.courseVideo.findFirst({
+        where: {
+          courseId,
+        },
+      });
+
+      if (existingMuxData) {
+        await Video.Assets.del(existingMuxData.assetId);
+        await db.courseVideo.delete({
+          where: {
+            id: existingMuxData.id,
+          },
+        });
+      }
+
+      const asset = await Video.Assets.create({
+        input: values.videoUrl,
+        playback_policy: "public",
+        test: false,
+      });
+
+      await db.courseVideo.create({
+        data: {
+          courseId,
+          assetId: asset.id,
+          playbackId: asset.playback_ids?.[0]?.id,
+        },
+      });
     }
 
     const course = await db.course.update({

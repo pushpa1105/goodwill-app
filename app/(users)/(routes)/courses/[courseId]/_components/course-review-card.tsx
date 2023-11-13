@@ -14,7 +14,11 @@ export const CourseReviewCard = ({ review }: { review: any }) => {
             </Avatar>
           </div>
           <div className="ml-4">
-            <div>{review.user.name || review.user.email || "Anonymous"}</div>
+            <div>
+              {!["null null", null, undefined].includes(review.user.name)
+                ? review.user.name
+                : review.user.email || "Anonymous"}
+            </div>
             <div>{formatDate(review.updatedAt)}</div>
           </div>
         </div>

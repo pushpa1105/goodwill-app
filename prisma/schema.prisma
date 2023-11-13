@@ -36,12 +36,15 @@ model Course {
   descriptionHindi String? @db.Text
   summaryHindi     String? @db.Text
   imageUrl         String? @db.Text
+  videoUrl         String? @db.Text
   price            Float?
   isFree           Boolean @default(false)
   isPublished      Boolean @default(false)
 
   categoryId String?
   category   Category? @relation(fields: [categoryId], references: [id])
+
+  courseVideo CourseVideo?
 
   chapters    Chapter[]
   attachments Attachment[]
@@ -110,12 +113,23 @@ model MuxData {
   chapter   Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
 }
 
+model CourseVideo {
+  id         String  @id @default(uuid())
+  assetId    String
+  playbackId String?
+
+  courseId String @unique
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+}
+
 model UserProgress {
   id     String @id @default(uuid())
   userId String
 
   chapterId String
   chapter   Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+
+  courseId String
 
   isCompleted Boolean @default(false)
 
