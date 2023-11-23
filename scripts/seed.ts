@@ -17,6 +17,19 @@ async function main() {
       ],
     });
 
+    await database.blogCategory.createMany({
+      data: [
+        { name: "Human" },
+        { name: "Photography" },
+        { name: "Entertainment" },
+        { name: "Fitness" },
+        { name: "Physcology" },
+        { name: "Women" },
+        { name: "Life" },
+        { name: "Tragedy" },
+      ],
+    });
+
     console.log("Database seeding completed succesfully.");
   } catch (error) {
     console.log("Error seeding the database categories", error);

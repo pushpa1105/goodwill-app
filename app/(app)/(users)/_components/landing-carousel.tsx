@@ -53,7 +53,9 @@ export const LandingCarousel = () => {
             />
           </SwiperSlide>
           <SwiperSlide>
-            <LandingCarouselCard label="Blogs" imageUrl="/blogs.jpg" />
+            <Link href="/blogs">
+              <LandingCarouselCard label="Blogs" imageUrl="/blogs.jpg" />
+            </Link>
           </SwiperSlide>
         </Swiper>
       </div>

@@ -180,3 +180,30 @@ model Review {
   @@unique([userId, courseId])
   @@index([courseId])
 }
+
+// Blogs
+model Blog {
+  id          String  @id @default(uuid())
+  userId      String
+  title       String  @db.Text
+  description String? @db.Text
+  content     Json?
+  isPublished Boolean @default(false)
+
+  categoryId String?
+  category   BlogCategory? @relation(fields: [categoryId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([categoryId])
+  @@fulltext([title])
+}
+
+model BlogCategory {
+  id    String @id @default(uuid())
+  name  String @unique
+  blogs Blog[]
+}
+
+// Blogs
