@@ -1,7 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["utfs.io", "next-landing-vpn.vercel.app"],
+    // domains: ["utfs.io", "next-landing-vpn.vercel.app"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
+    ],
   },
   typescript: {
     // !! WARN !!

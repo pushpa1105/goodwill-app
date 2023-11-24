@@ -12,12 +12,14 @@ import { cn } from "@/lib/utils";
 import { useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { MiniBlogCard } from "./blog-mini-card";
+import { Blog } from "@prisma/client";
 
-interface ItemCarouselProps {}
+interface ItemCarouselProps {
+  blogs: Blog[];
+}
 
-export const ItemCarousel = ({}) => {
+export const ItemCarousel = ({ blogs }: ItemCarouselProps) => {
   const swiperRef = useRef<SwiperType>();
-  const test = [1, 2, 3, 4, 5];
   return (
     <div className="landing-box-shadow mt-4">
       <h1 className="text-2xl font-bold mb-2">Latest Blogs</h1>
@@ -46,9 +48,76 @@ export const ItemCarousel = ({}) => {
           }}
           scrollbar={true}
         >
-          {test.map((t) => (
-            <SwiperSlide key={t} className="p-4">
-              <MiniBlogCard />
+          {blogs.map((blog) => (
+            <SwiperSlide key={blog.id} className="p-4">
+              <MiniBlogCard
+                imageUrl={blog.imageUrl!}
+                title={blog.title}
+                description={blog.description!}
+                readTime={blog.readTime!}
+                createdAt="2022.12.12"
+                category="Entertainment"
+              />
+            </SwiperSlide>
+          ))}
+          {blogs.map((blog) => (
+            <SwiperSlide key={blog.id} className="p-4">
+              <MiniBlogCard
+                imageUrl={blog.imageUrl!}
+                title={blog.title}
+                description={blog.description!}
+                readTime={blog.readTime!}
+                createdAt="2022.12.12"
+                category="Entertainment"
+              />
+            </SwiperSlide>
+          ))}
+          {blogs.map((blog) => (
+            <SwiperSlide key={blog.id} className="p-4">
+              <MiniBlogCard
+                imageUrl={blog.imageUrl!}
+                title={blog.title}
+                description={blog.description!}
+                readTime={blog.readTime!}
+                createdAt="2022.12.12"
+                category="Entertainment"
+              />
+            </SwiperSlide>
+          ))}
+          {blogs.map((blog) => (
+            <SwiperSlide key={blog.id} className="p-4">
+              <MiniBlogCard
+                imageUrl={blog.imageUrl!}
+                title={blog.title}
+                description={blog.description!}
+                readTime={blog.readTime!}
+                createdAt="2022.12.12"
+                category="Entertainment"
+              />
+            </SwiperSlide>
+          ))}
+          {blogs.map((blog) => (
+            <SwiperSlide key={blog.id} className="p-4">
+              <MiniBlogCard
+                imageUrl={blog.imageUrl!}
+                title={blog.title}
+                description={blog.description!}
+                readTime={blog.readTime!}
+                createdAt="2022.12.12"
+                category="Entertainment"
+              />
+            </SwiperSlide>
+          ))}
+          {blogs.map((blog) => (
+            <SwiperSlide key={blog.id} className="p-4">
+              <MiniBlogCard
+                imageUrl={blog.imageUrl!}
+                title={blog.title}
+                description={blog.description!}
+                readTime={blog.readTime!}
+                createdAt="2022.12.12"
+                category="Entertainment"
+              />
             </SwiperSlide>
           ))}
         </Swiper>

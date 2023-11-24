@@ -187,6 +187,8 @@ model Blog {
   userId      String
   title       String  @db.Text
   description String? @db.Text
+  imageUrl    String?
+  readTime    Int?
   content     Json?
   isPublished Boolean @default(false)
 

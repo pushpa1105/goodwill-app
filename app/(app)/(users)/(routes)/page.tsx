@@ -12,7 +12,7 @@ import Link from "next/link";
 const LandingPage = async () => {
   // const { userId } = auth();
   // if (!userId) redirect("/");
-  await db.blog.deleteMany({});
+  // await db.blog.deleteMany({});
   const courses = await db.course.findMany({
     where: {
       isPublished: true,
