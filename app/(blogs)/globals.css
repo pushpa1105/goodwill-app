@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url("https://fonts.googleapis.com/css?family=PT+Serif:400,400i,700,700i");
+@import url("https://fonts.googleapis.com/css?family=Josefin+Slab:100,100i,300,300i,400,400i,600,600i,700,700i");
+
+/* :root{
+  --bg: #001D66;
+  --title: #00257F;
+  --para-text: rgba(0,0,0,0.67);
+  --title-font: 'Josefin Slab', serif;
+  --text-font: 'PT Serif', Serif;
+  --width: 20em;
+} */
+
 html,
 body,
 :root {
@@ -40,6 +52,9 @@ body,
     --ring: 222.2 84% 4.9%;
 
     --radius: 0.5rem;
+    --para-text: rgba(0, 0, 0, 0.67);
+    --title-font: "Josefin Slab", serif;
+    --text-font: "PT Serif", Serif;
   }
 
   .dark {
@@ -89,7 +104,30 @@ body,
 
 @import "~@uploadthing/react/styles.css";
 
+/* For blogs */
+.font-family-seriff {
+  font-family: var(--title-font);
+}
+.bg-theme,
+.swiper-scrollbar-drag {
+  background: linear-gradient(90deg, #7f66e9 0%, #083996 100%) !important;
+}
+
+.text-theme {
+  background: -webkit-linear-gradient(90deg, #7f66e9 0%, #083996 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+/* For blogs */
+
 /* Custom styles */
+
+/* For Block editor */
+
+.custom-block-editor .tiptap {
+  padding: 1em !important;
+}
+/* For Block editor */
 
 /* @import "./\(users\)/users.css"; */
 

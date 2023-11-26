@@ -1,6 +1,6 @@
 "use client";
 
-import { BarChart, Compass, Layout, List } from "lucide-react";
+import { BarChart, BookOpen, Compass, Layout, List } from "lucide-react";
 import { SidebarItem } from "./sidebar-item";
 import { usePathname } from "next/navigation";
 
@@ -19,9 +19,14 @@ const guestRoutes = [
 
 const adminRoutes = [
   {
-    icon: List,
+    icon: BookOpen,
     label: "Courses",
     href: "/admin/courses",
+  },
+  {
+    icon: List,
+    label: "Blogs",
+    href: "/admin/blogs",
   },
   {
     icon: BarChart,
