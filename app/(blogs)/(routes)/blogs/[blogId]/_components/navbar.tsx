@@ -1,6 +1,6 @@
 import React from "react";
 import classNames from "classnames";
-import { BarChart3 } from "lucide-react";
+import { Menu } from "lucide-react";
 type Props = {
   /**
    * Allows the parent component to modify the state when the
@@ -13,14 +13,14 @@ const Navbar = (props: Props) => {
     <nav
       className={classNames({
         "bg-white text-zinc-500": true, // colors
-        "flex items-center": true, // layout
+        "flex lg:hidden items-center": true, // layout
         "w-screen md:w-full sticky z-10 px-4 shadow-sm h-[73px] top-0 ": true, //positioning & styling
       })}
     >
-      <div className="font-bold text-lg">Admin Panel</div>
+      {/* <div className="font-bold text-lg">Admin Panel</div> */}
       <div className="flex-grow"></div>
       <button className="md:hidden" onClick={props.onMenuButtonClick}>
-        <BarChart3 className="h-6 w-6" />
+        <Menu className="h-6 w-6" />
       </button>
     </nav>
   );
