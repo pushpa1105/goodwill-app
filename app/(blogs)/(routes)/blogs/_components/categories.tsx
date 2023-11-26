@@ -1,15 +1,15 @@
-import { cn } from "@/lib/utils";
-import Link from "next/link";
+"use client";
 
-const categories = [
-  "Entertainment",
-  "Travel",
-  "Technology",
-  "Trading",
-  "IT",
-  "Health",
-  "Economy",
-];
+import { cn } from "@/lib/utils";
+import { BlogCategory } from "@prisma/client";
+import Link from "next/link";
+import {
+  useParams,
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from "next/navigation";
+import path from "path";
 
 const bgColors = [
   "bg-violet-100",
@@ -32,21 +32,35 @@ const bgColors = [
   "bg-orange-100",
   "bg-zinc-100",
 ];
-export const BlogCategories = () => {
+
+interface BlogCategoriesProps {
+  categories: BlogCategory[];
+}
+export const BlogCategories = ({ categories }: BlogCategoriesProps) => {
+  const params = useSearchParams();
+  const isActiveCategory = (id: string) => params.get("categoryId") == id;
   return (
     <div className="mt-4 p-2">
       <h1 className="text-2xl font-bold mb-2">Categories</h1>
       <div className="flex flex-wrap items-center md:justify-start gap-x-2 overflow-x-auto pb-2">
         {categories.map((category, index) => (
-          <Link href={`/blogs?category=${category}`} key={category}>
+          <Link
+            href={
+              isActiveCategory(category.id)
+                ? "/blogs"
+                : `/blogs?categoryId=${category.id}`
+            }
+            key={index}
+          >
             <button
               className={cn(
                 "py-4 px-5 text-[10px] md:text-xs font-medium border border-slate-200 rounded-2xl flex flex-wrap justify-center min-w-[10em] text-center flex items-center gap-x-1 hover:shadow-lg hover:bg-[#083996] hover:text-white transition mt-2",
-                bgColors[index <= 19 ? index : Math.floor(index / 2)]
+                bgColors[index <= 19 ? index : Math.floor(index / 2)],
+                isActiveCategory(category.id) && "bg-theme text-white"
               )}
               type="button"
             >
-              <div className="truncate text-center">{category}</div>
+              <div className="truncate text-center">{category.name}</div>
             </button>
           </Link>
         ))}

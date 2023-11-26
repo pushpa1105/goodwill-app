@@ -45,8 +45,10 @@ export const MiniBlogCard = ({
         </div>
         <div className="text-sm line-clamp-3">{description}</div>
         <div className="flex justify-between mt-2">
-          <div className="text-xs text-muted-foreground">{readTime} min read</div>
-          <div className="text-xs text-muted-foreground">12/22/2020</div>
+          <div className="text-xs text-muted-foreground">
+            {readTime} min read
+          </div>
+          <div className="text-xs text-muted-foreground">{createdAt}</div>
         </div>
       </div>
     </div>

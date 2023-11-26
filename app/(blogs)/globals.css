@@ -122,6 +122,13 @@ body,
 
 /* Custom styles */
 
+/* For Block editor */
+
+.custom-block-editor .tiptap {
+  padding: 1em !important;
+}
+/* For Block editor */
+
 /* @import "./\(users\)/users.css"; */
 
 /* Custom styles */

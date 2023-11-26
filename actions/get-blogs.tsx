@@ -12,7 +12,6 @@ type GetBlogs = {
 };
 
 export const getBlogs = async ({
-  userId,
   title,
   categoryId,
 }: GetBlogs): Promise<BlogWithCategory[]> => {

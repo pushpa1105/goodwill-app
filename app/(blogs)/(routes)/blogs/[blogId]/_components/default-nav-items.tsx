@@ -1,4 +1,4 @@
-import { Calendar, Folder, HomeIcon, User2 } from "lucide-react";
+import { Book, BookOpen, Calendar, CalendarDays, Folder, HomeIcon, ShoppingBasket, User2, UserSquare } from "lucide-react";
 import React from "react";
 // define a NavItem prop
 export type NavItem = {
@@ -8,23 +8,28 @@ export type NavItem = {
 };
 export const defaultNavItems: NavItem[] = [
   {
-    label: "Dashboard",
-    href: "/",
-    icon: <HomeIcon className="w-6 h-6" />,
+    label: "Courses",
+    href: "/courses",
+    icon: <BookOpen className="w-6 h-6" />,
   },
   {
-    label: "Team",
-    href: "/team",
-    icon: <User2 className="w-6 h-6" />,
+    label: "Blogs",
+    href: "/blogs",
+    icon: <Book className="w-6 h-6" />,
   },
   {
-    label: "Projects",
-    href: "/projects",
-    icon: <Folder className="w-6 h-6" />,
+    label: "Products",
+    href: "/products",
+    icon: <ShoppingBasket className="w-6 h-6" />,
   },
   {
-    label: "Calendar",
-    href: "/calendar",
-    icon: <Calendar className="w-6 h-6" />,
+    label: "Account Opening",
+    href: "/account-opening",
+    icon: <UserSquare className="w-6 h-6" />,
+  },
+  {
+    label: "Webinars",
+    href: "/webinars",
+    icon: <CalendarDays className="w-6 h-6" />,
   },
 ];

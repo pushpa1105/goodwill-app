@@ -56,7 +56,7 @@ export default function BlockEditor({
       <BlockNoteView
         editor={editor}
         theme={lightDefaultTheme}
-        className="mb-8"
+        className="custom-block-editor mb-8"
       />
     </>
   );

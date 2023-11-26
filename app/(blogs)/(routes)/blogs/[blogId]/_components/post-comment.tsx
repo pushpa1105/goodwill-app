@@ -21,15 +21,27 @@ import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
 import { Course } from "@prisma/client";
 
-interface CommentFormProps {}
+type commentAction = "create" | "edit";
+
+interface CommentFormProps {
+  blogId: string;
+  commentId?: string | null;
+  action?: commentAction;
+  message?: string;
+}
 
 const formSchema = z.object({
-  comment: z.string().min(5, {
+  message: z.string().min(5, {
     message: "Comment is required",
   }),
 });
 
-export const PostCommentForm = ({}: CommentFormProps) => {
+export const PostCommentForm = ({
+  blogId,
+  commentId = null,
+  action = "create",
+  message = "",
+}: CommentFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
 
   //   const toggleEdit = () => setIsEditing((current) => !current);
@@ -39,7 +51,7 @@ export const PostCommentForm = ({}: CommentFormProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      comment: "",
+      message: message,
     },
   });
 
@@ -47,11 +59,13 @@ export const PostCommentForm = ({}: CommentFormProps) => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      //   await axios.patch(`/api/courses/${courseId}`, values);
-      toast.success("Description updated succesfully.");
-      //   toggleEdit();
-      console.log(values);
-      router.refresh();
+      if (action === "create") {
+        await axios.post(`/api/blogs/${blogId}/comment`, values);
+        toast.success("Comment added succesfully.");
+        //   toggleEdit();
+        console.log(values);
+        router.refresh();
+      }
     } catch (error) {
       toast.error("Something went wrong");
     }
@@ -59,10 +73,13 @@ export const PostCommentForm = ({}: CommentFormProps) => {
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 md:space-x-4 mt-4 flex flex-wrap">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-4 md:space-x-4 mt-4 flex flex-wrap"
+        >
           <FormField
             control={form.control}
-            name="comment"
+            name="message"
             render={({ field }) => (
               <FormItem className="w-full md:w-[85%]">
                 <FormControl>
