@@ -16,7 +16,7 @@ export const BlogComments = ({ blog, comments }: BlogCommentsProps) => {
   return (
     <div className="p-2 border rounded">
       <h1 className="text-3xl font-bold text-theme">Comments</h1>
-      <PostCommentForm blogId={blog.id} />
+      {/* <PostCommentForm blogId={blog.id} /> */}
       {comments.length > 0 ? (
         comments.map((comment, index) => (
           <CommentCard key={index} comment={comment as any} />
