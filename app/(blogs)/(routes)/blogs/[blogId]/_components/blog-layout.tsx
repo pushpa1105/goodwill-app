@@ -1,6 +1,5 @@
 "use client";
 
-import classNames from "classnames";
 import React, { PropsWithChildren, useState } from "react";
 import Sidebar from "./sidebar";
 import Navbar from "./navbar";
@@ -19,7 +18,7 @@ const BlogLayoutComponent = ({ toc, children }: BlogLayoutComponentProps) => {
   const [showSidebar, setShowSidebar] = useState(true);
   return (
     <div
-      className={classNames({
+      className={cn({
         "grid bg-zinc-100 min-h-screen": true,
         "grid-cols-sidebar": !collapsed,
         "grid-cols-sidebar-collapsed": collapsed,
