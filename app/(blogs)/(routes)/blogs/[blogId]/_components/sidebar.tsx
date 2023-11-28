@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useRef } from "react";
-import classNames from "classnames";
 import Link from "next/link";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, Cross, X } from "lucide-react";
@@ -37,7 +36,7 @@ const Sidebar = ({
   };
   return (
     <div
-      className={classNames({
+      className={cn({
         "bg-theme text-zinc-50 fixed md:translate-x-0 z-20": true,
         "transition-all duration-300 ease-in-out": true,
         "w-[300px] lg:w-[350px]": !collapsed,
@@ -46,14 +45,14 @@ const Sidebar = ({
       })}
     >
       <div
-        className={classNames({
+        className={cn({
           "flex flex-col justify-between h-screen sticky inset-0": true,
           "overflow-y-scroll": !collapsed,
         })}
       >
         {/* logo and collapse button */}
         <div
-          className={classNames({
+          className={cn({
             "flex items-center border-b border-b-indigo-800 transition-none":
               true,
             "p-4 justify-between": !collapsed,
@@ -83,7 +82,7 @@ const Sidebar = ({
                     Blog Contents
                   </div>
                   <ul
-                    className={classNames({
+                    className={cn({
                       "my-2 pb-4 flex flex-col items-stretch border-b border-b-indigo-800":
                         true,
                     })}
@@ -93,7 +92,7 @@ const Sidebar = ({
                         <li
                           onClick={() => goToSection(item.id)}
                           key={index}
-                          className={classNames({
+                          className={cn({
                             "text-indigo-100 hover:bg-indigo-900 flex": true, //colors
                             "transition-colors duration-300": true, //animation
                             "rounded-md p-[6px] mx-3 gap-4 ": !collapsed,
@@ -128,7 +127,7 @@ const Sidebar = ({
             <div className="px-4 font-bold text-lg my-4">Pages</div>
           )}
           <ul
-            className={classNames({
+            className={cn({
               "flex flex-col gap-2 items-stretch": true,
             })}
           >
@@ -136,7 +135,7 @@ const Sidebar = ({
               return (
                 <li
                   key={index}
-                  className={classNames({
+                  className={cn({
                     "text-indigo-100 hover:bg-indigo-900 flex": true, //colors
                     "transition-colors duration-300": true, //animation
                     "rounded-md p-2 mx-3 gap-4 ": !collapsed,
@@ -152,7 +151,7 @@ const Sidebar = ({
           </ul>
         </nav>
         <div
-          className={classNames({
+          className={cn({
             "grid place-content-stretch p-4 ": true,
           })}
         >

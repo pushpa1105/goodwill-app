@@ -1,6 +1,6 @@
 import React from "react";
-import classNames from "classnames";
 import { Menu } from "lucide-react";
+import { cn } from "@/lib/utils";
 type Props = {
   /**
    * Allows the parent component to modify the state when the
@@ -11,7 +11,7 @@ type Props = {
 const Navbar = (props: Props) => {
   return (
     <nav
-      className={classNames({
+      className={cn({
         "bg-white text-zinc-500": true, // colors
         "flex lg:hidden items-center": true, // layout
         "w-screen md:w-full sticky z-10 px-4 shadow-sm h-[73px] top-0 ": true, //positioning & styling
