@@ -7,6 +7,8 @@ import { ChevronLeft, ChevronRight, Cross, X } from "lucide-react";
 import { NavItem, defaultNavItems } from "./default-nav-items";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
+import { UserButton, useAuth } from "@clerk/nextjs";
+import { Button } from "@/components/ui/button";
 
 // add NavItem prop to component prop
 type Props = {
@@ -29,6 +31,8 @@ const Sidebar = ({
   toc,
   closeMenu,
 }: Props) => {
+  const { userId } = useAuth();
+
   const Icon = collapsed ? ChevronRight : ChevronLeft;
   const goToSection = (id: string) => {
     const ele = document.querySelector(`[data-id="${id}"]`);
@@ -37,7 +41,7 @@ const Sidebar = ({
   return (
     <div
       className={cn({
-        "bg-theme text-zinc-50 fixed md:translate-x-0 z-20": true,
+        "bg-theme text-zinc-50 fixed md:translate-x-0 z-20 bg-theme": true,
         "transition-all duration-300 ease-in-out": true,
         "w-[300px] lg:w-[350px]": !collapsed,
         "w-16": collapsed,
@@ -46,7 +50,7 @@ const Sidebar = ({
     >
       <div
         className={cn({
-          "flex flex-col justify-between h-screen sticky inset-0": true,
+          "flex flex-col justify-between h-screen sticky inset-0 bg-theme": true,
           "overflow-y-scroll": !collapsed,
         })}
       >
@@ -155,7 +159,7 @@ const Sidebar = ({
             "grid place-content-stretch p-4 ": true,
           })}
         >
-          <div className="flex gap-4 items-center h-11 overflow-hidden">
+          {/* <div className="flex gap-4 items-center h-11 overflow-hidden">
             <Image
               src={"/logo.jpeg"}
               height={36}
@@ -170,6 +174,22 @@ const Sidebar = ({
                   View Profile
                 </Link>
               </div>
+            )}
+          </div> */}
+          <div className="flex gap-4 items-center h-11 overflow-hidden px-2 border-t border-t-indigo-800 pt-4">
+            {userId && <UserButton afterSignOutUrl="/" />}
+            {!userId && (
+              <>
+                <Link
+                  href="/sign-in"
+                  className="text-black-600 mx-2 sm:mx-4 capitalize tracking-wide hover:text-slate-500 transition-all"
+                >
+                    Sign In
+                </Link>
+                <Link href="/sign-up">
+                  <Button>Sign Up</Button>
+                </Link>
+              </>
             )}
           </div>
         </div>

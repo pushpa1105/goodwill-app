@@ -12,10 +12,15 @@ import { cn } from "@/lib/utils";
 import { useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { MiniBlogCard } from "./blog-mini-card";
-import { Blog } from "@prisma/client";
+import { Blog, BlogCategory } from "@prisma/client";
+import Link from "next/link";
 
 interface ItemCarouselProps {
-  blogs: Blog[];
+  blogs: Array<
+    Blog & {
+      category: BlogCategory;
+    }
+  >;
 }
 
 export const ItemCarousel = ({ blogs }: ItemCarouselProps) => {
@@ -50,74 +55,16 @@ export const ItemCarousel = ({ blogs }: ItemCarouselProps) => {
         >
           {blogs.map((blog) => (
             <SwiperSlide key={blog.id} className="p-4">
-              <MiniBlogCard
-                imageUrl={blog.imageUrl!}
-                title={blog.title}
-                description={blog.description!}
-                readTime={blog.readTime!}
-                createdAt="2022.12.12"
-                category="Entertainment"
-              />
-            </SwiperSlide>
-          ))}
-          {blogs.map((blog) => (
-            <SwiperSlide key={blog.id} className="p-4">
-              <MiniBlogCard
-                imageUrl={blog.imageUrl!}
-                title={blog.title}
-                description={blog.description!}
-                readTime={blog.readTime!}
-                createdAt="2022.12.12"
-                category="Entertainment"
-              />
-            </SwiperSlide>
-          ))}
-          {blogs.map((blog) => (
-            <SwiperSlide key={blog.id} className="p-4">
-              <MiniBlogCard
-                imageUrl={blog.imageUrl!}
-                title={blog.title}
-                description={blog.description!}
-                readTime={blog.readTime!}
-                createdAt="2022.12.12"
-                category="Entertainment"
-              />
-            </SwiperSlide>
-          ))}
-          {blogs.map((blog) => (
-            <SwiperSlide key={blog.id} className="p-4">
-              <MiniBlogCard
-                imageUrl={blog.imageUrl!}
-                title={blog.title}
-                description={blog.description!}
-                readTime={blog.readTime!}
-                createdAt="2022.12.12"
-                category="Entertainment"
-              />
-            </SwiperSlide>
-          ))}
-          {blogs.map((blog) => (
-            <SwiperSlide key={blog.id} className="p-4">
-              <MiniBlogCard
-                imageUrl={blog.imageUrl!}
-                title={blog.title}
-                description={blog.description!}
-                readTime={blog.readTime!}
-                createdAt="2022.12.12"
-                category="Entertainment"
-              />
-            </SwiperSlide>
-          ))}
-          {blogs.map((blog) => (
-            <SwiperSlide key={blog.id} className="p-4">
-              <MiniBlogCard
-                imageUrl={blog.imageUrl!}
-                title={blog.title}
-                description={blog.description!}
-                readTime={blog.readTime!}
-                createdAt="2022.12.12"
-                category="Entertainment"
-              />
+              <Link href={`/blogs/${blog.id}`}>
+                <MiniBlogCard
+                  imageUrl={blog.imageUrl!}
+                  title={blog.title}
+                  description={blog.description!}
+                  readTime={blog.readTime!}
+                  createdAt={blog.createdAt}
+                  category={blog.category.name}
+                />
+              </Link>
             </SwiperSlide>
           ))}
         </Swiper>

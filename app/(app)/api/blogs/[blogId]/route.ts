@@ -27,7 +27,6 @@ export async function DELETE(
     const blog = await db.blog.findUnique({
       where: {
         id: blogId,
-        userId,
       },
     });
 

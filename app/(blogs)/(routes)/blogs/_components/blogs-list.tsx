@@ -1,7 +1,7 @@
 import { BlogCard } from "@/components/blog-card";
 import { MiniBlogCard } from "./blog-mini-card";
 import { Blog, BlogCategory } from "@prisma/client";
-import { formatDate } from "@/lib/format";
+import Link from "next/link";
 interface BlogsListProps {
   blogs: Array<
     Blog & {
@@ -46,15 +46,17 @@ export const BlogsList = ({ blogs, popularBlogs }: BlogsListProps) => {
         <div className="text-2xl font-bold ">Most Popular</div>
         <div className="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-1 2xl:grid-cols-1 gap-4">
           {popularBlogs.map((blog) => (
-            <MiniBlogCard
-              key={blog.id}
-              imageUrl={blog.imageUrl!}
-              title={blog.title}
-              description={blog.description!}
-              readTime={blog.readTime!}
-              createdAt={formatDate(blog.createdAt)}
-              category={blog.category.name}
-            />
+            <Link key={blog.id} href={`/blogs/${blog.id}`}>
+              <MiniBlogCard
+                key={blog.id}
+                imageUrl={blog.imageUrl!}
+                title={blog.title}
+                description={blog.description!}
+                readTime={blog.readTime!}
+                createdAt={blog.createdAt}
+                category={blog.category.name}
+              />
+            </Link>
           ))}
         </div>
       </div>

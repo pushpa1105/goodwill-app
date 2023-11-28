@@ -12,9 +12,7 @@ const CoursePage = async () => {
   if (!userId) return redirect("/");
 
   const blogs = await db.blog.findMany({
-    where: {
-      userId,
-    },
+    where: {},
     orderBy: {
       createdAt: "desc",
     },

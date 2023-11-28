@@ -1,5 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { formatDate } from "@/lib/format";
 import { Blog } from "@prisma/client";
 import Image from "next/image";
 
@@ -9,7 +10,7 @@ interface MiniBlogCardProps {
   imageUrl: string;
   readTime: number;
   category: string;
-  createdAt: string;
+  createdAt: Date | string;
 }
 
 export const MiniBlogCard = ({
@@ -48,7 +49,9 @@ export const MiniBlogCard = ({
           <div className="text-xs text-muted-foreground">
             {readTime} min read
           </div>
-          <div className="text-xs text-muted-foreground">{createdAt}</div>
+          <div className="text-xs text-muted-foreground">
+            {formatDate(createdAt)}
+          </div>
         </div>
       </div>
     </div>
