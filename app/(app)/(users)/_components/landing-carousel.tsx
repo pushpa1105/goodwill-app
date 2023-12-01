@@ -33,7 +33,7 @@ export const LandingCarousel = () => {
           modules={[Autoplay, Pagination, Navigation]}
         >
           <SwiperSlide>
-            <Link href="/courses">
+            <Link href="/webinars">
               <LandingCarouselCard
                 label="Free Webinars"
                 imageUrl="/webinar.jpg"
