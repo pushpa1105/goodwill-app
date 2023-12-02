@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "next-sitemap",
     "start": "next start",
     "lint": "next lint",
     "postinstall": "prisma generate"
@@ -46,6 +47,7 @@
     "eslint-config-next": "14.0.1",
     "lucide-react": "^0.286.0",
     "next": "14.0.1",
+    "next-sitemap": "^4.2.3",
     "query-string": "^8.1.0",
     "react": "^18.2.0",
     "react-confetti": "^6.1.0",
