@@ -29,8 +29,8 @@ const WebinarPage = async ({ searchParams }: BlogPageProps) => {
       <div className="h-[80px] fixed inset-y-0 w-full z-50 ">
         <NavBar />
       </div>
-      <main className="pt-[80px] h-full bg-theme">
-        <div>
+      <main className="pt-[80px] h-full">
+        <div className="bg-[#083996]">
           <div className="flex flex-col justify-center max-w-auto md:max-w-[85%] m-auto">
             <div>
               <WebinarLists />

@@ -5,6 +5,7 @@ const webinars = [
     id: 1,
     level: "Advanced",
     langugae: "English",
+    title: "Smart Money Concepts trading",
     startAt: "21 December, 10:45 pm GMT+5:45",
     speaker: {
       name: "Tunmise Olaoluwa",
@@ -16,6 +17,7 @@ const webinars = [
     id: 2,
     level: "Advanced",
     langugae: "English",
+    title: "Smart Money Concepts trading",
     startAt: "21 December, 10:45 pm GMT+5:45",
     speaker: {
       name: "Tunmise Olaoluwa",
@@ -27,6 +29,7 @@ const webinars = [
     id: 3,
     level: "Advanced",
     langugae: "English",
+    title: "Smart Money Concepts trading",
     startAt: "21 December, 10:45 pm GMT+5:45",
     speaker: {
       name: "Tunmise Olaoluwa",
@@ -38,6 +41,7 @@ const webinars = [
     id: 4,
     level: "Advanced",
     langugae: "English",
+    title: "Smart Money Concepts trading",
     startAt: "21 December, 10:45 pm GMT+5:45",
     speaker: {
       name: "Tunmise Olaoluwa",
@@ -49,6 +53,7 @@ const webinars = [
     id: 5,
     level: "Advanced",
     langugae: "English",
+    title: "Smart Money Concepts trading",
     startAt: "21 December, 10:45 pm GMT+5:45",
     speaker: {
       name: "Tunmise Olaoluwa",
@@ -60,6 +65,7 @@ const webinars = [
     id: 6,
     level: "Advanced",
     langugae: "English",
+    title: "Smart Money Concepts trading",
     startAt: "21 December, 10:45 pm GMT+5:45",
     speaker: {
       name: "Tunmise Olaoluwa",
@@ -71,6 +77,7 @@ const webinars = [
     id: 7,
     level: "Advanced",
     langugae: "English",
+    title: "Smart Money Concepts trading",
     startAt: "21 December, 10:45 pm GMT+5:45",
     speaker: {
       name: "Tunmise Olaoluwa",
@@ -82,6 +89,7 @@ const webinars = [
     id: 8,
     level: "Advanced",
     langugae: "English",
+    title: "Smart Money Concepts trading",
     startAt: "21 December, 10:45 pm GMT+5:45",
     speaker: {
       name: "Tunmise Olaoluwa",
@@ -93,9 +101,12 @@ const webinars = [
 
 export const WebinarLists = () => {
   return (
-    <div>
+    <div className="w-50 max-w-[1200px] m-auto">
+      <div className="my-8">
+        <h1 className="text-xl md:text-4xl font-bold">Upcoming Webinars</h1>
+      </div>
       {webinars.map((webinar) => (
-        <WebinarCard key={webinar.id} webinar={webinar}/>
+        <WebinarCard key={webinar.id} webinar={webinar} />
       ))}
     </div>
   );
