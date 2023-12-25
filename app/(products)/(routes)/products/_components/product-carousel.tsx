@@ -8,12 +8,12 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/bundle";
 import Link from "next/link";
-import { LandingCarouselCard } from "./landing-carousel-card";
+import { ProductCarouselCard } from "./product-carousel-card";
 
-export const LandingCarousel = () => {
+export const ProductsCarousel = () => {
   return (
     <div className="landing-box-shadow p-8">
-      <div className="w-[95%] m-auto">
+      <div className="md:w-[95%] m-auto">
         <Swiper
           loop={true}
           autoplay={{
@@ -23,8 +23,8 @@ export const LandingCarousel = () => {
           breakpoints={{
             320: { slidesPerView: 1, spaceBetween: 5 },
             480: { slidesPerView: 2, spaceBetween: 5 },
-            768: { slidesPerView: 3, spaceBetween: 5 },
-            1024: { slidesPerView: 4, spaceBetween: 5 },
+            768: { slidesPerView: 2, spaceBetween: 5 },
+            1440: { slidesPerView: 4, spaceBetween: 5 },
           }}
           pagination={{
             clickable: true,
@@ -34,21 +34,21 @@ export const LandingCarousel = () => {
         >
           <SwiperSlide>
             <Link href="/courses">
-              <LandingCarouselCard
+              <ProductCarouselCard
                 label="Free Webinars"
                 imageUrl="/webinar.jpg"
               />
             </Link>
           </SwiperSlide>
           <SwiperSlide>
-            <LandingCarouselCard
+            <ProductCarouselCard
               label="Account Opening"
               imageUrl="/open-account.jpg"
             />
           </SwiperSlide>
           <SwiperSlide>
             <Link href="/products">
-              <LandingCarouselCard
+              <ProductCarouselCard
                 label="Latest Products"
                 imageUrl="/latest-products.jpg"
               />
@@ -56,7 +56,7 @@ export const LandingCarousel = () => {
           </SwiperSlide>
           <SwiperSlide>
             <Link href="/blogs">
-              <LandingCarouselCard label="Blogs" imageUrl="/blogs.jpg" />
+              <ProductCarouselCard label="Blogs" imageUrl="/blogs.jpg" />
             </Link>
           </SwiperSlide>
         </Swiper>
