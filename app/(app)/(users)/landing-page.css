@@ -1,0 +1,46 @@
+#root {
+  width: 100vw;
+  height: 100vh;
+  background-color: #ecdcd0;
+}
+
+body {
+  margin: 0;
+}
+
+.fixScroll {
+  position: absolute;
+  top: 0;
+}
+
+/* .mobile .back-video {
+  transform: translateX();
+} */
+
+.mobile .interface .interface-part.interface-welcome {
+  height: 50vh;
+  margin-bottom: 50vh;
+}
+
+.mobile .interface .interface-part.interface-skills {
+  margin-top: 100vh;
+  background-color: #11175b;
+}
+
+.web #svgSkills {
+  width: 586px;
+  height: 920px;
+}
+
+.mobile #svgSkills {
+  width: 100vw;
+  height: auto;
+}
+
+#svgSkills {
+  transform: scale(0.3);
+  transition: all 0.6s;
+}
+#svgSkills.active {
+  transform: scale(0.95);
+}

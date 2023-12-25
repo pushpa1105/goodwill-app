@@ -64,7 +64,17 @@
     "typescript": "5.2.2",
     "uploadthing": "^5.7.2",
     "zod": "^3.22.4",
-    "zustand": "^4.4.4"
+    "zustand": "^4.4.4",
+    "@nodetoy/react-nodetoy": "^0.1.24",
+    "@react-three/drei": "^9.88.17",
+    "@react-three/fiber": "^8.15.11",
+    "@tweenjs/tween.js": "^21.0.0",
+    "@types/three": "^0.158.2",
+    "animejs": "^3.2.2",
+    "framer-motion": "^10.16.5",
+    "framer-motion-3d": "^10.16.5",
+    "three": "^0.158.0",
+    "vite-plugin-svgr": "^4.2.0"
   },
   "devDependencies": {
     "postcss": "^8.4.31",

@@ -8,6 +8,7 @@ import { CourseCarousel } from "../_components/course-carousel";
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import { LandingPageComponent } from "./_components/landing-page";
 
 const LandingPage = async () => {
   // const { userId } = auth();
@@ -36,6 +37,7 @@ const LandingPage = async () => {
         className="max-w-screen-xl mt-24 px-8 xl:px-16 mx-auto bg-landing pb-16"
         id="about"
       >
+        <LandingPageComponent />
         <div className="grid grid-flow-row sm:grid-flow-col grid-rows-2 md:grid-rows-1 sm:grid-cols-2 gap-8 pb-6 sm:pb-16">
           <div className=" flex flex-col justify-center items-start row-start-2 sm:row-start-1">
             <h1 className="text-3xl lg:text-4xl xl:text-5xl font-medium text-white leading-normal">
