@@ -3,6 +3,7 @@ import { NavBar } from "../../_components/navbar";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { ProductsCarousel } from "./_components/product-carousel";
+import { db } from "@/lib/db";
 
 interface BlogPageProps {
   searchParams: {
@@ -25,7 +26,8 @@ const BlogsPage = async ({ searchParams }: BlogPageProps) => {
   //       category: BlogCategory;
   //     }
   //   >;
-  //   const categories = await db.blogCategory.findMany({});
+    const productPageContent = await db.productPageContent.findFirst();
+    const products = await db.productData.findMany();
 
   return (
     <>
@@ -41,22 +43,22 @@ const BlogsPage = async ({ searchParams }: BlogPageProps) => {
                 Want to have a product for trading?
               </div> */}
                 <div className="text-5xl font-bold">
-                  Get our product to have a great experience on trading.
+                  {productPageContent?.mainHeading}
                 </div>
                 <div>
-                  <Link href="/courses">
+                  <Link href={productPageContent?.buttonUrl!}>
                     <Button
                       size="lg"
                       className="rounded-full mt-4 bg-gradient-to-r from-custompurlple to-custompurlplelight shadow-lg text-xl font-bold"
                     >
-                      Access Now
+                      {productPageContent?.buttonLabel}
                     </Button>
                   </Link>
                 </div>
               </div>
               <div className="mt-8 w-[85%] lg:w-auto p-4">
                 <Image
-                  src="https://next-landing-vpn.vercel.app/_next/image?url=%2Fassets%2FIllustration1.png&w=1920&q=100"
+                  src={productPageContent?.mainImageUrl!}
                   alt="VPN Illustrasi"
                   quality={100}
                   width={612}
@@ -66,14 +68,14 @@ const BlogsPage = async ({ searchParams }: BlogPageProps) => {
               </div>
             </div>
           </div>
-          <div className="md:px-8 lg:w-[85%] mx-auto mt-8 ">
-            <ProductsCarousel />
+          <div className="md:px-8 lg:w-[85%] mx-auto my-8 py-8">
+            <ProductsCarousel products={products}/>
           </div>
-          <div className="mt-8 flex justify-center pb-8">
+          <div className="mt-8 flex justify-center pb-8 w-[95%] md:w-[80%] mx-auto h-[300px] md:h-[500px]">
             <iframe
-              width="80%"
-              height="500"
-              src="https://www.youtube.com/embed/_YVQN6_nkfs?si=mm61S9OF17DBdrH7"
+              width="100%"
+              height="100%"
+              src={productPageContent?.videoUrl}
               title="YouTube video player"
               frameBorder={0}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

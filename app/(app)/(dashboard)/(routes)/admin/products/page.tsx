@@ -11,6 +11,7 @@ import { ProductImageForm } from "./_components/product-image-form";
 import { ProductTitleForm } from "./_components/product-title-form";
 import { ProductDescriptionForm } from "./_components/product-description-form";
 import { ProductUrlForm } from "./_components/product-url-form";
+import { VideoUrlForm } from "./_components/video-url-form";
 
 const ProductsPage = async () => {
   const { userId } = auth();
@@ -28,6 +29,10 @@ const ProductsPage = async () => {
             productId={productPageDetails?.id!}
           />
           <ButtonForm
+            initialData={productPageDetails!}
+            productId={productPageDetails?.id!}
+          />
+          <VideoUrlForm
             initialData={productPageDetails!}
             productId={productPageDetails?.id!}
           />

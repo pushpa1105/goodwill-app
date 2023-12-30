@@ -21,7 +21,7 @@
 import Sidebar from "../../_components/Sidebar";
 import { NavBar } from "../../_components/navbar";
 
-const BlogLayout = ({ children }: { children: React.ReactNode }) => {
+const ProductLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="h-full">
       {children}
@@ -37,4 +37,4 @@ const BlogLayout = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default BlogLayout;
+export default ProductLayout;

@@ -12,7 +12,7 @@ export const ProductCarouselCard = ({
   imageUrl,
 }: LandingCarouselCardProps) => {
   return (
-    <div className="relative h-[333px] w-[250px]">
+    <div className="relative h-[333px] w-[250px] m-auto">
       <div className="rounded h-[100%] relative group w-[100%]">
         <div className="relative w-full rounded-md overflow-hidden h-[100%] w-[100%]">
           <Image
