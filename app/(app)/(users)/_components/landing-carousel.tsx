@@ -47,10 +47,12 @@ export const LandingCarousel = () => {
             />
           </SwiperSlide>
           <SwiperSlide>
-            <LandingCarouselCard
-              label="Latest Products"
-              imageUrl="/latest-products.jpg"
-            />
+            <Link href="/products">
+              <LandingCarouselCard
+                label="Latest Products"
+                imageUrl="/latest-products.jpg"
+              />
+            </Link>
           </SwiperSlide>
           <SwiperSlide>
             <Link href="/blogs">
