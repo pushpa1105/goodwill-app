@@ -30,10 +30,19 @@ interface SummaryFormProps {
 }
 
 const formSchema = z.object({
-  summary: z.string().min(1, {
-    message: "Summary is required",
+  // summary: z.string().min(1, {
+  //   message: "Summary is required",
+  // })
+  summary: z.object({
+    description: z
+      .string()
+      .min(15, { message: "Course Description is required." }),
+    learningTopics: z.array(
+      z.string().min(10, { message: "Field is required" })
+    ),
+    requirements: z.array(z.string().min(10, { message: "Field is required" })),
+    about: z.string().min(15, { message: "Field is required." }),
   }),
-  summaryHindi: z.string(),
 });
 
 export const CourseSummaryForm = ({
@@ -49,7 +58,12 @@ export const CourseSummaryForm = ({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      summary: initialData?.summary || "",
+      summary: initialData?.summary || {
+        description: "",
+        learningTopics: [],
+        requirements: [],
+        about: "",
+      },
     },
   });
 
@@ -57,10 +71,7 @@ export const CourseSummaryForm = ({
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.patch(
-        `/api/courses/${courseId}`,
-        values
-      );
+      await axios.patch(`/api/courses/${courseId}`, values);
       toast.success("Summary updated succesfully.");
       toggleEdit();
       router.refresh();
@@ -95,25 +106,6 @@ export const CourseSummaryForm = ({
               {!initialData.summary && "No summary"}
               {initialData.summary && <Preview value={initialData.summary} />}
             </p>
-            <span className="text-muted-foreground text-xs italic">
-              (English)
-            </span>
-          </div>
-          <div className="border rounded shadow-sm bg-blue-100 p-2">
-            <p
-              className={cn(
-                "text-sm mt-2",
-                !initialData?.summaryHindi && "text-slate-500 italic"
-              )}
-            >
-              {!initialData.summaryHindi && "No summary"}
-              {initialData.summaryHindi && (
-                <Preview value={initialData.summaryHindi} />
-              )}
-            </p>
-            <span className="text-muted-foreground text-xs italic">
-              (Hindi)
-            </span>
           </div>
         </>
       ) : (
@@ -124,30 +116,21 @@ export const CourseSummaryForm = ({
           >
             <FormField
               control={form.control}
-              name="summary"
+              name="summary.description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>For English</FormLabel>
                   <FormControl>
-                    <Editor disabled={isSubmitting} {...field} />
+                    <Textarea
+                      disabled={isSubmitting}
+                      placeholder="e.g. 'This course is about trading...'"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="summaryHindi"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>For Hindi</FormLabel>
-                  <FormControl>
-                    <Editor disabled={isSubmitting} {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+
             <div className="flex items-center gap-x-2">
               <Button disabled={!isValid || isSubmitting} type="submit">
                 Save
