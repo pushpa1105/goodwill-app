@@ -144,3 +144,13 @@ body,
   background: linear-gradient(90deg, #083996 30%, #7f66e9 100%) !important;
 
 }
+
+.webinar-text-theme {
+  background: -webkit-linear-gradient(90deg, #07021c 0%, #083996 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#zmmtg-root {
+  position: relative !important;
+}
