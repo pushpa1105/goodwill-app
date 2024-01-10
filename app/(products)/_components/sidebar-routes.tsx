@@ -1,6 +1,6 @@
 "use client";
 
-import { BarChart, BookOpen, Compass, Layout, List } from "lucide-react";
+import { BarChart, Compass, Layout, List } from "lucide-react";
 import { SidebarItem } from "./sidebar-item";
 import { usePathname } from "next/navigation";
 
@@ -19,24 +19,37 @@ const guestRoutes = [
 
 const adminRoutes = [
   {
-    icon: BookOpen,
+    icon: List,
     label: "Courses",
     href: "/admin/courses",
-  },
-  {
-    icon: List,
-    label: "Blogs",
-    href: "/admin/blogs",
-  },
-  {
-    icon: List,
-    label: "Products",
-    href: "/admin/products",
   },
   {
     icon: BarChart,
     label: "Analytics",
     href: "/admin/analytics",
+  },
+];
+
+const pageRoutes = [
+  {
+    label: "Courses",
+    href: "/courses",
+  },
+  {
+    label: "Blogs",
+    href: "/blogs",
+  },
+  {
+    label: "Products",
+    href: "/products",
+  },
+  {
+    label: "Account Opening",
+    href: "/account-opening",
+  },
+  {
+    label: "Webinars",
+    href: "/webinars",
   },
 ];
 
@@ -49,13 +62,8 @@ export const SidebarRoutes = () => {
 
   return (
     <div className="flex flex-col w-full">
-      {routes.map((route) => (
-        <SidebarItem
-          key={route.label}
-          icon={route.icon}
-          label={route.label}
-          href={route.href}
-        />
+      {pageRoutes.map((route) => (
+        <SidebarItem key={route.label} label={route.label} href={route.href} />
       ))}
     </div>
   );
