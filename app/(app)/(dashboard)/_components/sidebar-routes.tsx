@@ -30,6 +30,11 @@ const adminRoutes = [
   },
   {
     icon: List,
+    label: "Webinars",
+    href: "/admin/webinars",
+  },
+  {
+    icon: List,
     label: "Products",
     href: "/admin/products",
   },

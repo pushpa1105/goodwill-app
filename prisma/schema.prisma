@@ -264,7 +264,7 @@ model ProductData {
   userId       String
   imageUrl     String
   title        String
-  description  String @db.Text
+  description  String  @db.Text
   redirectLink String
   isActive     Boolean @default(true)
 
@@ -273,3 +273,53 @@ model ProductData {
 }
 
 // Products Section
+
+// Webinar
+
+model Webinar {
+  id          String    @id @default(uuid())
+  userId      String
+  title       String    @db.Text
+  description String?   @db.Text
+  imageUrl    String?
+  startAt     DateTime?
+  endAt       DateTime?
+  level       String?
+  language    String    @default("English")
+  status      String    @default("upcoming")
+  isPublished Boolean   @default(false)
+
+  learnings String? @db.Text
+
+  speakerId String?
+  speaker   Speaker? @relation(fields: [speakerId], references: [id])
+
+  meetingId       String?
+  meetingPassword String?
+  leaveUrl        String?
+
+  meetingUrl String?
+
+  useMeetingUrl Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([speakerId])
+  @@fulltext([title])
+}
+
+model Speaker {
+  id       String  @id @default(uuid())
+  name     String  @unique
+  imageUrl String?
+  about    String? @db.Text
+
+  education   String? @db.Text
+  experience  String? @db.Text
+  achievement String? @db.Text
+  webinars    Webinar[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
