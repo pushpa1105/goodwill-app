@@ -15,28 +15,28 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { Textarea } from "@/components/ui/textarea";
 import { Course } from "@prisma/client";
+import { Editor } from "@/components/editor";
+import { Preview } from "@/components/preview";
 
-interface DescriptionFormProps {
+interface SummaryFormProps {
   initialData: Course;
   courseId: string;
 }
 
 const formSchema = z.object({
-  description: z.string().min(1, {
-    message: "Description is required",
+  requirements: z.string().min(1, {
+    message: "requirements is required",
   }),
 });
 
-export const DescriptionForm = ({
+export const CourseRequirementsForm = ({
   initialData,
   courseId,
-}: DescriptionFormProps) => {
+}: SummaryFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const toggleEdit = () => setIsEditing((current) => !current);
@@ -46,7 +46,7 @@ export const DescriptionForm = ({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      description: initialData?.description || "",
+      requirements: initialData?.requirements || "",
     },
   });
 
@@ -55,7 +55,7 @@ export const DescriptionForm = ({
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       await axios.patch(`/api/courses/${courseId}`, values);
-      toast.success("Description updated succesfully.");
+      toast.success("Requirements updated succesfully.");
       toggleEdit();
       router.refresh();
     } catch (error) {
@@ -65,14 +65,14 @@ export const DescriptionForm = ({
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
-        Course Description
+        Course requirements
         <Button variant="ghost" onClick={toggleEdit}>
           {isEditing ? (
             <>Cancel</>
           ) : (
             <>
               <Pencil className="h-4 w-4 mr-2" />
-              Edit description
+              Edit requirements
             </>
           )}
         </Button>
@@ -83,10 +83,13 @@ export const DescriptionForm = ({
             <p
               className={cn(
                 "text-sm mt-2",
-                !initialData.description && "text-slate-500 italic"
+                !initialData.requirements && "text-slate-500 italic"
               )}
             >
-              {initialData.description || "No description"}
+              {!initialData.requirements && "No requirements"}
+              {initialData.requirements && (
+                <Preview value={initialData.requirements!} />
+              )}
             </p>
           </div>
         </>
@@ -98,16 +101,12 @@ export const DescriptionForm = ({
           >
             <FormField
               control={form.control}
-              name="description"
+              name="requirements"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Course Description</FormLabel>
+                  <FormLabel>Learnings</FormLabel>
                   <FormControl>
-                    <Textarea
-                      disabled={isSubmitting}
-                      placeholder="e.g. 'This course is about trading...'"
-                      {...field}
-                    />
+                    <Editor disabled={isSubmitting} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

@@ -18,7 +18,7 @@ export const CourseDetails = ({
     <>
       <div className="shadow-sm border rounded mb-4 pt-4">
         <ul>
-          <li className="flex p-4 justify-around border-b border-gray">
+          <li className="flex p-4 justify-around border-b border-gray text-theme">
             <div className="text-center">
               <div className="font-bold text-2xl">3.5</div>
               <div className="font-bold text-xl text-muted-foreground">

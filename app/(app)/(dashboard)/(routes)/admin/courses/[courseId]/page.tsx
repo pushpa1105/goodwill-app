@@ -24,6 +24,9 @@ import { Actions } from "./_components/actions";
 import { CourseAccessForm } from "./_components/course-access-form";
 import { CourseSummaryForm } from "./_components/course-summary-form";
 import { CourseVideoForm } from "./_components/course-video-form";
+import { CourseLearningsForm } from "./_components/course-learning-form";
+import { CourseRequirementsForm } from "./_components/course-requirements-form";
+import { CourseCoverageForm } from "./_components/course-coverage-form";
 
 const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
   const { userId } = auth();
@@ -107,6 +110,9 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
             </div>
             <TitleForm initialData={course} courseId={params.courseId} />
             <DescriptionForm initialData={course} courseId={params.courseId} />
+            <CourseLearningsForm initialData={course} courseId={params.courseId} />
+            <CourseRequirementsForm initialData={course} courseId={params.courseId} />
+            <CourseCoverageForm initialData={course} courseId={params.courseId} />
             <CourseVideoForm initialData={course} courseId={params.courseId} />
             <ImageForm initialData={course} courseId={params.courseId} />
             <CategoryForm

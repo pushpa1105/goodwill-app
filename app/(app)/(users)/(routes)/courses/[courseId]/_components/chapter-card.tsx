@@ -42,7 +42,7 @@ export const ChapterCard = ({
               <div className="text-slate-400 text-md font-semibold pt-2">
                 Chapter {chapterNumber}
               </div>
-              <div className="text-slate-500 text-xl font-bold">{title}</div>
+              <div className="text-slate-500 text-xl font-bold text-theme">{title}</div>
             </div>
             {open ? <ChevronUp /> : <ChevronDown />}
           </div>
