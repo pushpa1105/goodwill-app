@@ -10,7 +10,7 @@ interface ChaptersListProps {
 export const ChaptersList = ({ items }: ChaptersListProps) => {
   return (
     <div id="curriculum">
-      <h1 className="text-2xl font-semibold mb-4 ml-2">Course Curriculum</h1>
+      <h1 className="text-3xl font-extrabold mb-4 ml-2 text-theme">Course Curriculum</h1>
       <div className="shadow-sm border rounded mb-4 p-4">
         {items.map((item, index) => (
           <ChapterCard

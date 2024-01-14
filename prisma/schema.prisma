@@ -32,6 +32,9 @@ model Course {
   userId           String
   title            String  @db.Text
   description      String? @db.Text
+  learnings        String? @db.Text
+  requirements     String? @db.Text
+  coverage         String? @db.Text
   summary          String? @db.Text
   titleHindi       String? @db.Text
   descriptionHindi String? @db.Text
@@ -315,9 +318,9 @@ model Speaker {
   imageUrl String?
   about    String? @db.Text
 
-  education   String? @db.Text
-  experience  String? @db.Text
-  achievement String? @db.Text
+  education   String?   @db.Text
+  experience  String?   @db.Text
+  achievement String?   @db.Text
   webinars    Webinar[]
 
   createdAt DateTime @default(now())

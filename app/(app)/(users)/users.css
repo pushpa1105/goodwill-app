@@ -48,3 +48,24 @@
 
 /* #083996
 #7F66E9  */
+
+.webinar-text-theme {
+  background: -webkit-linear-gradient(90deg, #07021c 0%, #083996 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-theme {
+  background: -webkit-linear-gradient(90deg, #7f66e9 0%, #083996 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.ql-editor{
+  padding: 0 !important;
+  text-align: justify !important;
+}
+
+.ql-editor ul{
+  padding: 0 !important;
+}
