@@ -1,14 +1,7 @@
-import { NavBar } from "../../_components/navbar";
 import { columns } from "./_components/columns";
 import { DataTable } from "./_components/data-table";
-import { WebinarLists, webinars } from "./_components/webinar-lists";
-
-interface BlogPageProps {
-  searchParams: {
-    title: string;
-    categoryId: string;
-  };
-}
+import { WebinarLists } from "./_components/webinar-lists";
+import { db } from "@/lib/db";
 
 interface Webinar {
   id: Number;
@@ -22,40 +15,25 @@ interface Webinar {
   };
 }
 
-const WebinarPage = async ({ searchParams }: BlogPageProps) => {
-  const history = webinars;
-  // const blogs = (await getBlogs({
-  //   ...searchParams,
-  // })) as Array<
-  //   Blog & {
-  //     category: BlogCategory;
-  //   }
-  // >;
-
-  // const latestBlogs = (await getBlogs({})) as Array<
-  //   Blog & {
-  //     category: BlogCategory;
-  //   }
-  // >;
-  // const categories = await db.blogCategory.findMany({});
+const WebinarPage = async () => {
+  const webinars = await db.webinar.findMany({
+    where: {
+      isPublished: true,
+    },
+  });
 
   return (
     <>
-      {/* <div className="h-[80px] fixed inset-y-0 w-full z-50 ">
-        <NavBar />
-      </div>
-      <main className="pt-[80px] h-full"> */}
-        <div className="bg-[#083996]">
-          <div className="flex flex-col justify-center max-w-auto md:max-w-[85%] m-auto">
-            <div>
-              <WebinarLists />
-              <div className="md:w-50 max-w-[1200px] m-4 md:m-auto">
-              <DataTable columns={columns} data={history} />
-              </div>
+      <div className="bg-[#083996] min-h-[100vh]">
+        <div className="flex flex-col justify-center max-w-auto md:max-w-[85%] m-auto">
+          <div>
+            <WebinarLists />
+            <div className="md:w-50 max-w-[1200px] m-4 md:m-auto">
+              <DataTable columns={columns} data={webinars} />
             </div>
           </div>
         </div>
-      {/* </main> */}
+      </div>
     </>
   );
 };

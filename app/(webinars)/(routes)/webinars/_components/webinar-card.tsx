@@ -1,25 +1,22 @@
 "use client";
 
+import { Preview } from "@/components/preview";
 import { Button } from "@/components/ui/button";
+import { Speaker, Webinar } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 
-interface WebinarCardProps {
-  webinar: {
-    id: number;
-    level: string;
-    title: string;
-    langugae: string;
-    startAt: string;
-    speaker: {
-      name: string;
-      imageUrl: string;
-    };
-  };
+type WebinarWithSpeaker = Webinar & {
+  speaker: Speaker;
+};
+export interface WebinarCardProps {
+  webinar: WebinarWithSpeaker;
 }
 
 export const WebinarCard = ({ webinar }: WebinarCardProps) => {
-  console.log(webinar.level);
+  console.log(webinar);
+  const defaultImageUrl =
+    "https://media.octastatics.com/ms-webinars/speaker/avatar/tunmise/bb9532ac274d36138aac04e1aed51619.png";
   return (
     <div className="shadow-xl p-4 m-4 md:my-4 rounded-lg bg-[#2101a9] bg-theme">
       <div className="flex flex-wrap">
@@ -29,25 +26,33 @@ export const WebinarCard = ({ webinar }: WebinarCardProps) => {
               {webinar.level}
             </div>
             <div className="bg-theme border border-indigo-400 text-white text-sm  font-medium rounded-full px-2">
-              {webinar.langugae}
+              {webinar.language}
             </div>
             <div className="bg-theme border border-indigo-400 text-white text-sm rounded-full px-2 font-medium">
-              {webinar.startAt}
+              {webinar.startAt?.toLocaleString("en-US", {
+                year: "numeric",
+                day: "numeric",
+                month: "short",
+                hour: "numeric",
+                minute: "numeric",
+                hour12: true,
+                timeZoneName: "short",
+                timeZone: "Asia/Kolkata", // India's time zone
+              })}
             </div>
           </div>
           <div className="my-4">
-            <h1 className="text-xl md:text-3xl font-medium webinar-text-theme">
+            <h1 className="text-xl md:text-3xl font-bold webinar-text-theme">
               {webinar.title}
             </h1>
           </div>
           <div className="my-4">
             <h1 className="text-sm">
-              {webinar.title} {webinar.title} {webinar.title}
-              {webinar.title} {webinar.title} {webinar.title}
+              <Preview value={webinar.description!} />
             </h1>
           </div>
           <div className="mt-4 hidden md:flex">
-            <Link href="/webinars/123">
+            <Link href={`/webinars/${webinar.id}`}>
               <Button className="rounded-full bg-theme border border-violet-800 before:ease relative h-10 w-36 font-semibold shadow-lg text-md shadow-xl  overflow-hidden text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-green-500 hover:before:-translate-x-40">
                 <span className="relative z-10">Learn More</span>
               </Button>
@@ -56,13 +61,13 @@ export const WebinarCard = ({ webinar }: WebinarCardProps) => {
         </div>
         <div className="w-full md:w-[20%] flex md:justify-around">
           <div className="md:text-center gap-y-2 flex flex-row md:flex-col">
-            <div className="rounded">
+            <div>
               <Image
                 width={124}
                 height={124}
                 alt="webinar"
-                src={webinar.speaker.imageUrl}
-                className="w-[76px] md:w-[124px] h-[76px] md:h-[124px]"
+                src={webinar?.speaker?.imageUrl || defaultImageUrl}
+                className="w-[76px] md:w-[124px] h-[76px] md:h-[124px] rounded-full"
               />
             </div>
             <div className="ml-4 md:ml-0">
@@ -76,7 +81,7 @@ export const WebinarCard = ({ webinar }: WebinarCardProps) => {
       </div>
 
       <div className="mt-4 flex md:hidden w-full">
-        <Link href="/webinars/123">
+        <Link href={`/webinars/${webinar.id}`} className="w-full">
           <Button className="rounded-full bg-theme border border-violet-800 before:ease relative w-full font-semibold shadow-lg text-md shadow-xl  overflow-hidden text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-green-500 hover:before:-translate-x-40">
             <span className="relative z-10">Learn More</span>
           </Button>

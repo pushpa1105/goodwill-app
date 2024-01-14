@@ -154,3 +154,11 @@ body,
 #zmmtg-root {
   position: relative !important;
 }
+
+.ql-editor{
+  padding: 0 !important;
+}
+
+.ql-editor ul{
+  padding: 0 !important;
+}

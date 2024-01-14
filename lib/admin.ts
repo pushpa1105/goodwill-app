@@ -1,4 +1,4 @@
 export const isAdmin = (userId: string | null) => {
-  // return userId === process.env.NEXT_PUBLIC_TEACHER;
-  return true;
+  if(!userId) return false;
+  return userId === process.env.NEXT_PUBLIC_TEACHER;
 };

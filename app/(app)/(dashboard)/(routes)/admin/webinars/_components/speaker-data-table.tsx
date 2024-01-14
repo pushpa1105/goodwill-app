@@ -26,14 +26,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { PlusCircle } from "lucide-react";
-import { Webinar } from "@prisma/client";
+import { Speaker } from "@prisma/client";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
-  data: Webinar[];
+  data: Speaker[];
 }
 
-export function DataTable<TData, TValue>({
+export function SpeakerDataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
@@ -60,16 +60,22 @@ export function DataTable<TData, TValue>({
   return (
     <div>
       <div className="flex items-center justify-between py-4">
-        {/* <Input
-          placeholder="Filter courses..."
-          value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
+        <Input
+          placeholder="Filter speakers..."
+          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("title")?.setFilterValue(event.target.value)
+            table.getColumn("name")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
-        /> */}
+        />
+        <Link href={`/admin/webinars/speakers/create`}>
+          <Button>
+            <PlusCircle className="w-4 h-4 mr-2" />
+            New Speaker
+          </Button>
+        </Link>
       </div>
-      <div className="rounded-md border-b text-white text-md font-md">
+      <div className="rounded-md border">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -92,7 +98,6 @@ export function DataTable<TData, TValue>({
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                  
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}

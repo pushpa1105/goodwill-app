@@ -9,12 +9,12 @@ import toast from "react-hot-toast";
 import { ImageIcon, Pencil, PlusCircle } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { ProductData, ProductPageContent } from "@prisma/client";
+import { Speaker } from "@prisma/client";
 import { FileUpload } from "@/components/file-upload";
 
-interface ProductImageFormProps {
-  initialData: ProductData;
-  productId: string;
+interface ImageFormProps {
+  initialData: Speaker;
+  speakerId: string;
 }
 
 const formSchema = z.object({
@@ -23,7 +23,7 @@ const formSchema = z.object({
   }),
 });
 
-export const ProductImageForm = ({ initialData, productId }: ProductImageFormProps) => {
+export const ImageForm = ({ initialData, speakerId }: ImageFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const toggleEdit = () => setIsEditing((current) => !current);
@@ -32,7 +32,7 @@ export const ProductImageForm = ({ initialData, productId }: ProductImageFormPro
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.patch(`/api/products/product-data/${productId}`, values);
+      await axios.patch(`/api/webinars/speakers/${speakerId}`, values);
       toast.success("Image updated succesfully.");
       toggleEdit();
       router.refresh();
@@ -43,7 +43,7 @@ export const ProductImageForm = ({ initialData, productId }: ProductImageFormPro
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
-        Product Image
+        Speaker Image
         <Button variant="ghost" onClick={toggleEdit}>
           {isEditing && <>Cancel</>}
           {!isEditing && !initialData.imageUrl && (
@@ -81,6 +81,7 @@ export const ProductImageForm = ({ initialData, productId }: ProductImageFormPro
             endpoint="courseImage"
             onChange={(url) => {
               if (url) {
+                console.log(url)
                 onSubmit({ imageUrl: url });
               }
             }}
