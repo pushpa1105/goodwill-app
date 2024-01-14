@@ -1,6 +1,15 @@
 "use client";
 
-import { BarChart, BookOpen, Compass, Layout, List } from "lucide-react";
+import {
+  BarChart,
+  BookOpen,
+  Compass,
+  Layout,
+  List,
+  Newspaper,
+  PackageSearch,
+  Presentation,
+} from "lucide-react";
 import { SidebarItem } from "./sidebar-item";
 import { usePathname } from "next/navigation";
 
@@ -24,19 +33,24 @@ const adminRoutes = [
     href: "/admin/courses",
   },
   {
-    icon: List,
+    icon: Newspaper,
     label: "Blogs",
     href: "/admin/blogs",
   },
   {
-    icon: List,
+    icon: Presentation,
     label: "Webinars",
     href: "/admin/webinars",
   },
   {
-    icon: List,
+    icon: PackageSearch,
     label: "Products",
     href: "/admin/products",
+  },
+  {
+    icon: List,
+    label: "Category",
+    href: "/admin/categories",
   },
   {
     icon: BarChart,
