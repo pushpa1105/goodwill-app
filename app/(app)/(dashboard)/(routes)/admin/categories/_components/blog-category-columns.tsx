@@ -9,7 +9,6 @@ import { CategoryModal } from "./category-modal";
 import { ConfirmModal } from "@/components/modals/confirm-modal";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
 
 export const blogCategoryColumns: ColumnDef<BlogCategory>[] = [
   {
@@ -32,7 +31,6 @@ export const blogCategoryColumns: ColumnDef<BlogCategory>[] = [
       const { id, name } = row.original;
 
       const data = { collection: "BlogCategory" };
-      const router = useRouter();
 
       const onDelete = async () => {
         try {
@@ -40,7 +38,7 @@ export const blogCategoryColumns: ColumnDef<BlogCategory>[] = [
             data,
           });
           toast.success("Category deleted");
-          router.refresh();
+          location.reload();
         } catch (error) {
           if (error?.response?.data) toast.error(error?.response?.data);
           else toast.error("Something went wrong");

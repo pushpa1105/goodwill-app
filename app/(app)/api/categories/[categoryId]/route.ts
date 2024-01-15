@@ -59,6 +59,16 @@ export async function DELETE(
 
     let category;
     if (collection === "Category") {
+      const cat = await db.category.findUnique({
+        where: {
+          id: categoryId,
+        },
+      });
+      if (!cat) {
+        return new NextResponse("Category not found", {
+          status: 404,
+        });
+      }
       const hasCourse = await db.course.findMany({
         where: {
           categoryId,
@@ -75,6 +85,17 @@ export async function DELETE(
         },
       });
     } else {
+
+      const cat = await db.blogCategory.findUnique({
+        where: {
+          id: categoryId,
+        },
+      });
+      if (!cat) {
+        return new NextResponse("Category not found", {
+          status: 404,
+        });
+      }
       const hasBlog = await db.blog.findMany({
         where: {
           categoryId,
