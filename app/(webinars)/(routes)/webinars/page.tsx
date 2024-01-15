@@ -19,6 +19,7 @@ const WebinarPage = async () => {
   const webinars = await db.webinar.findMany({
     where: {
       isPublished: true,
+      status:'completed'
     },
   });
 
