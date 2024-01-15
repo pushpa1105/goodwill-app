@@ -217,7 +217,7 @@ export const WebinarLists = async () => {
   return (
     <div className="w-50 max-w-[1200px] m-auto">
       <div className="my-8">
-        <h1 className="text-2xl md:text-4xl font-bold webinar-text-theme">Upcoming Webinars</h1>
+        <h1 className="text-2xl md:text-4xl font-bold text-white">Upcoming Webinars</h1>
       </div>
       {webinars.map((webinar) => (
         <WebinarCard key={webinar.id} webinar={webinar as WebinarWithSpeaker} />

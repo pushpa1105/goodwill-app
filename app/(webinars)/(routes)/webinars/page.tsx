@@ -30,11 +30,13 @@ const WebinarPage = async () => {
             <WebinarLists />
             <div className="md:w-50 max-w-[1200px] m-4 md:m-auto">
               <div className="mt-16">
-                <h1 className="text-2xl md:text-4xl font-bold webinar-text-theme">
+                <h1 className="text-2xl md:text-4xl mb-4 font-bold text-white">
                   Past Webinars
                 </h1>
               </div>
+              <div className="shadow-xl px-2 rounded-lg bg-white landing-box-shadow mb-4">
               <DataTable columns={columns} data={webinars} />
+              </div>
             </div>
           </div>
         </div>

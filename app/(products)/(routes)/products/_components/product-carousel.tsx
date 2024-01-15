@@ -23,9 +23,9 @@ export const ProductsCarousel = ({ products }: { products: ProductData[] }) => {
           loop={true}
           breakpoints={{
             320: { slidesPerView: 1, spaceBetween: 5 },
-            480: { slidesPerView: 2, spaceBetween: 5 },
             768: { slidesPerView: 2, spaceBetween: 5 },
-            1440: { slidesPerView: 4, spaceBetween: 5 },
+            1050: { slidesPerView: 3, spaceBetween: 5 },
+            1450: { slidesPerView: 4, spaceBetween: 5 },
           }}
           modules={[Autoplay, Pagination, Navigation]}
           onBeforeInit={(swiper) => {

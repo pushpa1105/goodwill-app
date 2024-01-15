@@ -34,11 +34,11 @@ export const columns: ColumnDef<Webinar>[] = [
       return (
         <Button
           variant="ghost"
-          className="text-white text-lg font-bold"
+          className="text-theme text-lg font-bold"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Level
-          <ArrowUpDown className="ml-2 h-4 w-4" />
+          <ArrowUpDown className="ml-2 h-4 w-4 text-theme" />
         </Button>
       );
     },
@@ -49,11 +49,11 @@ export const columns: ColumnDef<Webinar>[] = [
       return (
         <Button
           variant="ghost"
-          className="text-white text-lg font-bold"
+          className="text-theme text-lg font-bold"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Webinars
-          <ArrowUpDown className="ml-2 h-4 w-4" />
+          <ArrowUpDown className="ml-2 h-4 w-4 text-theme" />
         </Button>
       );
     },
@@ -64,11 +64,11 @@ export const columns: ColumnDef<Webinar>[] = [
       return (
         <Button
           variant="ghost"
-          className="text-white text-lg font-bold"
+          className="text-theme text-lg font-bold"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Language
-          <ArrowUpDown className="ml-2 h-4 w-4" />
+          <ArrowUpDown className="ml-2 h-4 w-4 text-theme" />
         </Button>
       );
     },
@@ -77,7 +77,7 @@ export const columns: ColumnDef<Webinar>[] = [
     id: "Actions",
     cell: ({ row }) => {
       const { id } = row.original;
-      return <Link href="/webinars/1" className="text-white text-md font-bold">Learn More</Link>;
+      return <Link href="/webinars/1" className="text-theme text-md font-bold">Learn More</Link>;
     },
   },
 ];

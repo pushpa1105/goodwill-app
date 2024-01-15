@@ -18,7 +18,7 @@ export const WebinarCard = ({ webinar }: WebinarCardProps) => {
   const defaultImageUrl =
     "https://media.octastatics.com/ms-webinars/speaker/avatar/tunmise/bb9532ac274d36138aac04e1aed51619.png";
   return (
-    <div className="shadow-xl p-4 m-4 md:my-4 rounded-lg bg-[#2101a9] bg-theme">
+    <div className="p-4 m-4 md:my-8 rounded-lg bg-white landing-box-shadow">
       <div className="flex flex-wrap">
         <div className=" w-full md:w-[80%] mt-4 md:px-4">
           <div className="flex flex-wrap gap-x-4 gap-y-2 mb-4">
@@ -42,7 +42,7 @@ export const WebinarCard = ({ webinar }: WebinarCardProps) => {
             </div>
           </div>
           <div className="my-4">
-            <h1 className="text-xl md:text-3xl font-bold webinar-text-theme">
+            <h1 className="text-xl md:text-3xl font-bold text-theme">
               {webinar.title}
             </h1>
           </div>
@@ -71,10 +71,10 @@ export const WebinarCard = ({ webinar }: WebinarCardProps) => {
               />
             </div>
             <div className="ml-4 md:ml-0">
-              <div className="text-white mt-2 font-semibold text-lg">
+              <div className="text-theme mt-2 font-semibold text-lg">
                 {webinar.speaker.name}
               </div>
-              <div className="text-slate-300 font-md text-sm">Speaker</div>
+              <div className="webinar-text-theme font-md text-sm">Speaker</div>
             </div>
           </div>
         </div>

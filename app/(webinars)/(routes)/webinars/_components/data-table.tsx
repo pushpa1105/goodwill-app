@@ -23,9 +23,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import Link from "next/link";
-import { PlusCircle } from "lucide-react";
 import { Webinar } from "@prisma/client";
 
 interface DataTableProps<TData, TValue> {
@@ -69,7 +66,7 @@ export function DataTable<TData, TValue>({
           className="max-w-sm"
         /> */}
       </div>
-      <div className="rounded-md border-b text-white text-md font-md">
+      <div className="rounded-md border-b text-md font-md">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -92,10 +89,10 @@ export function DataTable<TData, TValue>({
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                  
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  className="border-y border-[#083996] webinar-text-theme"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
@@ -108,7 +105,7 @@ export function DataTable<TData, TValue>({
                 </TableRow>
               ))
             ) : (
-              <TableRow>
+              <TableRow className="border-[#083996]">
                 <TableCell
                   colSpan={columns.length}
                   className="h-24 text-center"
@@ -126,6 +123,7 @@ export function DataTable<TData, TValue>({
           size="sm"
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
+          className="text-theme"
         >
           Previous
         </Button>
@@ -134,6 +132,7 @@ export function DataTable<TData, TValue>({
           size="sm"
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
+          className="text-theme"
         >
           Next
         </Button>
