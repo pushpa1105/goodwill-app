@@ -34,7 +34,7 @@ const WebinarPage = async ({ params }: { params: { webinarId: string } }) => {
             </div>
           </div>
           <div>
-            <h1 className="text-2xl md:text-4xl font-bold webinar-text-theme">
+            <h1 className="text-2xl md:text-4xl font-bold text-white">
               {webinar.title}
             </h1>
           </div>
@@ -49,7 +49,7 @@ const WebinarPage = async ({ params }: { params: { webinarId: string } }) => {
             </div>
             <div>
               <div className="mt-4 xl:mt-0">
-                <h1 className="text-xl md:text-2xl font-bold webinar-text-theme">
+                <h1 className="text-xl md:text-2xl font-bold text-white">
                   What you will learn
                 </h1>
               </div>
@@ -62,11 +62,11 @@ const WebinarPage = async ({ params }: { params: { webinarId: string } }) => {
                 </Button>
               </div>
             </div>
-            <div className="shadow-xl md:py-8 m p-2 md:mx-0 mt-8 rounded-lg bg-[#2101a9] bg-theme w-full">
+            <div className="shadow-xl landing-box-shadow md:py-8 m p-2 md:mx-0 mt-8 rounded-lg bg-white w-full">
               <div className="flex flex-wrap w-full">
                 <div className=" w-full md:w-[80%] mt-4 md:px-4">
                   <div className="mb-4">
-                    <h1 className="text-xl md:text-3xl webinar-text-theme font-extrabold">
+                    <h1 className="text-xl md:text-3xl text-theme font-extrabold">
                       Speaker
                     </h1>
                   </div>
@@ -86,7 +86,7 @@ const WebinarPage = async ({ params }: { params: { webinarId: string } }) => {
                       />
                     </div>
                     <div className="ml-4 md:ml-0">
-                      <div className="text-white mt-2 font-semibold text-lg">
+                      <div className="text-theme mt-2 font-semibold text-lg">
                         {webinar.speaker.name}
                       </div>
                     </div>

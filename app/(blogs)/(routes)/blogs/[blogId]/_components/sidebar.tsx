@@ -50,7 +50,8 @@ const Sidebar = ({
     >
       <div
         className={cn({
-          "flex flex-col justify-between h-screen sticky inset-0 bg-theme": true,
+          "flex flex-col justify-between h-screen sticky inset-0 bg-theme":
+            true,
           "overflow-y-scroll": !collapsed,
         })}
       >
@@ -81,14 +82,13 @@ const Sidebar = ({
           {toc && toc.length > 0 && (
             <>
               {!collapsed && (
-                <>
+                <div className="border-2 border-white rounded-lg">
                   <div className="px-4 mt-2 font-bold text-lg">
                     Blog Contents
                   </div>
                   <ul
                     className={cn({
-                      "my-2 pb-4 flex flex-col items-stretch border-b border-b-indigo-800":
-                        true,
+                      "my-2 pb-4 flex flex-col items-stretch": true,
                     })}
                   >
                     {toc.map((item, index) => {
@@ -122,37 +122,42 @@ const Sidebar = ({
                       );
                     })}
                   </ul>
-                </>
+                </div>
               )}
             </>
           )}
-
-          {!collapsed && (
-            <div className="px-4 font-bold text-lg my-4">Pages</div>
-          )}
-          <ul
+          <div
             className={cn({
-              "flex flex-col gap-2 items-stretch": true,
+              "border border-white rounded-lg mt-2": !collapsed,
             })}
           >
-            {navItems.map((item, index) => {
-              return (
-                <li
-                  key={index}
-                  className={cn({
-                    "text-indigo-100 hover:bg-indigo-900 flex": true, //colors
-                    "transition-colors duration-300": true, //animation
-                    "rounded-md p-2 mx-3 gap-4 ": !collapsed,
-                    "rounded-full p-2 mx-3 w-10 h-10": collapsed,
-                  })}
-                >
-                  <Link href={item.href} className="flex gap-2">
-                    {item.icon} <span>{!collapsed && item.label}</span>
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
+            {!collapsed && (
+              <div className="px-4 font-bold text-lg my-4">Pages</div>
+            )}
+            <ul
+              className={cn({
+                "flex flex-col gap-2 items-stretch": true,
+              })}
+            >
+              {navItems.map((item, index) => {
+                return (
+                  <li
+                    key={index}
+                    className={cn({
+                      "text-indigo-100 hover:bg-indigo-900 flex": true, //colors
+                      "transition-colors duration-300": true, //animation
+                      "rounded-md p-2 mx-3 gap-4 ": !collapsed,
+                      "rounded-full p-2 mx-3 w-10 h-10": collapsed,
+                    })}
+                  >
+                    <Link href={item.href} className="flex gap-2">
+                      {item.icon} <span>{!collapsed && item.label}</span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         </nav>
         <div
           className={cn({
@@ -176,7 +181,7 @@ const Sidebar = ({
               </div>
             )}
           </div> */}
-          <div className="flex gap-4 items-center h-11 overflow-hidden px-2 border-t border-t-indigo-800 pt-4">
+          <div className="flex gap-x-4 items-center h-15 overflow-hidden px-2 border-t border-t-indigo-800 pt-4">
             {userId && <UserButton afterSignOutUrl="/" />}
             {!userId && (
               <>
