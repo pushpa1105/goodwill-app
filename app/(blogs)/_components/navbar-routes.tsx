@@ -42,7 +42,7 @@ export const NavbarRoutes = () => {
   return (
     <>
       <div className="flex justify-between w-full">
-        <div className="hidden md:flex">Logo here</div>
+        <div className="hidden lg:flex">Logo here</div>
         <div className="hidden md:flex">
           <ul className="hidden lg:flex col-start-4 col-end-8 text-black-500  items-center">
             {pageRoutes.map((r) => (

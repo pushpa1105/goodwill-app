@@ -41,10 +41,12 @@ export const LandingCarousel = () => {
             </Link>
           </SwiperSlide>
           <SwiperSlide>
+          <Link href="/account-opening">
             <LandingCarouselCard
               label="Account Opening"
               imageUrl="/open-account.jpg"
-            />
+              />
+              </Link>
           </SwiperSlide>
           <SwiperSlide>
             <Link href="/products">
