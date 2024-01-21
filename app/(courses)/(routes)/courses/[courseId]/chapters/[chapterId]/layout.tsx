@@ -2,9 +2,9 @@ import { getProgress } from "@/actions/get-progress";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
 import { redirect, usePathname } from "next/navigation";
-import { CourseSidebar } from "./_components/course-sidebar";
+import { CourseSidebar } from "../../_components/course-sidebar";
 import React from "react";
-import { CourseNavbar } from "./_components/course-navbar";
+import { CourseNavbar } from "../../_components/course-navbar";
 
 const CourseLayout = async ({
   params,

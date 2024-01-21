@@ -16,6 +16,10 @@ import {
   CollapsibleContent,
 } from "@radix-ui/react-collapsible";
 import { useState } from "react";
+import { EnrollConfirmModal } from "@/components/modals/enroll-confirm-modal";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 interface ChapterCardProps {
   id: string;
@@ -23,6 +27,7 @@ interface ChapterCardProps {
   description?: string;
   courseId: string;
   chapterNumber: number | string;
+  enrolled: boolean;
 }
 
 export const ChapterCard = ({
@@ -31,8 +36,23 @@ export const ChapterCard = ({
   description,
   courseId,
   chapterNumber,
+  enrolled,
 }: ChapterCardProps) => {
   const [open, setOpen] = useState(false);
+
+  const router = useRouter();
+  const enrollAction = async () => {
+    try {
+      const res = await axios.put(`/api/courses/${courseId}/enroll`);
+
+      router.refresh();
+
+      if (res) {
+        toast.success("Enrolled");
+        router.push(`/courses/${courseId}/chapters/${id}`);
+      }
+    } catch (error) {}
+  };
   return (
     <div className="border-b border-gray pb-4">
       <Collapsible open={open} onOpenChange={setOpen}>
@@ -42,7 +62,9 @@ export const ChapterCard = ({
               <div className="text-slate-400 text-md font-semibold pt-2">
                 Chapter {chapterNumber}
               </div>
-              <div className="text-slate-500 text-xl font-bold text-theme">{title}</div>
+              <div className="text-slate-500 text-xl font-bold text-theme">
+                {title}
+              </div>
             </div>
             {open ? <ChevronUp /> : <ChevronDown />}
           </div>
@@ -54,12 +76,21 @@ export const ChapterCard = ({
             </h1>
             <div>{description}</div>
             <div>
-              <Link href={`/courses/${courseId}/chapters/${id}`}>
-                <Button className="w-[100%] mt-2">
-                  <span className="text-md font-bold">Watch it</span>
-                  <PlayCircleIcon className="ml-2" />
-                </Button>
-              </Link>
+              {enrolled ? (
+                <Link href={`/courses/${courseId}/chapters/${id}`}>
+                  <Button className="w-[100%] mt-2">
+                    <span className="text-md font-bold">Watch it</span>
+                    <PlayCircleIcon className="ml-2" />
+                  </Button>
+                </Link>
+              ) : (
+                <EnrollConfirmModal onConfirm={enrollCourse}>
+                  <Button className="w-[100%] mt-2">
+                    <span className="text-md font-bold">Watch it</span>
+                    <PlayCircleIcon className="ml-2" />
+                  </Button>
+                </EnrollConfirmModal>
+              )}
             </div>
           </div>
         </CollapsibleContent>

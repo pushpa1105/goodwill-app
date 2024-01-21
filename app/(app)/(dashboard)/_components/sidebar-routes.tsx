@@ -33,6 +33,11 @@ const adminRoutes = [
     href: "/admin/courses",
   },
   {
+    icon: BookOpen,
+    label: "Enrollments",
+    href: "/admin/enrollments",
+  },
+  {
     icon: Newspaper,
     label: "Blogs",
     href: "/admin/blogs",
