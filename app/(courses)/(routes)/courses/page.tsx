@@ -7,6 +7,7 @@ import { Categories } from "./_components/categories";
 import { CoursesList } from "@/components/courses-list";
 import { LanguagePreference } from "./_components/language-preference";
 import { SwitchLanguage } from "./_components/switch-language";
+import { NavBar } from "../../_components/navbar";
 
 interface CoursesPageProps {
   searchParams: {
@@ -40,25 +41,32 @@ const Courses = async ({ searchParams }: CoursesPageProps) => {
   });
 
   return (
-    <>
-      {!language ? (
-        <LanguagePreference />
-      ) : (
-        <div className="p-6 w-full lg:w-[75%] m-auto">
-          <div className="flex flex-wrap items-center justify-between p-2">
-            <div className="w-full md:w-auto text-xl font-bold mb-2">
-              Browse Courses
+    <div className="h-full">
+      <div className="h-[80px] fixed inset-y-0 w-full z-50 ">
+        <NavBar />
+      </div>
+      <main className="pt-[80px] h-full">
+        <>
+          {!language ? (
+            <LanguagePreference />
+          ) : (
+            <div className="p-6 w-full lg:w-[75%] m-auto">
+              <div className="flex flex-wrap items-center justify-between p-2">
+                <div className="w-full md:w-auto text-xl font-bold mb-2">
+                  Browse Courses
+                </div>
+                <div className="flex flex-wrap w-full md:w-auto">
+                  <SwitchLanguage lang={language} />
+                  <SearchInput />
+                </div>
+              </div>
+              <Categories items={categories} />
+              <CoursesList items={courses} lang={user?.lang} />
             </div>
-            <div className="flex flex-wrap w-full md:w-auto">
-              <SwitchLanguage lang={language} />
-              <SearchInput />
-            </div>
-          </div>
-          <Categories items={categories} />
-          <CoursesList items={courses} lang={user?.lang} />
-        </div>
-      )}
-    </>
+          )}
+        </>
+      </main>
+    </div>
   );
 };
 

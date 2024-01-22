@@ -9,6 +9,7 @@ import {
   Newspaper,
   PackageSearch,
   Presentation,
+  Users,
 } from "lucide-react";
 import { SidebarItem } from "./sidebar-item";
 import { usePathname } from "next/navigation";
@@ -31,6 +32,11 @@ const adminRoutes = [
     icon: BookOpen,
     label: "Courses",
     href: "/admin/courses",
+  },
+  {
+    icon: Users,
+    label: "Enrollments",
+    href: "/admin/enrollments",
   },
   {
     icon: Newspaper,

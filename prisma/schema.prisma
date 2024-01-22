@@ -13,18 +13,20 @@ datasource db {
 }
 
 model User {
-  id         Int     @id @default(autoincrement())
-  externalId String  @unique
-  attributes Json
-  lang       String?
-  name       String?
-  email      String?
-  imageUrl   String?
+  id          Int     @id @default(autoincrement())
+  externalId  String  @unique
+  attributes  Json
+  lang        String?
+  name        String?
+  email       String?
+  imageUrl    String?
+  phoneNumber String?
 
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  reviews   Review[]
-  comments  Comment[]
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+  reviews         Review[]
+  comments        Comment[]
+  enrolledCourses CourseEnrollment[]
 }
 
 model Course {
@@ -54,9 +56,10 @@ model Course {
   attachments Attachment[]
   reviews     Review[]
 
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
   purchases Purchase[]
+  enrollers CourseEnrollment[]
 
   @@index([categoryId])
   @@fulltext([title])
@@ -325,4 +328,22 @@ model Speaker {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model CourseEnrollment {
+  id String @id @default(uuid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [externalId], onDelete: Cascade)
+
+  courseId String
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  isActive Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, courseId])
+  @@index([courseId, userId])
 }

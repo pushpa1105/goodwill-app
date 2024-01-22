@@ -5,12 +5,15 @@ import { ChapterCard } from "./chapter-card";
 
 interface ChaptersListProps {
   items: Chapter[];
+  enrolled: boolean;
 }
 
-export const ChaptersList = ({ items }: ChaptersListProps) => {
+export const ChaptersList = ({ items, enrolled }: ChaptersListProps) => {
   return (
     <div id="curriculum">
-      <h1 className="text-3xl font-extrabold mb-4 ml-2 text-theme">Course Curriculum</h1>
+      <h1 className="text-3xl font-extrabold mb-4 ml-2 text-theme">
+        Course Curriculum
+      </h1>
       <div className="shadow-sm border rounded mb-4 p-4">
         {items.map((item, index) => (
           <ChapterCard
@@ -20,6 +23,7 @@ export const ChaptersList = ({ items }: ChaptersListProps) => {
             description={item.description!}
             courseId={item.courseId!}
             chapterNumber={index + 1}
+            enrolled={enrolled}
           />
         ))}
 
