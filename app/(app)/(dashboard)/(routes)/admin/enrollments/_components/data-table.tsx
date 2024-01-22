@@ -62,12 +62,20 @@ export function CourseEnrollmentDataTable<TData, TValue>({
 
   return (
     <div>
-      <div className="flex items-center justify-between py-4">
+      <div className="flex items-center py-4">
         <Input
-          placeholder="Filter  enrollments..."
-          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+          placeholder="Filter  enrollments by email..."
+          value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("name")?.setFilterValue(event.target.value)
+            table.getColumn("email")?.setFilterValue(event.target.value)
+          }
+          className="max-w-sm mr-2"
+        />
+        <Input
+          placeholder="Filter  enrollments by course..."
+          value={(table.getColumn("course")?.getFilterValue() as string) ?? ""}
+          onChange={(event) =>
+            table.getColumn("course")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />

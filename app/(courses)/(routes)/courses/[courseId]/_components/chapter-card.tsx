@@ -41,7 +41,7 @@ export const ChapterCard = ({
   const [open, setOpen] = useState(false);
 
   const router = useRouter();
-  const enrollAction = async () => {
+  const enrollCourse = async () => {
     try {
       const res = await axios.put(`/api/courses/${courseId}/enroll`);
 

@@ -35,6 +35,7 @@ export const columns: ColumnDef<enrollmentWithCourseAndUser>[] = [
     },
   },
   {
+    id: "email",
     accessorKey: "user.email",
     header: ({ column }) => {
       return (
@@ -49,6 +50,7 @@ export const columns: ColumnDef<enrollmentWithCourseAndUser>[] = [
     },
   },
   {
+    id: "course",
     accessorKey: "course.title",
     header: ({ column }) => {
       return (
