@@ -1,9 +1,8 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
 import { ZoomMtg } from "@zoomus/websdk";
 import { Button } from "@/components/ui/button";
-
+import axios from "axios";
 export const ZoomComponent: React.FC = () => {
   const [signature, setSignature] = useState<string>("");
 
@@ -16,26 +15,19 @@ export const ZoomComponent: React.FC = () => {
   const userEmail = "";
   const registrantToken = "";
   const zakToken = "";
-  const leaveUrl = "/";
+  const leaveUrl = "http://localhost:3000";
 
   const getSignature = async () => {
     try {
-      const response = await fetch(authEndpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          meetingNumber: meetingNumber,
-          role: role,
-        }),
+      const response = await axios.post(authEndpoint, {
+        meetingNumber: meetingNumber,
+        role: role,
       });
-
-      const data = await response.json();
-      startMeeting(data.signature);
+      startMeeting(response.data);
     } catch (error) {
       console.error(error);
     }
   };
-
   const startMeeting = (signature: string) => {
     if (typeof window !== "undefined") {
       ZoomMtg.init({
@@ -43,7 +35,6 @@ export const ZoomComponent: React.FC = () => {
         isSupportAV: true,
         success: (success) => {
           console.log(success);
-
           ZoomMtg.join({
             signature: signature,
             sdkKey: sdkKey,
@@ -68,7 +59,6 @@ export const ZoomComponent: React.FC = () => {
       });
     }
   };
-
   useEffect(() => {
     // Check if running on the client side
     if (typeof window !== "undefined") {
@@ -80,7 +70,6 @@ export const ZoomComponent: React.FC = () => {
       ZoomMtg.i18n.reload("en-US");
     }
   }, []);
-
   return (
     <div>
       <h1>Zoom Meeting SDK Sample Next.js</h1>
@@ -92,5 +81,4 @@ export const ZoomComponent: React.FC = () => {
     </div>
   );
 };
-
 export default ZoomComponent;

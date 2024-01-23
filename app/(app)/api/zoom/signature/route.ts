@@ -11,7 +11,7 @@ export async function POST(req: Request) {
 
     if (!userId) return new NextResponse("Unauthorized", { status: 401 });
 
-    const signature = generateSignature(meetingNumber, role);
+    const signature = generateSignature(meetingNumber, role || 0);
     return NextResponse.json(signature);
   } catch (error) {
     console.log("[ZOOM]", error);
