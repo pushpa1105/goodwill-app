@@ -43,58 +43,49 @@ export const CourseCarousel = ({ items }: CourseCarouselProps) => {
         modules={[Autoplay, Pagination, Navigation]}
       >
         {items.map((item) => (
-          <>
-            <SwiperSlide>
-              <CourseCard
-                key={item.id}
-                id={item.id}
-                title={item.title}
-                imageUrl={item.imageUrl!}
-                chaptersLength={item.chapters.length}
-                price={item.price!}
-                progress={null}
-                category={item.category?.name!}
-                isFree={item.isFree}
-                description={item.description!}
-              />
-            </SwiperSlide>
-          </>
+          <SwiperSlide key={item.id}>
+            <CourseCard
+              id={item.id}
+              title={item.title}
+              imageUrl={item.imageUrl!}
+              chaptersLength={item.chapters.length}
+              price={item.price!}
+              progress={null}
+              category={item.category?.name!}
+              isFree={item.isFree}
+              description={item.description!}
+            />
+          </SwiperSlide>
         ))}
-        {items.map((item) => (
-          <>
-            <SwiperSlide>
-              <CourseCard
-                key={item.id}
-                id={item.id}
-                title={item.title}
-                imageUrl={item.imageUrl!}
-                chaptersLength={item.chapters.length}
-                price={item.price!}
-                progress={null}
-                category={item.category?.name!}
-                isFree={item.isFree}
-                description={item.description!}
-              />
-            </SwiperSlide>
-          </>
+                {items.map((item) => (
+          <SwiperSlide key={item.id}>
+            <CourseCard
+              id={item.id}
+              title={item.title}
+              imageUrl={item.imageUrl!}
+              chaptersLength={item.chapters.length}
+              price={item.price!}
+              progress={null}
+              category={item.category?.name!}
+              isFree={item.isFree}
+              description={item.description!}
+            />
+          </SwiperSlide>
         ))}
-        {items.map((item) => (
-          <>
-            <SwiperSlide>
-              <CourseCard
-                key={item.id}
-                id={item.id}
-                title={item.title}
-                imageUrl={item.imageUrl!}
-                chaptersLength={item.chapters.length}
-                price={item.price!}
-                progress={null}
-                category={item.category?.name!}
-                isFree={item.isFree}
-                description={item.description!}
-              />
-            </SwiperSlide>
-          </>
+                {items.map((item) => (
+          <SwiperSlide key={item.id}>
+            <CourseCard
+              id={item.id}
+              title={item.title}
+              imageUrl={item.imageUrl!}
+              chaptersLength={item.chapters.length}
+              price={item.price!}
+              progress={null}
+              category={item.category?.name!}
+              isFree={item.isFree}
+              description={item.description!}
+            />
+          </SwiperSlide>
         ))}
       </Swiper>
     </div>

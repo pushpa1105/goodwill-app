@@ -41,13 +41,13 @@ export const CourseCard = ({
           />
         </div>
         <div className="flex flex-col pt-2">
-          <div className="text-lg md:text-base font-bold  group-hover:text-sky-700 transition line-clamp-2">
+          <div className="text-lg md:text-base font-extrabold  group-hover:text-sky-700 transition line-clamp-2 text-theme">
             {title}
           </div>
           <p className="text-xs text-muted-foreground">{category}</p>
           <p className="text-xs py-2">{description}</p>
           <div className="my-3 flex items-center gap-x-2 text-sm md:text-xs">
-            <div className="flex items-center gap-x-1 text-slate-500">
+            <div className="flex items-center gap-x-1 text-theme font-semibold">
               <IconBadge size="sm" icon={BookOpen} />
               <span>
                 {chaptersLength} {chaptersLength === 1 ? "Chapter" : "Chapters"}
@@ -62,7 +62,7 @@ export const CourseCard = ({
             />
           )}
           {isFree ? (
-            <Badge className="bg-sky-700 w-[55px]">Free</Badge>
+            <Badge className="bg-theme font-medium w-[55px]">Free</Badge>
           ) : (
             <p className="text-md md:text-sm font-medium text-slate-700">
               {formatPrice(price)}

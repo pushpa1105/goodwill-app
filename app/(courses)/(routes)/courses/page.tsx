@@ -8,6 +8,8 @@ import { CoursesList } from "@/components/courses-list";
 import { LanguagePreference } from "./_components/language-preference";
 import { SwitchLanguage } from "./_components/switch-language";
 import { NavBar } from "../../_components/navbar";
+import { getBlogs } from "@/actions/get-blogs";
+import { Blog, BlogCategory } from "@prisma/client";
 
 interface CoursesPageProps {
   searchParams: {
@@ -40,6 +42,12 @@ const Courses = async ({ searchParams }: CoursesPageProps) => {
     ...searchParams,
   });
 
+  const latestBlogs = (await getBlogs({})) as Array<
+  Blog & {
+    category: BlogCategory;
+  }
+>;
+
   return (
     <div className="h-full">
       <div className="h-[80px] fixed inset-y-0 w-full z-50 ">
@@ -52,7 +60,7 @@ const Courses = async ({ searchParams }: CoursesPageProps) => {
           ) : (
             <div className="p-6 w-full lg:w-[75%] m-auto">
               <div className="flex flex-wrap items-center justify-between p-2">
-                <div className="w-full md:w-auto text-xl font-bold mb-2">
+                <div className="w-full md:w-auto text-2xl font-extrabold mb-2 text-theme">
                   Browse Courses
                 </div>
                 <div className="flex flex-wrap w-full md:w-auto">
@@ -61,7 +69,7 @@ const Courses = async ({ searchParams }: CoursesPageProps) => {
                 </div>
               </div>
               <Categories items={categories} />
-              <CoursesList items={courses} lang={user?.lang} />
+              <CoursesList items={courses} lang={user?.lang} latestBlogs={latestBlogs.slice(0,4)}/>
             </div>
           )}
         </>
