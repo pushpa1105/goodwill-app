@@ -43,10 +43,10 @@ const Courses = async ({ searchParams }: CoursesPageProps) => {
   });
 
   const latestBlogs = (await getBlogs({})) as Array<
-  Blog & {
-    category: BlogCategory;
-  }
->;
+    Blog & {
+      category: BlogCategory;
+    }
+  >;
 
   return (
     <div className="h-full">
@@ -69,7 +69,11 @@ const Courses = async ({ searchParams }: CoursesPageProps) => {
                 </div>
               </div>
               <Categories items={categories} />
-              <CoursesList items={courses} lang={user?.lang} latestBlogs={latestBlogs.slice(0,4)}/>
+              <CoursesList
+                items={courses}
+                lang={user?.lang}
+                latestBlogs={latestBlogs.slice(0, 4)}
+              />
             </div>
           )}
         </>
