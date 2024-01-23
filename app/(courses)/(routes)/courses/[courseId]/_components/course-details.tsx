@@ -63,10 +63,10 @@ export const CourseDetails = ({
             <FileStack size={20} className="mr-2" />
             Downloadable resources
           </li>
-          <li className="flex p-4 border-b border-gray text-sm text-center">
+          {/* <li className="flex p-4 border-b border-gray text-sm text-center">
             <MedalIcon size={20} className="mr-2" />
             Certificate of completion
-          </li>
+          </li> */}
         </ul>
       </div>
       {enrolled ? (
