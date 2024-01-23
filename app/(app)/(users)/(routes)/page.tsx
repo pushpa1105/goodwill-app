@@ -5,8 +5,6 @@ import { Button } from "@/components/ui/button";
 import { LandingCarousel } from "../_components/landing-carousel";
 import { db } from "@/lib/db";
 import { CourseCarousel } from "../_components/course-carousel";
-import { auth } from "@clerk/nextjs";
-import { redirect } from "next/navigation";
 import Link from "next/link";
 
 const LandingPage = async () => {
@@ -47,7 +45,7 @@ const LandingPage = async () => {
             <h1 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-white leading-normal lg:mt-4">
               with free courses
             </h1>
-            <Link href="/courses">
+            <Link href="/courses" >
               <Button
                 size="lg"
                 className="rounded-full mt-4 bg-gradient-to-r from-custompurlple to-custompurlplelight shadow-lg text-xl font-bold"

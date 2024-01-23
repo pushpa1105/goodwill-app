@@ -40,14 +40,13 @@ export const NavbarRoutes = () => {
   const { userId } = useAuth();
   const isAdminPage = pathname?.startsWith("/admin");
   return (
-    <>
-      <div className="flex justify-between w-full">
-        <div className="hidden lg:flex">Logo here</div>
-        <div className="hidden md:flex">
-          <ul className="hidden lg:flex col-start-4 col-end-8 text-black-500  items-center">
-            {pageRoutes.map((r) => (
+    <div className="flex justify-between w-full">
+      <div className="hidden lg:flex">Logo here</div>
+      <div className="hidden md:flex">
+        <ul className="hidden lg:flex col-start-4 col-end-8 text-black-500  items-center">
+          {pageRoutes.map((r) => (
+            <li key={r.label}>
               <Link
-                key={r.label}
                 href={r.href}
                 onClick={() => {
                   setActiveLink(r.label);
@@ -61,42 +60,42 @@ export const NavbarRoutes = () => {
               >
                 {r.label}
               </Link>
-            ))}
-          </ul>
-        </div>
-        <div className="flex gap-x-2 ml-auto md:ml-0">
-          {isAdminPage ? (
-            <Link href="/blogs">
-              <Button>
-                <LogOut className="h-4 w-4 mr-2" />
-                Exit
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="flex gap-x-2 ml-auto md:ml-0">
+        {isAdminPage ? (
+          <Link href="/blogs">
+            <Button>
+              <LogOut className="h-4 w-4 mr-2" />
+              Exit
+            </Button>
+          </Link>
+        ) : (
+          isAdmin(userId) && (
+            <Link href="/admin/blogs">
+              <Button size="sm" variant="ghost">
+                Admin Mode
               </Button>
             </Link>
-          ) : (
-            isAdmin(userId) && (
-              <Link href="/admin/blogs">
-                <Button size="sm" variant="ghost">
-                  Admin Mode
-                </Button>
-              </Link>
-            )
-          )}
-          {userId && <UserButton afterSignOutUrl="/" />}
-          {!userId && (
-            <>
-              <Link
-                href="/sign-in"
-                className="text-black-600 mx-2 sm:mx-4 capitalize tracking-wide hover:text-slate-500 transition-all"
-              >
-                  Sign In
-              </Link>
-              <Link href="/sign-up">
-                <Button>Sign Up</Button>
-              </Link>
-            </>
-          )}
-        </div>
+          )
+        )}
+        {userId && <UserButton afterSignOutUrl="/" />}
+        {!userId && (
+          <>
+            <Link
+              href="/sign-in"
+              className="text-black-600 mx-2 sm:mx-4 capitalize tracking-wide hover:text-slate-500 transition-all"
+            >
+                Sign In
+            </Link>
+            <Link href="/sign-up">
+              <Button>Sign Up</Button>
+            </Link>
+          </>
+        )}
       </div>
-    </>
+    </div>
   );
 };
