@@ -7,16 +7,16 @@ import { Button } from "@/components/ui/button";
 export const ZoomComponent: React.FC = () => {
   const [signature, setSignature] = useState<string>("");
 
-  const authEndpoint = "http://localhost:4000";
+  const authEndpoint = "/api/zoom/signature";
   const sdkKey = "iZ3QRssuQdSGYeJ2HJrD6g";
-  const meetingNumber = "875 3920 3273";
-  const passWord = "iQ1h5U";
+  const meetingNumber = "853 7434 9324";
+  const passWord = "tty99d";
   const role = 0;
   const userName = "Tester";
   const userEmail = "";
   const registrantToken = "";
   const zakToken = "";
-  const leaveUrl = "http://localhost:3000";
+  const leaveUrl = "/";
 
   const getSignature = async () => {
     try {
