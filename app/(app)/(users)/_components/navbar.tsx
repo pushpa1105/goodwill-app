@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { UserButton, useAuth } from "@clerk/nextjs";
+import { Logo } from "@/components/logo";
 
 const NavBar = () => {
   const { userId } = useAuth();
@@ -24,10 +25,8 @@ const NavBar = () => {
         }
       >
         <nav className="max-w-screen-xl px-6 sm:px-8 lg:px-16 mx-auto grid grid-flow-col py-3 sm:py-4">
-          <div className="col-start-1 col-end-2 flex items-center">
-            {/* <LogoVPN className="h-8 w-auto" /> */}
-            {/* <Image height={130} width={130} alt="logo" src="/logo.svg" /> */}
-            Goodwill Logo
+          <div className="col-start-1 col-end-2 flex items-center w-10 lg:w-20">
+            <Logo/>
           </div>
           {/* <ul className="hidden lg:flex col-start-4 col-end-8 text-black-500  items-center">
             <Link

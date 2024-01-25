@@ -14,16 +14,16 @@ export const SectionOne = () => {
                   <div className="pt-5 lg:pb-10 pb-3">
                     <div>
                       <p className="lg:text-5xl text-3xl text-[#dadada] text-center md:text-left lg:leading-[56px] leading-[35px] font-CircularMedium">
-                        Lightning Fast Way to
+                        Invest Smart, Invest Fast
                       </p>
                       <h1 className="text-[#13B078] lg:text-5xl text-3xl font-CircularMedium text-center md:text-left">
-                        Open Demat Account
+                        Your Demat Journey Starts Now.
                       </h1>
                     </div>
                   </div>
                   <br />
                   <p className="lg:text-lg text-sm text-center md:text-left text-white font-CircularRegular">
-                    Zero Demat Account Opening Fees. No AMC for life!
+                    Zero Demat account opening fees & ₹11 per trade
                   </p>
                   <br />
                   <div className="flex justify-center lg:justify-start md:justify-start lg:pb-10 pb-1 items-center">
@@ -53,9 +53,9 @@ export const SectionOne = () => {
                 <div className="lg:flex md:flex hidden">
                   <div className="flex items-center pt-5 lg:pb-10 pb-5">
                     <img
-                      src="https://stock-logos.dhan.co/static-openweb/light2.png"
+                      src="/lighting.png"
                       alt="lightnng"
-                      className="lg:w-7 md:w-5 w-12"
+                      className="lg:w-[16%] md:w-[15%] w-12"
                     />
                     <p className="lg:text-sm md:text-xs text-sm text-[#DEDEDE] pl-2 font-CircularBook">
                       Lightning Fast

@@ -7,6 +7,7 @@ import { LogOut } from "lucide-react";
 import Link from "next/link";
 import { isAdmin } from "@/lib/admin";
 import { useState } from "react";
+import { Logo } from "@/components/logo";
 
 const pageRoutes = [
   {
@@ -40,8 +41,10 @@ export const NavbarRoutes = () => {
   const { userId } = useAuth();
   const isAdminPage = pathname?.startsWith("/admin");
   return (
-    <div className="flex justify-between w-full">
-      <div className="hidden lg:flex">Logo here</div>
+    <div className="flex justify-between w-[88%] mx-auto">
+      <div className="hidden lg:flex items-center">
+        <Logo />
+      </div>
       <div className="hidden md:flex">
         <ul className="hidden lg:flex col-start-4 col-end-8 text-black-500  items-center">
           {pageRoutes.map((r) => (
@@ -64,7 +67,7 @@ export const NavbarRoutes = () => {
           ))}
         </ul>
       </div>
-      <div className="flex gap-x-2 ml-auto md:ml-0">
+      <div className="flex gap-x-2 ml-auto md:ml-0 items-center">
         {isAdminPage ? (
           <Link href="/blogs">
             <Button>

@@ -9,7 +9,9 @@ export const SectionFour = () => {
           <div className="hidden lg:flex md:flex justify-center pb-5">
             <h2 className="text-[#363636] lg:text-3xl text-2xl font-CircularMedium text-center">
               Experience More at
-              <span className="text-[#7f66e9] ml-2 font-bold">Industry Standard Prices</span>
+              <span className="text-[#7f66e9] ml-2 font-bold">
+                Industry Standard Prices
+              </span>
             </h2>
             <br />
           </div>
@@ -27,27 +29,24 @@ export const SectionFour = () => {
                   <p className="text-[#DADADA] font-CircularMedium text-lg">
                     For Account Opening,
                   </p>
-                  <p className="text-[#DADADA] font-CircularMedium text-lg">
-                    AMC &amp; Platform Fees
-                  </p>
                   <div className="pt-3.5">
                     <p className="text-[#919BC6] font-CircularRegular text-sm">
-                      Open free account with zero AMC or platform fees.
+                      Zero Accounting opening fees and online assistance for
+                      account opening
                     </p>
                   </div>
                   <div></div>
                   <div
                     className="absolute left-20 -bottom-4 -right-1"
                     title="slab"
-                  >
-                    pushpa
-                  </div>
-                  <div className="">
+                  ></div>
+                  <div className="absolute flex right-6 bottom-4">
                     <img
-                      className="absolute w-24 right-6 bottom-4"
-                      src="https://stock-logos.dhan.co/static-new-images/zeronew.svg"
+                      className="w-10 h-10"
+                      src="/rupee.png"
                       alt="moneyimg.png"
                     />
+                    <p className="text-white text-8xl font-bold">0</p>
                   </div>
                 </div>
                 <div className="bg-[#083996] rounded-xl p-6 relative overflow-hidden pricing-card !h-80">
@@ -55,7 +54,7 @@ export const SectionFour = () => {
                     For Equity Delivery,
                   </p>
                   <p className="text-[#DADADA] font-CircularMedium text-lg">
-                    ETFs, IPO &amp; Mutual Funds
+                    ETFs,
                   </p>
                   <div className="pt-3.5">
                     <p className="text-[#919BC6] font-CircularRegular text-sm">
@@ -69,12 +68,13 @@ export const SectionFour = () => {
                   >
                     psuhpa
                   </div>
-                  <div className="">
+                  <div className="absolute flex right-6 bottom-4">
                     <img
-                      className="absolute w-24 right-6 bottom-4"
-                      src="https://stock-logos.dhan.co/static-new-images/zeronew.svg"
+                      className="w-10 h-10"
+                      src="/rupee.png"
                       alt="moneyimg.png"
                     />
+                    <p className="text-white text-8xl font-bold">0</p>
                   </div>
                 </div>
                 <div className="bg-[#083996] rounded-xl p-6 relative overflow-hidden pricing-card !h-80">
@@ -86,22 +86,21 @@ export const SectionFour = () => {
                   </p>
                   <div className="pt-3.5">
                     <p className="text-[#919BC6] font-CircularRegular text-sm">
-                      ₹20 or 0.03% of trade value per executed order, whichever
+                      ₹12 or 0.02%of trade value per executed order, whichever
                       is lower.
                     </p>
                   </div>
                   <div
                     className="absolute left-20 -bottom-4 -right-1"
                     title="slab"
-                  >
-                    psuhap
-                  </div>
-                  <div className="">
+                  ></div>
+                  <div className="absolute flex right-6 bottom-4">
                     <img
-                      className="absolute w-32 right-6 bottom-4"
-                      src="https://stock-logos.dhan.co/static-new-images/twentynew.svg"
+                      className="w-10 h-10"
+                      src="/rupee.png"
                       alt="moneyimg.png"
                     />
+                    <p className="text-white text-8xl font-bold">12</p>
                   </div>
                 </div>
                 <div className="bg-[#083996] rounded-xl p-6 relative overflow-hidden pricing-card !h-80">
@@ -113,22 +112,21 @@ export const SectionFour = () => {
                   </p>
                   <div className="pt-3.5">
                     <p className="text-[#919BC6] font-CircularRegular text-sm">
-                      ₹20 of trade value per executed order for equity,
-                      commodity &amp; currency options.
+                      ₹12 or 0.02%of trade value per executed order, whichever
+                      is lower.
                     </p>
                   </div>
                   <div
                     className="absolute left-20 -bottom-4 -right-1"
                     title="slab"
-                  >
-                    pushpa
-                  </div>
-                  <div className="">
+                  ></div>
+                  <div className="absolute flex right-6 bottom-4">
                     <img
-                      className="absolute w-32 right-6 bottom-4"
-                      src="https://stock-logos.dhan.co/static-new-images/twentynew.svg"
+                      className="w-10 h-10"
+                      src="/rupee.png"
                       alt="moneyimg.png"
                     />
+                    <p className="text-white text-8xl font-bold">12</p>
                   </div>
                 </div>
               </div>
@@ -137,12 +135,6 @@ export const SectionFour = () => {
               <p className="text-[#777777] font-CircularMedium text-sm">
                 No hidden charges, ever!
               </p>
-              <Link
-                href="/"
-                className="text-theme font-CircularMedium text-sm"
-              >
-                View Pricing In Detail
-              </Link>
             </div>
           </div>
         </section>

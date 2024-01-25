@@ -13,64 +13,52 @@ export const SectionTwo = () => {
             <div className="rounded-[16px] border border-[#dadada] p-3">
               <div className="flex justify-center lg:justify-start">
                 <img
-                  src="https://stock-logos.dhan.co/static-openweb/dhandematmedpic.svg"
+                  src="/support.png"
                   alt="icon1"
-                  className="w-10 h-auto"
+                  className="w-[20%] h-auto"
                 />
               </div>
               <h3 className="text-[#363636] pt-3 lg:text-xl text-lg text-center lg:text-left font-CircularMedium">
-                Dedicated Support 24x7
+                24/7 Support
               </h3>
               <p className="text-[#8E8E8E] pt-2 text-sm text-center lg:text-left font-CircularBook">
-                Our support team is always on standby to help you on call &amp;
-                text
+                Available round the clock. Call or text — we are here for you.
               </p>
             </div>
             <div className="rounded-[16px] border border-[#dadada] p-3">
               <div className="flex justify-center lg:justify-start">
-                <img
-                  src="https://stock-logos.dhan.co/static-openweb/clock.svg"
-                  alt="icon1"
-                  className="w-auto h-auto"
-                />
+                <img src="/time.png" alt="icon1" className="w-[20%] h-auto" />
               </div>
               <h3 className="text-[#363636] pt-3 lg:text-xl text-lg text-center lg:text-left font-CircularMedium">
-                Online Account Opening
+                Fast Account Opening
               </h3>
               <p className="text-[#8E8E8E] pt-2 text-sm text-center lg:text-left font-CircularBook">
-                Start using Dhan in less than 10 minutes from your phone or
-                desktop
+                Begin your Giga journey in under 10 minutes, seamlessly from
+                your phone or desktop.
               </p>
             </div>
             <div className="rounded-[16px] border border-[#dadada] p-3">
               <div className="flex justify-center lg:justify-start">
-                <img
-                  src="https://stock-logos.dhan.co/static-openweb/como-2.svg"
-                  alt="icon1"
-                  className="w-10 h-auto"
-                />
+                <img src="/trade.png" alt="icon1" className="w-[20%] h-auto" />
               </div>
               <h3 className="text-[#363636] pt-3 lg:text-xl text-lg text-center lg:text-left font-CircularMedium">
-                We are #MadeForTrade
+                Crafting for traders
               </h3>
               <p className="text-[#8E8E8E] pt-2 text-sm text-center lg:text-left font-CircularBook">
-                Building industry first features for Indias traders &amp;
-                investors
+                Industry-first features for India&apos;s trading community. Join
+                the innovation revolution
               </p>
             </div>
             <div className="rounded-[16px] border border-[#dadada] p-3">
               <div className="flex justify-center lg:justify-start">
-                <img
-                  src="https://stock-logos.dhan.co/static-openweb/shield.svg"
-                  alt="icon1"
-                  className="w-10 h-auto"
-                />
+                <img src="/shield.png" alt="icon1" className="w-10 h-auto" />
               </div>
               <h3 className="text-[#363636] pt-3 lg:text-xl text-lg text-center lg:text-left font-CircularMedium">
-                Reliable &amp; Transparent
+                Crafting for traders
               </h3>
               <p className="text-[#8E8E8E] pt-2 text-sm text-center lg:text-left font-CircularBook">
-                SEBI registered - Millions of users already trust us
+                Industry-first features for India&apos;s trading community. Join
+                the innovation revolution
               </p>
             </div>
           </div>
