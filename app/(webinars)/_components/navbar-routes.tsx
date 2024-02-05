@@ -42,7 +42,7 @@ export const NavbarRoutes = () => {
   const isAdminPage = pathname?.startsWith("/admin");
   return (
     <div className="flex justify-between w-[88%] mx-auto">
-      <div className="hidden lg:flex items-center">
+      <div className="lg:flex items-center">
         <Logo />
       </div>
       <div className="hidden md:flex">

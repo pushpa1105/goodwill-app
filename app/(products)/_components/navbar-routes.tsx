@@ -43,7 +43,7 @@ export const NavbarRoutes = () => {
   return (
     <>
     <div className="flex justify-between w-[88%] mx-auto">
-      <div className="hidden lg:flex items-center">
+      <div className="lg:flex items-center">
         <Logo />
       </div>
         <div className="hidden md:flex">

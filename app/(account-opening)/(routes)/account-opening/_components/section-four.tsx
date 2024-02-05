@@ -86,7 +86,7 @@ export const SectionFour = () => {
                   </p>
                   <div className="pt-3.5">
                     <p className="text-[#919BC6] font-CircularRegular text-sm">
-                      ₹12 or 0.02%of trade value per executed order, whichever
+                      ₹11 or 0.02%of trade value per executed order, whichever
                       is lower.
                     </p>
                   </div>
@@ -100,7 +100,7 @@ export const SectionFour = () => {
                       src="/rupee.png"
                       alt="moneyimg.png"
                     />
-                    <p className="text-white text-8xl font-bold">12</p>
+                    <p className="text-white text-8xl font-bold">11</p>
                   </div>
                 </div>
                 <div className="bg-[#083996] rounded-xl p-6 relative overflow-hidden pricing-card !h-80">
@@ -112,7 +112,7 @@ export const SectionFour = () => {
                   </p>
                   <div className="pt-3.5">
                     <p className="text-[#919BC6] font-CircularRegular text-sm">
-                      ₹12 or 0.02%of trade value per executed order, whichever
+                      ₹11 or 0.02%of trade value per executed order, whichever
                       is lower.
                     </p>
                   </div>
@@ -126,7 +126,7 @@ export const SectionFour = () => {
                       src="/rupee.png"
                       alt="moneyimg.png"
                     />
-                    <p className="text-white text-8xl font-bold">12</p>
+                    <p className="text-white text-8xl font-bold">11</p>
                   </div>
                 </div>
               </div>
