@@ -34,7 +34,7 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
 
-##Developer Notes
+## Developer Notes
 
 npx prisma studio   ---> to view database
 
@@ -47,20 +47,7 @@ FOR reseting db
 
 npx prisma migrate reset
 
-
-##For Stripe
-
-Email => zedme05@gmail.com
-pass => Ola@Test@123
-autheticator code = >kcjd-mwqm-flpg-reul-ojje
-
-
-###Run stripe CLI for dev(requires installation of stripe cli-->https://dashboard.stripe.com/test/webhooks/create?endpoint_location=local)
-
-1. stripe login
-2. stripe listen --forward-to localhost:3000/api/webhook
-
-
-##Admin
+## Admin
 email => zedme05@gmail.com
 pass=> Zedme@123
+
