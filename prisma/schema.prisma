@@ -19,14 +19,16 @@ model User {
   lang        String?
   name        String?
   email       String?
+  phone       String?
   imageUrl    String?
   phoneNumber String?
 
-  createdAt       DateTime           @default(now())
-  updatedAt       DateTime           @updatedAt
-  reviews         Review[]
-  comments        Comment[]
-  enrolledCourses CourseEnrollment[]
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+  reviews          Review[]
+  comments         Comment[]
+  enrolledCourses  CourseEnrollment[]
+  enrolledWebinars WebinarEnrollment[]
 }
 
 model Course {
@@ -300,6 +302,8 @@ model Webinar {
   speakerId String?
   speaker   Speaker? @relation(fields: [speakerId], references: [id])
 
+  enrollers WebinarEnrollment[]
+
   meetingId       String?
   meetingPassword String?
   leaveUrl        String?
@@ -346,4 +350,24 @@ model CourseEnrollment {
 
   @@unique([userId, courseId])
   @@index([courseId, userId])
+}
+
+model WebinarEnrollment {
+  id String @id @default(uuid())
+
+  userId String?
+  user   User?   @relation(fields: [userId], references: [externalId], onDelete: Cascade)
+
+  webinarId String
+  webinar   Webinar @relation(fields: [webinarId], references: [id], onDelete: Cascade)
+
+  name  String @db.Text
+  email String @db.Text
+  phone String @db.Text
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, webinarId])
+  @@index([webinarId, userId])
 }
