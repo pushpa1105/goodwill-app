@@ -77,7 +77,11 @@ export const columns: ColumnDef<Webinar>[] = [
     id: "Actions",
     cell: ({ row }) => {
       const { id } = row.original;
-      return <Link href="/webinars/1" className="text-theme text-md font-bold">Learn More</Link>;
+      return (
+        <Link href={`/webinars/${id}`} className="text-theme text-md font-bold">
+          Learn More
+        </Link>
+      );
     },
   },
 ];

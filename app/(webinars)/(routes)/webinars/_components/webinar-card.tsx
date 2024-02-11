@@ -21,14 +21,8 @@ export const WebinarCard = ({ webinar }: WebinarCardProps) => {
     <div className="p-4 m-4 md:my-8 rounded-lg bg-white landing-box-shadow">
       <div className="flex flex-wrap">
         <div className=" w-full md:w-[80%] mt-4 md:px-4">
-          <div className="flex flex-wrap gap-x-4 gap-y-2 mb-4">
-            <div className="bg-theme border border-indigo-400 text-white text-sm font-medium rounded-full px-2">
-              {webinar.level}
-            </div>
-            <div className="bg-theme border border-indigo-400 text-white text-sm  font-medium rounded-full px-2">
-              {webinar.language}
-            </div>
-            <div className="bg-theme border border-indigo-400 text-white text-sm rounded-full px-2 font-medium">
+          <div>
+            <div className="bg-theme  border border-indigo-400 text-white text-md rounded-lg px-2 font-medium mb-2 w-fit	">
               {webinar.startAt?.toLocaleString("en-US", {
                 year: "numeric",
                 day: "numeric",
@@ -39,6 +33,14 @@ export const WebinarCard = ({ webinar }: WebinarCardProps) => {
                 timeZoneName: "short",
                 timeZone: "Asia/Kolkata", // India's time zone
               })}
+            </div>
+          </div>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 mb-4">
+            <div className="bg-theme border border-indigo-400 text-white text-sm font-medium rounded-full px-2">
+              {webinar.level}
+            </div>
+            <div className="bg-theme border border-indigo-400 text-white text-sm  font-medium rounded-full px-2">
+              {webinar.language}
             </div>
           </div>
           <div className="my-4">

@@ -59,7 +59,6 @@ export async function PATCH(
     const webinar = await db.webinar.update({
       where: {
         id: webinarId,
-        userId,
       },
       data: {
         ...values,

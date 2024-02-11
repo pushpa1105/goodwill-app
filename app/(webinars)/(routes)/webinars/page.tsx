@@ -19,7 +19,16 @@ const WebinarPage = async () => {
   const webinars = await db.webinar.findMany({
     where: {
       isPublished: true,
-      status:'completed'
+      OR: [
+        {
+          startAt: {
+            lt: new Date(),
+          },
+        },
+        {
+          status: "completed",
+        },
+      ],
     },
   });
 
@@ -36,7 +45,7 @@ const WebinarPage = async () => {
                 </h1>
               </div>
               <div className="shadow-xl px-2 rounded-lg bg-white landing-box-shadow mb-4">
-              <DataTable columns={columns} data={webinars} />
+                <DataTable columns={columns} data={webinars} />
               </div>
             </div>
           </div>

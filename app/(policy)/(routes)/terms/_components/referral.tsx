@@ -35,7 +35,7 @@ export const Referral = () => {
             Trading account with Goodwill.
           </p>
           <p className="text-[#8E8E8E]  md:text-base text-sm">
-          “Referee(s)“ - for the purposes of this offer shall be the
+          “Referee(s)” - for the purposes of this offer shall be the
             individual who has been referred for opening his/her Trading account
             with Goodwill. by the Referrer.
           </p>
@@ -44,7 +44,7 @@ export const Referral = () => {
             of crediting Referral amount
           </p>
           <p className="text-[#8E8E8E]  md:text-base text-sm">
-            “Referral Program“ - shall mean the online platform under which the
+            “Referral Program” - shall mean the online platform under which the
             Referrer(s) shall refer the Referee(s) for opening Trading Account
           </p>
           <p className="text-[#8E8E8E]  md:text-base text-sm">

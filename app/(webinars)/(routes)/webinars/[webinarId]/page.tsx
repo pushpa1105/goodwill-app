@@ -31,7 +31,16 @@ const WebinarPage = async ({ params }: { params: { webinarId: string } }) => {
               {webinar.language}
             </div>
             <div className="bg-theme border border-indigo-400 text-white text-sm rounded-full px-2 font-medium px-4 py-2">
-              {webinar.startAt?.toISOString()}
+              {webinar.startAt?.toLocaleString("en-US", {
+                year: "numeric",
+                day: "numeric",
+                month: "short",
+                hour: "numeric",
+                minute: "numeric",
+                hour12: true,
+                timeZoneName: "short",
+                timeZone: "Asia/Kolkata", // India's time zone
+              })}
             </div>
           </div>
           <div>
@@ -58,11 +67,13 @@ const WebinarPage = async ({ params }: { params: { webinarId: string } }) => {
                 <Preview value={webinar.learnings!} />
               </div>
               <div className="mt-4">
-                <SubscriptionModal webinarId={webinar.id}>
-                  <Button className="rounded-full bg-theme border border-violet-800 before:ease relative h-full w-full xl:h-35 xl:w-40 font-semibold shadow-lg text-md shadow-xl  overflow-hidden text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-green-500 hover:before:-translate-x-40">
-                    <span className="relative z-10">Subscribe</span>
-                  </Button>
-                </SubscriptionModal>
+                {new Date(webinar.startAt!!) > new Date() && (
+                  <SubscriptionModal webinar={webinar}>
+                    <Button className="rounded-full bg-theme border border-violet-800 before:ease relative h-full w-full xl:h-35 xl:w-40 font-semibold shadow-lg text-md shadow-xl  overflow-hidden text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-green-500 hover:before:-translate-x-40">
+                      <span className="relative z-10">Subscribe</span>
+                    </Button>
+                  </SubscriptionModal>
+                )}
               </div>
             </div>
             <div className="shadow-xl landing-box-shadow md:py-8 m p-2 md:mx-0 mt-8 rounded-lg bg-white w-full">
