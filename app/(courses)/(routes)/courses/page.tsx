@@ -10,6 +10,7 @@ import { SwitchLanguage } from "./_components/switch-language";
 import { NavBar } from "../../_components/navbar";
 import { getBlogs } from "@/actions/get-blogs";
 import { Blog, BlogCategory } from "@prisma/client";
+import { Footer } from "@/components/footer";
 
 interface CoursesPageProps {
   searchParams: {
@@ -76,6 +77,7 @@ const Courses = async ({ searchParams }: CoursesPageProps) => {
               />
             </div>
           )}
+          <Footer />
         </>
       </main>
     </div>

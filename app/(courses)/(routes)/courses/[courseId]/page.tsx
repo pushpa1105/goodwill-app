@@ -11,6 +11,7 @@ import { CourseContent } from "./_components/course-content";
 import { CourseReviews } from "./_components/course-reviews";
 import { NavBar } from "@/app/(courses)/_components/navbar";
 import { hasEnrolled } from "@/actions/has-enrolled";
+import { Footer } from "@/components/footer";
 
 const CoursePage = async ({ params }: { params: { courseId: string } }) => {
   const { userId } = auth();
@@ -94,6 +95,7 @@ const CoursePage = async ({ params }: { params: { courseId: string } }) => {
           />
           <CourseReviews reviewData={reviewData} />
         </div>
+        <Footer />
       </main>
     </div>
   );

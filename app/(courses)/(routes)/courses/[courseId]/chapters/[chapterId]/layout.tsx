@@ -5,6 +5,7 @@ import { redirect, usePathname } from "next/navigation";
 import { CourseSidebar } from "../../_components/course-sidebar";
 import React from "react";
 import { CourseNavbar } from "../../_components/course-navbar";
+import { Footer } from "@/components/footer";
 
 const CourseLayout = async ({
   params,
@@ -47,7 +48,12 @@ const CourseLayout = async ({
       <div className="hidden md:flex h-full w-80 flex-col fixed inset-y-0 z-50">
         <CourseSidebar course={course} progressCount={progressCount} />
       </div>
-      <main className="md:pl-80 pt-[80px] h-full">{children}</main>
+      <main className="md:pl-80 pt-[80px] h-full">
+        <>
+          {children}
+          <Footer />
+        </>
+      </main>
     </div>
   );
 };

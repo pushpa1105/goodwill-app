@@ -1,3 +1,4 @@
+import { Footer } from "@/components/footer";
 import { NavBar } from "../_components/navbar";
 
 

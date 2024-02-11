@@ -5,6 +5,7 @@ import { NavBar } from "../../_components/navbar";
 import { getBlogs } from "@/actions/get-blogs";
 import { Blog, BlogCategory } from "@prisma/client";
 import { db } from "@/lib/db";
+import { Footer } from "@/components/footer";
 
 interface BlogPageProps {
   searchParams: {
@@ -42,6 +43,7 @@ const BlogsPage = async ({ searchParams }: BlogPageProps) => {
             <BlogsList blogs={blogs} popularBlogs={latestBlogs} />
           </div>
         </div>
+        <Footer/>
       </main>
     </>
   );
