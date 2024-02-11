@@ -12,6 +12,7 @@ import { CourseReviews } from "./_components/course-reviews";
 import { NavBar } from "@/app/(courses)/_components/navbar";
 import { hasEnrolled } from "@/actions/has-enrolled";
 import { Footer } from "@/components/footer";
+import { BackButton } from "@/components/back-button";
 
 const CoursePage = async ({ params }: { params: { courseId: string } }) => {
   const { userId } = auth();
@@ -49,6 +50,7 @@ const CoursePage = async ({ params }: { params: { courseId: string } }) => {
       </div>
       <main className="pt-[80px] h-full">
         <div className="p-6 w-full lg:w-[85%] m-auto">
+          <BackButton path="/courses" />
           <div className="flex flex-wrap items-center justify-between p-2 bg-linear-landing rounded mb-4">
             <div className="h-full flex-1 flex-col space-y-8 p-2 md:p-8 md:flex">
               <div className="flex items-center justify-between space-y-2 flex-wrap">

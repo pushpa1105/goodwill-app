@@ -11,6 +11,7 @@ import { NavBar } from "../../_components/navbar";
 import { getBlogs } from "@/actions/get-blogs";
 import { Blog, BlogCategory } from "@prisma/client";
 import { Footer } from "@/components/footer";
+// import { BackButton } from "@/components/back-button";
 
 interface CoursesPageProps {
   searchParams: {
@@ -60,6 +61,8 @@ const Courses = async ({ searchParams }: CoursesPageProps) => {
             <LanguagePreference />
           ) : (
             <div className="p-6 w-full lg:w-[75%] m-auto">
+              {/* <BackButton path="/" /> */}
+
               <div className="flex flex-wrap items-center justify-between p-2">
                 <div className="w-full md:w-auto text-2xl font-extrabold mb-2 text-theme">
                   Browse Courses

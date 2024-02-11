@@ -9,6 +9,8 @@ import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { UserButton, useAuth } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
+import { Logo } from "@/components/logo";
+import { BackButton } from "@/components/back-button";
 
 // add NavItem prop to component prop
 type Props = {
@@ -64,7 +66,11 @@ const Sidebar = ({
             "py-4 justify-center": collapsed,
           })}
         >
-          {!collapsed && <span className="whitespace-nowrap">My Logo</span>}
+          {!collapsed && (
+            <span className="whitespace-nowrap">
+              <Logo width={75} height={75} />
+            </span>
+          )}
           <button
             className="hidden md:grid place-content-center hover:bg-indigo-800 w-10 h-10 rounded-full"
             onClick={() => setCollapsed(!collapsed)}
@@ -196,6 +202,9 @@ const Sidebar = ({
                 </Link>
               </>
             )}
+            <div className="ml-auto mt-auto">
+            <BackButton path="/blogs"/>
+            </div>
           </div>
         </div>
       </div>
