@@ -30,7 +30,7 @@ export const ResearchReport = () => {
             of Rs 1000 p.m for Goodwill.
           </p>
           <p className="text-[#8E8E8E]  md:text-base text-sm">
-            Example A :If in one month the AP generates say Rs.2000 GW's share @
+            Example A :If in one month the AP generates say Rs.2000 GW&apos;s share @
             30% works out to be Rs 600 only.But minimum clause stipulates Rs
             1000. Hence AP will get Rs 1000 and GW Rs 1000
           </p>

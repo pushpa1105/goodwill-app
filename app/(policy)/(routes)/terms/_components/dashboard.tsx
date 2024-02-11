@@ -52,7 +52,7 @@ export const Dashboard = () => {
             <li>
               {" "}
               Off-Market Instruction not received prior to 24 hours of execution
-              will be received at client's risk.
+              will be received at client&apos;s risk.
             </li>
             <li>
               {" "}
