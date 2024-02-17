@@ -51,6 +51,10 @@ const pageRoutes = [
     label: "Webinars",
     href: "/webinars",
   },
+  {
+    label: "About us",
+    href: "/about-us",
+  },
 ];
 
 export const SidebarRoutes = () => {
