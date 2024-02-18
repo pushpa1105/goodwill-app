@@ -20,7 +20,7 @@ const WebinarPage = async ({ params }: { params: { webinarId: string } }) => {
     },
   })) as WebinarWithSpeaker;
   return (
-    <div className="bg-theme min-h-[100vh]">
+    <div className="bg-theme min-h-[98.4vh]">
       {webinar && (
         <div className="max-w-auto md:max-w-[75%] m-auto p-4 h-full">
           <div className="flex flex-wrap gap-x-4 gap-y-2 py-4">

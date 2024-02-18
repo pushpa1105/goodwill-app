@@ -1,6 +1,14 @@
 "use client";
 
-import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+  DropdownMenuGroup
+} from "@/components/ui/dropdown-menu"
 // Import useUser() and useClerk()
 import { useUser, useClerk } from "@clerk/nextjs";
 // Import Next's router
@@ -27,8 +35,8 @@ export const UserButton = ({ user: currentUser }: { user: User | null }) => {
   if (!user?.id) return null;
 
   return (
-    <DropdownMenu.Root>
-      <DropdownMenu.Trigger asChild>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
         {/* Render a button using the image and email from `user` */}
         <button className="clerk-userbtn flex flex-row rounded-xl  bg-white px-4 py-3 text-black">
           <Image
@@ -42,50 +50,53 @@ export const UserButton = ({ user: currentUser }: { user: User | null }) => {
             ? user.username
             : user?.primaryEmailAddress?.emailAddress!} */}
         </button>
-      </DropdownMenu.Trigger>
-      <DropdownMenu.Portal>
-        <DropdownMenu.Content className="mt-4 w-52 rounded-xl border border-gray-200 bg-white px-6 py-4 text-black drop-shadow-2xl !z-50">
-          <DropdownMenu.Label />
-          <DropdownMenu.Item asChild>
-            <div className="text-sm font-light">
-              {user?.username
-                ? user.username
-                : user?.primaryEmailAddress?.emailAddress!}
+      </DropdownMenuTrigger>
+        <DropdownMenuContent className="w-50 rounded-xl border border-gray-200 bg-white px-6 py-4 text-black drop-shadow-2xl !z-50">
+          <DropdownMenuLabel />
+          <DropdownMenuItem asChild>
+            <div className="flex flex-wrap justify-center">
+              <Image
+                alt={user?.primaryEmailAddress?.emailAddress!}
+                src={user?.imageUrl}
+                width={20}
+                height={20}
+                className="mr-2 rounded-full border border-gray-200 drop-shadow-sm mb-2"
+              />
+              <div className="text-xs m-auto font-light">
+                {user?.username
+                  ? user.username
+                  : user?.primaryEmailAddress?.emailAddress!}
+              </div>
             </div>
-          </DropdownMenu.Item>
-          <DropdownMenu.Separator className="my-1 h-px bg-gray-500" />
-          <DropdownMenu.Group className="py-3">
-            <DropdownMenu.Item asChild className="w-[100%] text-start">
-              {/* Create a button with an onClick to open the User Profile modal */}
+          </DropdownMenuItem>
+          <DropdownMenuSeparator className="my-1 h-px bg-gray-500" />
+          <DropdownMenuGroup className="py-3">
+            <DropdownMenuItem asChild className="w-[100%] text-start">
               <Button
                 onClick={() => openUserProfile()}
-                className="pb-3 text-black justify-start pl-0"
+                className="pb-3 w-full text-black justify-start pl-0 bg-white hover:bg-slate-100"
               >
                 Profile
               </Button>
-            </DropdownMenu.Item>
-            <DropdownMenu.Item asChild className="w-[100%] text-start">
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild className="w-[100%] text-start">
               <PhoneModal user={currentUser}>
-                <Button
-                  className="pb-3 text-black justify-start pl-0 text-start"
-                >
-                  Change Phone Number
+                <Button className="pb-3 w-full text-black justify-start pl-0 text-start bg-white hover:bg-slate-100">
+                  Change Number
                 </Button>
               </PhoneModal>
-            </DropdownMenu.Item>
-          </DropdownMenu.Group>
-          <DropdownMenu.Separator className="my-1 h-px bg-gray-500" />
-          <DropdownMenu.Item asChild>
-            {/* Create a Sign Out button -- signOut() takes a call back where the user is redirected */}
+            </DropdownMenuItem>
+          </DropdownMenuGroup>
+          <DropdownMenuSeparator className="my-1 h-px bg-gray-500" />
+          <DropdownMenuItem asChild>
             <button
               onClick={() => signOut(() => router.push("/"))}
-              className="py-3"
+              className="py-3 w-full"
             >
               Sign Out{" "}
             </button>
-          </DropdownMenu.Item>
-        </DropdownMenu.Content>
-      </DropdownMenu.Portal>
-    </DropdownMenu.Root>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+    </DropdownMenu>
   );
 };

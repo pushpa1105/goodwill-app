@@ -7,6 +7,20 @@ body,
 :root {
   height: 100%;
   scroll-behavior: smooth;
+  overflow: auto !important;
+}
+
+body::-webkit-scrollbar {
+  width: 5px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: rgb(194, 194, 194);
+  border-radius: 5px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(194, 194, 194);
 }
 
 @layer base {

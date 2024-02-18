@@ -34,7 +34,7 @@ const WebinarPage = async () => {
 
   return (
     <>
-      <div className="bg-[#083996] min-h-[100vh]">
+      <div className="bg-[#083996] min-h-[98.4vh]">
         <div className="flex flex-col justify-center max-w-auto md:max-w-[85%] m-auto">
           <div>
             <WebinarLists />

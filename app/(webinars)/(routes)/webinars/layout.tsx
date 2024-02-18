@@ -1,4 +1,4 @@
-import { NavBar } from "../../_components/navbar";
+import { NavBar } from "@/components/nav-items/navbar";
 
 const WebinarLayout = ({ children }: { children: React.ReactNode }) => {
   return (

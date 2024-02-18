@@ -97,10 +97,7 @@ body,
   }
 }
 
-/* react-quill  */
-.ql-container {
-  font-size: 16px !important;
-}
+@import "@/assets/styles/global.css";
 
 @import "~@uploadthing/react/styles.css";
 

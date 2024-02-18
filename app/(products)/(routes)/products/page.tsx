@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { NavBar } from "../../_components/navbar";
+import { NavBar } from "@/components/nav-items/navbar";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { ProductsCarousel } from "./_components/product-carousel";

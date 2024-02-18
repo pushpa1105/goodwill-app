@@ -7,7 +7,7 @@ import { Categories } from "./_components/categories";
 import { CoursesList } from "@/components/courses-list";
 import { LanguagePreference } from "./_components/language-preference";
 import { SwitchLanguage } from "./_components/switch-language";
-import { NavBar } from "../../_components/navbar";
+import { NavBar } from "@/components/nav-items/navbar";
 import { getBlogs } from "@/actions/get-blogs";
 import { Blog, BlogCategory } from "@prisma/client";
 import { Footer } from "@/components/footer";
