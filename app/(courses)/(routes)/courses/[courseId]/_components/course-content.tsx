@@ -1,6 +1,6 @@
 "use client";
 
-import { Chapter, Course, CourseVideo } from "@prisma/client";
+import { Chapter, Course, CourseVideo, User } from "@prisma/client";
 import { ChaptersList } from "./chapters-list";
 import { CourseDetails } from "./course-details";
 import { CourseMenuBar } from "./course-menu-bar";
@@ -15,12 +15,14 @@ interface CourseContentProps {
   };
   enrollerCount: number;
   enrolled: boolean;
+  user: User | null;
 }
 
 export const CourseContent = ({
   course,
   enrollerCount,
   enrolled,
+  user,
 }: CourseContentProps) => {
   const [activeLink, setActiveLink] = useState<string>("overview");
 
@@ -43,7 +45,7 @@ export const CourseContent = ({
             updateActiveTab={updateActiveTab}
           />
           <CourseSummary initialData={course} />
-          <ChaptersList items={course.chapters} enrolled={enrolled} />
+          <ChaptersList items={course.chapters} enrolled={enrolled} user={user}/>
         </div>
         <div className="space-y-6 sticky top-0">
           <div className="hidden md:block">
@@ -58,6 +60,7 @@ export const CourseContent = ({
             courseId={course.id!}
             enrollerCount={enrollerCount}
             enrolled={enrolled}
+            user={user}
           />
         </div>
       </div>

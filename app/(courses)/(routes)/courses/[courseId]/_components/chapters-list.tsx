@@ -1,14 +1,15 @@
 "use client";
 
-import { Chapter } from "@prisma/client";
+import { Chapter, User } from "@prisma/client";
 import { ChapterCard } from "./chapter-card";
 
 interface ChaptersListProps {
   items: Chapter[];
   enrolled: boolean;
+  user: User | null;
 }
 
-export const ChaptersList = ({ items, enrolled }: ChaptersListProps) => {
+export const ChaptersList = ({ items, enrolled, user }: ChaptersListProps) => {
   return (
     <div id="curriculum">
       <h1 className="text-3xl font-extrabold mb-4 ml-2 text-theme">
@@ -24,6 +25,7 @@ export const ChaptersList = ({ items, enrolled }: ChaptersListProps) => {
             courseId={item.courseId!}
             chapterNumber={index + 1}
             enrolled={enrolled}
+            user={user}
           />
         ))}
 

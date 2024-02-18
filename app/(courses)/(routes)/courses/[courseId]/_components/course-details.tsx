@@ -1,17 +1,26 @@
 import { EnrollConfirmModal } from "@/components/modals/enroll-confirm-modal";
 import { Button } from "@/components/ui/button";
-import { Course } from "@prisma/client";
+import { Course, User } from "@prisma/client";
 import axios from "axios";
-import { PlayIcon, KeyIcon, FileStack, MedalIcon, Play, PlayCircle } from "lucide-react";
+import {
+  PlayIcon,
+  KeyIcon,
+  FileStack,
+  MedalIcon,
+  Play,
+  PlayCircle,
+} from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { EnrollModal } from "./enroll-modal";
 
 interface CourseDetailsProps {
   id: string;
   courseId: string;
   enrollerCount: number;
   enrolled: boolean;
+  user: User | null;
 }
 
 export const CourseDetails = ({
@@ -19,6 +28,7 @@ export const CourseDetails = ({
   courseId,
   enrollerCount,
   enrolled,
+  user,
 }: CourseDetailsProps) => {
   const router = useRouter();
   const enrollAction = async () => {
@@ -28,7 +38,7 @@ export const CourseDetails = ({
       router.refresh();
 
       if (enrolled) {
-        toast.success("Enrolled");
+        toast.success("Enrolled successfully");
         router.push(`/courses/${courseId}/chapters/${id}`);
       }
     } catch (error) {}
@@ -69,13 +79,25 @@ export const CourseDetails = ({
           </li> */}
         </ul>
       </div>
-      {enrolled ? (
+      {enrolled && (
         <Link href={`/courses/${courseId}/chapters/${id}`}>
-          <Button className="w-full">Watch Now 
-          <PlayCircle className="ml-2"/>
+          <Button className="w-full">
+            Watch Now
+            <PlayCircle className="ml-2" />
           </Button>
         </Link>
-      ) : (
+      )}
+      {!user?.phone && !enrolled && (
+        <EnrollModal
+          courseId={courseId}
+          user={user}
+          enrolled={enrolled}
+          id={id}
+        >
+          <Button className="w-full">Enroll Now</Button>
+        </EnrollModal>
+      )}
+      {!enrolled && user?.phone && (
         <EnrollConfirmModal onConfirm={enrollAction}>
           <Button className="w-full">Enroll Now</Button>
         </EnrollConfirmModal>

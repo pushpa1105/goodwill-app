@@ -38,7 +38,7 @@ const BlogsPage = async ({ searchParams }: BlogPageProps) => {
       <main className="pt-[80px] h-full">
         <div>
           <div className="flex flex-col justify-center max-w-auto md:max-w-[85%] m-auto">
-            <ItemCarousel blogs={latestBlogs} />
+            {/* <ItemCarousel blogs={latestBlogs} /> */}
             <BlogCategories categories={categories} />
             <BlogsList blogs={blogs} popularBlogs={latestBlogs} />
           </div>

@@ -11,6 +11,27 @@ export async function PUT(
 
     if (!userId) return new NextResponse("Unauthorized", { status: 401 });
 
+    const { phone } = await req.json();
+
+    if (phone) {
+      const user = await db.user.update({
+        where: {
+          externalId: userId,
+        },
+        data: {
+          phone,
+        },
+      });
+    }
+
+    const user = await db.user.findUnique({ where: { externalId: userId } });
+
+    if (!user?.phone) {
+      return new NextResponse("User need to have phone number", {
+        status: 400,
+      });
+    }
+
     const courseEnrollment = await db.courseEnrollment.upsert({
       where: {
         userId_courseId: {

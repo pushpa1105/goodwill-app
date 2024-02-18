@@ -28,7 +28,7 @@ export const MiniBlogCard = ({
           fill
           className="object-cover group-hover:scale-110 transition duration-250 rounded"
           alt="blog"
-          src={imageUrl}
+          src={imageUrl ?? '/blog.png'}
         />
       </div>
       {/* <div className="">

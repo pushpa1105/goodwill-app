@@ -1,5 +1,5 @@
 export const getBlogTOC = (blocks: any) => {
-  if (blocks?.length <= 0) return;
+  if (blocks?.length <= 0 || !blocks) return;
 
   const filteredBlocks = blocks.filter(
     (block: any) => block.type === "heading"

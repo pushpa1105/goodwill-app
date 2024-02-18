@@ -35,6 +35,12 @@ const CoursePage = async ({ params }: { params: { courseId: string } }) => {
     },
   });
 
+  const user = await db.user.findUnique({
+    where: {
+      externalId: userId,
+    },
+  });
+
   if (!course) redirect("/");
 
   const reviewData = await getReviews({ courseId: params.courseId });
@@ -94,6 +100,7 @@ const CoursePage = async ({ params }: { params: { courseId: string } }) => {
             course={course}
             enrollerCount={enrollerCount}
             enrolled={enrolled}
+            user={user || null}
           />
           <CourseReviews reviewData={reviewData} />
         </div>

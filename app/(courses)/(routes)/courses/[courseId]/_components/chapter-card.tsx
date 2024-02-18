@@ -20,6 +20,8 @@ import { EnrollConfirmModal } from "@/components/modals/enroll-confirm-modal";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { User } from "@prisma/client";
+import { EnrollModal } from "./enroll-modal";
 
 interface ChapterCardProps {
   id: string;
@@ -28,6 +30,7 @@ interface ChapterCardProps {
   courseId: string;
   chapterNumber: number | string;
   enrolled: boolean;
+  user: User | null;
 }
 
 export const ChapterCard = ({
@@ -37,6 +40,7 @@ export const ChapterCard = ({
   courseId,
   chapterNumber,
   enrolled,
+  user,
 }: ChapterCardProps) => {
   const [open, setOpen] = useState(false);
 
@@ -76,20 +80,35 @@ export const ChapterCard = ({
             </h1>
             <div>{description}</div>
             <div>
-              {enrolled ? (
+              {enrolled && (
                 <Link href={`/courses/${courseId}/chapters/${id}`}>
                   <Button className="w-[100%] mt-2">
                     <span className="text-md font-bold">Watch it</span>
                     <PlayCircleIcon className="ml-2" />
                   </Button>
                 </Link>
-              ) : (
+              )}
+              {!enrolled && user?.phone && (
                 <EnrollConfirmModal onConfirm={enrollCourse}>
                   <Button className="w-[100%] mt-2">
                     <span className="text-md font-bold">Watch it</span>
                     <PlayCircleIcon className="ml-2" />
                   </Button>
                 </EnrollConfirmModal>
+              )}
+
+              {!user?.phone && !enrolled && (
+                <EnrollModal
+                  courseId={courseId}
+                  user={user}
+                  enrolled={enrolled}
+                  id={id}
+                >
+                  <Button className="w-[100%] mt-2">
+                    <span className="text-md font-bold">Watch it</span>
+                    <PlayCircleIcon className="ml-2" />
+                  </Button>
+                </EnrollModal>
               )}
             </div>
           </div>

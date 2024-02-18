@@ -44,7 +44,7 @@ export const BlogCard = ({
             fill
             className="object-cover group-hover:scale-110 transition duration-250"
             alt={title!}
-            src={imageUrl}
+            src={imageUrl ?? '/blog.png'}
           />
         </div>
         <div className="flex flex-col pt-2">
