@@ -255,9 +255,10 @@ model Comment {
 // Products Section
 
 model ProductPageContent {
-  id           String @id @default(uuid())
+  id           String  @id @default(uuid())
   userId       String
-  mainHeading  String @db.Text
+  mainHeading  String  @db.Text
+  videoText    String? @db.Text
   mainImageUrl String
   buttonLabel  String
   buttonUrl    String

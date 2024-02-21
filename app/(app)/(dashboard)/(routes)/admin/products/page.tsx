@@ -12,6 +12,7 @@ import { ProductTitleForm } from "./_components/product-title-form";
 import { ProductDescriptionForm } from "./_components/product-description-form";
 import { ProductUrlForm } from "./_components/product-url-form";
 import { VideoUrlForm } from "./_components/video-url-form";
+import { VideoTextForm } from "./_components/video-text-form";
 
 const ProductsPage = async () => {
   const { userId } = auth();
@@ -19,7 +20,6 @@ const ProductsPage = async () => {
 
   const productPageDetails = await db.productPageContent.findFirst();
   const products = await db.productData.findMany({ where: { isActive: true } });
-  console.log(products);
   return (
     <div className="p-6">
       <div className="border p-4 grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -33,6 +33,10 @@ const ProductsPage = async () => {
             productId={productPageDetails?.id!}
           />
           <VideoUrlForm
+            initialData={productPageDetails!}
+            productId={productPageDetails?.id!}
+          />
+          <VideoTextForm
             initialData={productPageDetails!}
             productId={productPageDetails?.id!}
           />

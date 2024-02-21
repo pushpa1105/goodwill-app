@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import { NavBar } from "@/components/nav-items/navbar";
 import { Button } from "@/components/ui/button";
@@ -58,11 +59,24 @@ const ProductsPage = async ({ searchParams }: BlogPageProps) => {
         <div className="lg:w-[95%] m-auto">
           <div className="md:px-8 lg:w-[95%] mx-auto my-8 py-8 ">
             <div className="flex justify-center mb-8">
-              <h1 className="text-theme text-3xl md:text-5xl font-extrabold">Our Products</h1>
+              <h1 className="text-theme text-3xl md:text-5xl font-extrabold">
+                Our Products
+              </h1>
             </div>
             <ProductsCarousel products={products} />
           </div>
-          <div className="mt-8 flex justify-center pb-8 w-[95%] md:w-[80%] mx-auto h-[300px] md:h-[500px]">
+          <img
+            src="https://stock-logos.dhan.co/static-openweb/dhanBorder.png"
+            alt="line"
+          />
+          {productPageContent?.videoText && (
+            <div className="lg:w-[80%] m-auto my-8 text-theme">
+              <h1 className="text-center m-auto text-3xl md:text-5xl font-bold">
+                {productPageContent?.videoText}
+              </h1>
+            </div>
+          )}
+          <div className="mt-12 flex justify-center pb-8 w-[95%] md:w-[90%] lg:w-[80%] mx-auto h-[300px] md:h-[500px] lg:h-[700px]">
             <iframe
               width="100%"
               height="100%"
