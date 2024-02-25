@@ -1,31 +1,26 @@
-import dynamic from "next/dynamic";
-
-const ZoomComponent = dynamic(() => import("./_components/zoom-component"), {
-  ssr: false,
-});
-
-// const webinar = {
-//   id: 1,
-//   level: "Advanced",
-//   langugae: "English",
-//   title: "Smart Money Concepts trading",
-//   startAt: "21 December, 10:45 pm GMT+5:45",
-//   banner:
-//     "https://kivys.stripocdn.email/content/guids/CABINET_e379a0108ca05ebfe1e52fede2455137/images/tunmise_4075_rQ4.png",
-//   speaker: {
-//     name: "Tunmise Olaoluwa",
-//     imageUrl:
-//       "https://media.octastatics.com/ms-webinars/speaker/avatar/tunmise/bb9532ac274d36138aac04e1aed51619.png",
-//   },
-//   // learnings: ``,
-// };
+import { Chat } from "./_components/chat";
 
 const WebinarLivePage = () => {
   return (
-    <div className="bg-theme h-full">
-      <div className="max-w-auto md:max-w-[75%] m-auto p-4">
-        <div>
-          <ZoomComponent />
+    <div className="bg-theme">
+      <div className=" m-auto py lg:p-4">
+        <div className="grid grid-cols-2 lg:grid-cols-4 lg:gap-4">
+          {/* <div className="h-[65vh] lg:h-[85vh] w-full lg:w-[75%]"> */}
+          <div className="col-span-3 h-[35vh] lg:h-[88vh] lg:rounded-2xl">
+            <iframe
+              width="100%"
+              height="100%"
+              src="https://www.youtube.com/embed/P_Ke3ktMeGg?si=du6qR1kmFZlQomrc"
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              className="lg:rounded-2xl"
+            ></iframe>
+          </div>
+          <div className="col-span-2 lg:col-span-1 h-[55vh] lg:h-[88vh]">
+            <Chat/>
+          </div>
         </div>
       </div>
     </div>

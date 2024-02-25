@@ -3,6 +3,7 @@
 import { Preview } from "@/components/preview";
 import { Button } from "@/components/ui/button";
 import { Speaker, Webinar } from "@prisma/client";
+import { Tv } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -14,7 +15,6 @@ export interface WebinarCardProps {
 }
 
 export const WebinarCard = ({ webinar }: WebinarCardProps) => {
-  console.log(webinar);
   const defaultImageUrl =
     "https://media.octastatics.com/ms-webinars/speaker/avatar/tunmise/bb9532ac274d36138aac04e1aed51619.png";
   return (
@@ -54,9 +54,15 @@ export const WebinarCard = ({ webinar }: WebinarCardProps) => {
             </h1>
           </div>
           <div className="mt-4 hidden md:flex">
-            <Link href={`/webinars/${webinar.id}`}>
+            <Link href={`/webinars/${webinar.id}`} className="mr-2">
               <Button className="rounded-full bg-theme border border-violet-800 before:ease relative h-10 w-36 font-semibold shadow-lg text-md shadow-xl  overflow-hidden text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-green-500 hover:before:-translate-x-40">
                 <span className="relative z-10">Learn More</span>
+              </Button>
+            </Link>
+            <Link href={`/webinars/${webinar.id}/live`}>
+              <Button className="rounded-full bg-theme border border-violet-800 before:ease relative h-10 w-40 font-semibold shadow-lg text-md shadow-xl  overflow-hidden text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-green-500 hover:before:-translate-x-40">
+                <Tv />
+                <span className="relative z-10 ml-2">Watch Live</span>
               </Button>
             </Link>
           </div>
@@ -86,6 +92,14 @@ export const WebinarCard = ({ webinar }: WebinarCardProps) => {
         <Link href={`/webinars/${webinar.id}`} className="w-full">
           <Button className="rounded-full bg-theme border border-violet-800 before:ease relative w-full font-semibold shadow-lg text-md shadow-xl  overflow-hidden text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-green-500 hover:before:-translate-x-40">
             <span className="relative z-10">Learn More</span>
+          </Button>
+        </Link>
+      </div>
+      <div className="mt-4 flex md:hidden w-full">
+        <Link href={`/webinars/${webinar.id}`} className="w-full">
+          <Button className="rounded-full bg-theme border border-violet-800 before:ease relative w-full font-semibold shadow-lg text-md shadow-xl  overflow-hidden text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-green-500 hover:before:-translate-x-40">
+            <Tv />
+            <span className="relative z-10 ml-2">Watch Live</span>
           </Button>
         </Link>
       </div>
