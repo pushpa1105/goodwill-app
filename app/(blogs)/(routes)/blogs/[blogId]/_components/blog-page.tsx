@@ -32,9 +32,9 @@ export const BlogPageComponent = ({
 }: BlogPageComponentProps) => {
   return (
     <BlogLayoutComponent toc={toc}>
-      <div className="w-screen md:w-full md:p-2">
+      <div className="w-full md:w-full md:p-2">
         <div className="h-full m-0 p-0 w-full">
-          <div className="flex flex-col items-center p-2 m-2 bg-theme text-white">
+          <div className="flex flex-col items-center p-2 m-2 bg-theme text-white rounded-xl">
             <div>
               <h3 className="text-xl md:text-2xl text-muted p-4 border-b border-slate-400">
                 {blog.category.name}

@@ -80,10 +80,6 @@ const BlogPage = async ({ params }: { params: { blogId: string } }) => {
     },
   });
 
-  // console.log(author);
-
-  console.log(blog);
-
   const toc = getBlogTOC(blog?.content);
   const comments = await getComments({ blogId: params.blogId });
 

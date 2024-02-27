@@ -45,7 +45,7 @@ export const SectionOne = () => {
                 </div>
                 <div className="col-span-1 flex justify-center lg:hidden md:hidden pt-10">
                   <img
-                    src="https://stock-logos.dhan.co/static-openweb/dhansecwebpagemob.png"
+                    src="/account-open2.png"
                     alt="icon"
                     className="w-8/12 md:w-5/12"
                   />
@@ -70,10 +70,7 @@ export const SectionOne = () => {
               <br />
             </div>
             <div className="lg:col-span-2 md:col-span-2 hidden lg:flex md:flex col-span-1">
-              <img
-                src="https://stock-logos.dhan.co/static-openweb/dhansecwebpagemob.png"
-                alt="icon"
-              />
+              <img src="/account-open1.png" alt="icon" />
             </div>
           </div>
         </section>

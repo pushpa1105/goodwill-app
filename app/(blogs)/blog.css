@@ -215,3 +215,35 @@ body::-webkit-scrollbar-thumb:hover {
     background-position: 0 0;
   }
 }
+
+.mantine-y68mcm ._blockGroup_nstdf_43 {
+  width: 80%;
+  margin: auto;
+}
+
+@media (max-width: 768px) {
+  .mantine-y68mcm ._blockGroup_nstdf_43 {
+    width: 90%;
+  }
+  .mantine-y68mcm h1,
+  .mantine-y68mcm h2,
+  .mantine-y68mcm h3,
+  .mantine-y68mcm h4,
+  .mantine-y68mcm li {
+    all: revert !important;
+    line-height: 1.2 !important;
+    margin: 0 !important;
+  }
+  .mantine-y68mcm h1 {
+    font-size: 38px !important;
+  }
+  .mantine-y68mcm h2 {
+    font-size: 32px !important;
+  }
+  .mantine-y68mcm h3 {
+    font-size: 26px !important;
+  }
+  .mantine-y68mcm h4 {
+    font-size: 20px !important;
+  }
+}
