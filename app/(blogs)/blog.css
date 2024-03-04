@@ -58,8 +58,8 @@ body::-webkit-scrollbar-thumb:hover {
 
     --radius: 0.5rem;
     --para-text: rgba(0, 0, 0, 0.67);
-    --title-font: "Josefin Slab", serif;
-    --text-font: "PT Serif", Serif;
+    --title-font: "Source Sans Pro", Arial;
+    --text-font: "Source Sans Pro", Arial;
   }
 
   .dark {
@@ -217,13 +217,44 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 .mantine-y68mcm ._blockGroup_nstdf_43 {
-  width: 80%;
+  width: 50%;
   margin: auto;
+  font-family: "Source Sans Pro", Arial !important;
+}
+
+.mantine-y68mcm h1,
+/* .mantine-y68mcm h2,
+.mantine-y68mcm h4, */
+.mantine-y68mcm li {
+  line-height: 40px !important;
+  all: revert !important;
+  font-size: 38px !important;
+  margin-bottom: 0px !important;
+}
+
+.mantine-y68mcm h2 {
+  line-height: 31px !important;
+  all: revert !important;
+  font-size: 25px !important;
+  margin-bottom: 0px !important;
+}
+
+.mantine-y68mcm h3 {
+  line-height: 21px !important;
+  all: revert !important;
+  font-size: 22px !important;
+  margin-bottom: 0px !important;
+}
+
+
+.mantine-y68mcm p {
+  /* all: revert !important; */
+  font-size: 18px !important;
 }
 
 @media (max-width: 768px) {
   .mantine-y68mcm ._blockGroup_nstdf_43 {
-    width: 90%;
+    width: 100%;
   }
   .mantine-y68mcm h1,
   .mantine-y68mcm h2,

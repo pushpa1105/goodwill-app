@@ -14,8 +14,8 @@ interface BlogLayoutComponentProps {
   children: React.ReactNode;
 }
 const BlogLayoutComponent = ({ toc, children }: BlogLayoutComponentProps) => {
-  const [collapsed, setSidebarCollapsed] = useState(false);
-  const [showSidebar, setShowSidebar] = useState(true);
+  const [collapsed, setSidebarCollapsed] = useState(true);
+  const [showSidebar, setShowSidebar] = useState(false);
   return (
     <div
       className={cn({
