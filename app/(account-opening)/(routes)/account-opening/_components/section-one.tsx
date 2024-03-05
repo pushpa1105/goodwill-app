@@ -45,7 +45,7 @@ export const SectionOne = () => {
                 </div>
                 <div className="col-span-1 flex justify-center lg:hidden md:hidden pt-10">
                   <img
-                    src="/account-open2.png"
+                    src="/account-open1.png"
                     alt="icon"
                     className="w-8/12 md:w-5/12"
                   />
