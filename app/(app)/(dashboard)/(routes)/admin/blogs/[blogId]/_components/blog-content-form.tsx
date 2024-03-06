@@ -103,34 +103,34 @@ export const BlogContentForm = ({
 
   const updateBlog = async () => {
     try {
-      const title = blocks.find(
-        (block: any) =>
-          block.type === "heading" &&
-          block?.content.length > 0 &&
-          block?.content[0]?.text
-      )?.content[0].text;
-      const description = blocks.find(
-        (block: any) =>
-          block.type === "paragraph" &&
-          block?.content.length > 0 &&
-          block?.content[0]?.text
-      )?.content[0].text;
+      // const title = blocks.find(
+      //   (block: any) =>
+      //     block.type === "heading" &&
+      //     block?.content.length > 0 &&
+      //     block?.content[0]?.text
+      // )?.content[0].text;
+      // const description = blocks.find(
+      //   (block: any) =>
+      //     block.type === "paragraph" &&
+      //     block?.content.length > 0 &&
+      //     block?.content[0]?.text
+      // )?.content[0].text;
 
       const imageUrl =
         blocks.find((block: any) => block.type === "image" && block?.props?.url)
           ?.props?.url || "/blog.png";
 
-      if (!title) toast.error("Add something  as heading for title");
-      if (!description)
-        toast.error("Add something  as paragraph for description");
-      if (!title || !description) return;
+      // if (!title) toast.error("Add something  as heading for title");
+      // if (!description)
+      //   toast.error("Add something  as paragraph for description");
+      // if (!title || !description) return;
 
       const readTime = calculateReadingTime(blocks);
 
       await axios.patch(`/api/blogs/${blogId}`, {
         content: blocks,
-        title,
-        description,
+        // title,
+        // description,
         imageUrl,
         readTime,
       });
