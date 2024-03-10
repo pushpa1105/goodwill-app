@@ -63,7 +63,7 @@ const Courses = async ({ searchParams }: CoursesPageProps) => {
                 latestBlogs={latestBlogs.slice(0, 4)}
               />
             </div>
-          // )}
+          {/* )} */}
           <Footer />
         </>
       </main>
