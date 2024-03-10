@@ -22,7 +22,6 @@ import { useRouter } from "next/navigation";
 interface TitleFormProps {
   initialData: {
     title: string;
-    titleHindi?: string;
   };
   courseId: string;
 }
@@ -31,7 +30,6 @@ const formSchema = z.object({
   title: z.string().min(1, {
     message: "Title is required",
   }),
-  titleHindi: z.string(),
 });
 
 export const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
@@ -43,20 +41,24 @@ export const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: initialData,
+    defaultValues: {
+      title: initialData?.title || "",
+    },
   });
 
   const { isSubmitting, isValid } = form.formState;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    try {
-      await axios.patch(`/api/courses/${courseId}`, values);
-      toast.success("Title updated succesfully.");
-      toggleEdit();
-      router.refresh();
-    } catch (error) {
-      toast.error("Something went wrong");
-    }
+    await axios
+      .patch(`/api/courses/${courseId}`, values)
+      .then((res) => {
+        toast.success("Title updated succesfully.");
+        toggleEdit();
+        router.refresh();
+      })
+      .catch((err) => {
+        toast.error(err.response.data || "Something went wrong");
+      });
   };
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4">
@@ -77,20 +79,7 @@ export const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
         <>
           <div className="border rounded shadow-sm bg-violet-100 p-2 mb-2">
             <p className="text-sm mt-2">{initialData.title}</p>
-            <span className="text-muted-foreground text-xs italic">
-              (English)
-            </span>
           </div>
-          {initialData?.titleHindi && (
-            <>
-              <div className="border rounded shadow-sm bg-blue-100 p-2">
-                <p className="text-sm mt-2">{initialData.titleHindi}</p>
-                <span className="text-muted-foreground text-xs italic">
-                  (Hindi)
-                </span>
-              </div>
-            </>
-          )}
         </>
       ) : (
         <Form {...form}>
@@ -103,24 +92,6 @@ export const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>For English</FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={isSubmitting}
-                      placeholder="e.g. 'Trade With Ease'"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="titleHindi"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>For Hindi</FormLabel>
                   <FormControl>
                     <Input
                       disabled={isSubmitting}

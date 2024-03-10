@@ -22,7 +22,6 @@ import { useRouter } from "next/navigation";
 interface ChapterTitleFormProps {
   initialData: {
     title: string;
-    titleHindi?: string;
   };
   courseId: string;
   chapterId: string;
@@ -31,8 +30,7 @@ interface ChapterTitleFormProps {
 const formSchema = z.object({
   title: z.string().min(1, {
     message: "Title is required",
-  }),
-  titleHindi: z.string(),
+  })
 });
 
 export const ChapterTitleForm = ({
@@ -85,20 +83,7 @@ export const ChapterTitleForm = ({
         <>
           <div className="border rounded shadow-sm bg-violet-100 p-2 mb-2">
             <p className="text-sm mt-2">{initialData.title}</p>
-            <span className="text-muted-foreground text-xs italic">
-              (English)
-            </span>
           </div>
-          {initialData?.titleHindi && (
-            <>
-              <div className="border rounded shadow-sm bg-blue-100 p-2">
-                <p className="text-sm mt-2">{initialData.titleHindi}</p>
-                <span className="text-muted-foreground text-xs italic">
-                  (Hindi)
-                </span>
-              </div>
-            </>
-          )}
         </>
       ) : (
         <Form {...form}>
@@ -111,28 +96,10 @@ export const ChapterTitleForm = ({
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>For English</FormLabel>
                   <FormControl>
                     <Input
                       disabled={isSubmitting}
                       placeholder="e.g. 'Introduction'"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="titleHindi"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>For Hindi</FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={isSubmitting}
-                      placeholder="e.g. 'Trade With Ease'"
                       {...field}
                     />
                   </FormControl>

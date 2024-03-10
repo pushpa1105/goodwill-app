@@ -29,6 +29,7 @@ export const BlogsList = ({ blogs, popularBlogs }: BlogsListProps) => {
                   key={index}
                   title={blog.title}
                   id={blog.id}
+                  slug={blog.slug}
                   imageUrl={blog.imageUrl!}
                   readTime={blog.readTime!}
                   category={blog.category.name}
@@ -46,7 +47,7 @@ export const BlogsList = ({ blogs, popularBlogs }: BlogsListProps) => {
         <div className="text-2xl font-bold ">Most Popular</div>
         <div className="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-1 2xl:grid-cols-1 gap-4">
           {popularBlogs.map((blog) => (
-            <Link key={blog.id} href={`/blogs/${blog.id}`}>
+            <Link key={blog.id} href={`/blogs/${blog.slug}`}>
               <MiniBlogCard
                 key={blog.id}
                 imageUrl={blog.imageUrl!}

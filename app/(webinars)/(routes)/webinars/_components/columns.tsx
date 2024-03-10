@@ -25,6 +25,7 @@ interface Webinar {
     name: String;
     imageUrl: String;
   };
+  slug: String;
 }
 
 export const columns: ColumnDef<Webinar>[] = [
@@ -76,9 +77,9 @@ export const columns: ColumnDef<Webinar>[] = [
   {
     id: "Actions",
     cell: ({ row }) => {
-      const { id } = row.original;
+      const { slug } = row.original;
       return (
-        <Link href={`/webinars/${id}`} className="text-theme text-md font-bold">
+        <Link href={`/webinars/${slug}`} className="text-theme text-md font-bold">
           Learn More
         </Link>
       );

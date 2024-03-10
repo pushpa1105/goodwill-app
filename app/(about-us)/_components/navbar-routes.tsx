@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuth } from "@clerk/nextjs";
+import { SignInButton, SignUpButton, useAuth } from "@clerk/nextjs";
 import { usePathname, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { LogOut } from "lucide-react";
@@ -43,6 +43,8 @@ export const NavbarRoutes = ({ user }: { user: User | null }) => {
 
   const pathname = usePathname();
   const router = useRouter();
+
+  const redirectUrl = `${process.env.NEXT_PUBLIC_APP_URL}${pathname}`;
 
   const { userId } = useAuth();
   const isAdminPage = pathname?.startsWith("/admin");
@@ -92,15 +94,16 @@ export const NavbarRoutes = ({ user }: { user: User | null }) => {
         {userId && <UserButton user={user} />}
         {!userId && (
           <>
-            <Link
-              href="/sign-in"
-              className="text-black-600 mx-2 sm:mx-4 capitalize tracking-wide hover:text-slate-500 transition-all"
-            >
-                Sign In
-            </Link>
-            <Link href="/sign-up">
-              <Button>Sign Up</Button>
-            </Link>
+            <SignInButton
+              redirectUrl={redirectUrl}
+              afterSignInUrl={redirectUrl}
+            />
+            <div className=" bg-black text-white rounded p-2 mx-2 sm:mx-4 capitalize tracking-wide transition-all">
+              <SignUpButton
+                redirectUrl={redirectUrl}
+                afterSignUpUrl={redirectUrl}
+              />
+            </div>
           </>
         )}
       </div>

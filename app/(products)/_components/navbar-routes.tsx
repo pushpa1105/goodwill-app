@@ -1,6 +1,6 @@
 "use client";
 
-import { UserButton, useAuth } from "@clerk/nextjs";
+import { SignInButton, SignUpButton, useAuth } from "@clerk/nextjs";
 import { usePathname, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { LogOut } from "lucide-react";
@@ -8,6 +8,8 @@ import Link from "next/link";
 import { isAdmin } from "@/lib/admin";
 import { useState } from "react";
 import { Logo } from "@/components/logo";
+import { UserButton } from "@/components/user-button";
+import { User } from "@prisma/client";
 
 const pageRoutes = [
   {
@@ -36,20 +38,22 @@ const pageRoutes = [
   },
 ];
 
-export const NavbarRoutes = () => {
+export const NavbarRoutes = ({ user }: { user: User | null }) => {
   const [activeLink, setActiveLink] = useState<string | null>(null);
 
   const pathname = usePathname();
   const router = useRouter();
 
+  const redirectUrl = `${process.env.NEXT_PUBLIC_APP_URL}${pathname}`;
+
   const { userId } = useAuth();
   const isAdminPage = pathname?.startsWith("/admin");
   return (
     <>
-    <div className="flex justify-between w-[88%] mx-auto">
-      <div className="lg:flex items-center">
-        <Logo />
-      </div>
+      <div className="flex justify-between w-[88%] mx-auto">
+        <div className="lg:flex items-center">
+          <Logo />
+        </div>
         <div className="hidden md:flex">
           <ul className="hidden lg:flex col-start-4 col-end-8 text-black-500  items-center">
             {pageRoutes.map((r) => (
@@ -71,7 +75,7 @@ export const NavbarRoutes = () => {
             ))}
           </ul>
         </div>
-        <div className="flex gap-x-2 ml-auto md:ml-0 items-center" >
+        <div className="flex gap-x-2 ml-auto md:ml-0 items-center">
           {isAdminPage ? (
             <Link href="/blogs">
               <Button>
@@ -80,7 +84,8 @@ export const NavbarRoutes = () => {
               </Button>
             </Link>
           ) : (
-            userId && isAdmin(userId) && (
+            userId &&
+            isAdmin(userId) && (
               <Link href="/admin/blogs">
                 <Button size="sm" variant="ghost">
                   Admin Mode
@@ -88,18 +93,19 @@ export const NavbarRoutes = () => {
               </Link>
             )
           )}
-          {userId && <UserButton afterSignOutUrl="/" />}
+          {userId && <UserButton user={user} />}
           {!userId && (
             <>
-              <Link
-                href="/sign-in"
-                className="text-black-600 mx-2 sm:mx-4 capitalize tracking-wide hover:text-slate-500 transition-all"
-              >
-                  Sign In
-              </Link>
-              <Link href="/sign-up">
-                <Button>Sign Up</Button>
-              </Link>
+            <SignInButton
+              redirectUrl={redirectUrl}
+              afterSignInUrl={redirectUrl}
+            />
+            <div className=" bg-black text-white rounded p-2 mx-2 sm:mx-4 capitalize tracking-wide transition-all">
+              <SignUpButton
+                redirectUrl={redirectUrl}
+                afterSignUpUrl={redirectUrl}
+              />
+            </div>
             </>
           )}
         </div>

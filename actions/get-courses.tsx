@@ -1,26 +1,28 @@
 import { db } from "@/lib/db";
 import { Category, Course } from "@prisma/client";
 import { getProgress } from "./get-progress";
+import { auth } from "@clerk/nextjs";
 
 type CourseWithProgressWithCategory = Course & {
   category: Category | null;
   chapters: { id: string }[];
-  progress: number | null;
+  progress?: number | null;
 };
 
 type GetCourses = {
-  userId: string;
   title?: string;
   categoryId?: string;
 };
 
 export const getCourses = async ({
-  userId,
   title,
   categoryId,
 }: GetCourses): Promise<CourseWithProgressWithCategory[]> => {
   try {
-    const courses = await db.course.findMany({
+    const { userId } = auth();
+    
+
+    const query: any = {
       where: {
         isPublished: true,
         title: {
@@ -38,18 +40,24 @@ export const getCourses = async ({
             id: true,
           },
         },
-        purchases: {
-          where: {
-            userId,
-          },
-        },
       },
       orderBy: {
         createdAt: "desc",
       },
-    });
+    };
+    
+    if (userId) {
+      query.include['purchases'] = {
+        where: {
+          userId,
+        },
+      };
+    }
+    
+    const courses = await db.course.findMany(query);
+    
 
-    const CourseWithProgress: CourseWithProgressWithCategory[] =
+    const CourseWithProgress: CourseWithProgressWithCategory[] = userId ?
       await Promise.all(
         courses.map(async (course) => {
           if (course.purchases.length === 0) {
@@ -66,7 +74,7 @@ export const getCourses = async ({
             progress: progressPercentage,
           };
         })
-      );
+      ) : courses;
     return CourseWithProgress;
   } catch (error) {
     console.log("[GET_COURSES]", error);

@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
 import { isAdmin } from "@/lib/admin";
+import { generateSlug } from "@/lib/slug";
 
 const { Video } = new Mux(
   process.env.MUX_TOKEN_ID!,
@@ -77,6 +78,24 @@ export async function PATCH(
 
     if (!userId || !isAuthorized) {
       return new NextResponse("Unauthorized", { status: 401 });
+    }
+
+    if (values?.title) {
+      const checkTitle = await db.course.findFirst({
+        where: {
+          title: values.title,
+          id: {
+            not: courseId,
+          },
+        },
+      });
+
+      if (checkTitle) {
+        return new NextResponse("Course with this title already exists", {
+          status: 402,
+        });
+      }
+      values["slug"] = generateSlug(values.title);
     }
 
     if (values.videoUrl) {

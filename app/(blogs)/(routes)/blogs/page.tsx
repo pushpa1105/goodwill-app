@@ -28,6 +28,24 @@ const BlogsPage = async ({ searchParams }: BlogPageProps) => {
       category: BlogCategory;
     }
   >;
+
+  const popularBlogs = (await db.blog.findMany({
+    where: {
+      isPublished: true,
+    },
+    include: {
+      category: true,
+    },
+    orderBy: {
+      viewCount: "desc", // Order by viewsCount in descending order
+    },
+    take: 5, // Take only the top 5 blogs
+  })) as Array<
+    Blog & {
+      category: BlogCategory;
+    }
+  >;
+
   const categories = await db.blogCategory.findMany({});
 
   return (
@@ -40,10 +58,10 @@ const BlogsPage = async ({ searchParams }: BlogPageProps) => {
           <div className="flex flex-col justify-center max-w-auto md:max-w-[85%] m-auto">
             <ItemCarousel blogs={latestBlogs} />
             <BlogCategories categories={categories} />
-            <BlogsList blogs={blogs} popularBlogs={latestBlogs} />
+            <BlogsList blogs={blogs} popularBlogs={popularBlogs} />
           </div>
         </div>
-        <Footer/>
+        <Footer />
       </main>
     </>
   );

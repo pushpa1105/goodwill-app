@@ -1,6 +1,6 @@
 "use client";
 
-import { UserButton, useAuth } from "@clerk/nextjs";
+import { SignInButton, SignUpButton, useAuth } from "@clerk/nextjs";
 import { usePathname, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { LogOut } from "lucide-react";
@@ -8,6 +8,8 @@ import Link from "next/link";
 import { isAdmin } from "@/lib/admin";
 import { useState } from "react";
 import { Logo } from "@/components/logo";
+import { User } from "@prisma/client";
+import { UserButton } from "@/components/user-button";
 
 const pageRoutes = [
   {
@@ -36,11 +38,13 @@ const pageRoutes = [
   },
 ];
 
-export const NavbarRoutes = () => {
+export const NavbarRoutes = ({ user }: { user: User | null }) => {
   const [activeLink, setActiveLink] = useState<string | null>(null);
 
   const pathname = usePathname();
   const router = useRouter();
+
+  const redirectUrl = `${process.env.NEXT_PUBLIC_APP_URL}${pathname}`;
 
   const { userId } = useAuth();
   const isAdminPage = pathname?.startsWith("/admin");
@@ -87,18 +91,19 @@ export const NavbarRoutes = () => {
             </Link>
           )
         )}
-        {userId && <UserButton afterSignOutUrl="/" />}
+        {userId && <UserButton user={user} />}
         {!userId && (
           <>
-            <Link
-              href="/sign-in"
-              className="text-black-600 mx-2 sm:mx-4 capitalize tracking-wide hover:text-slate-500 transition-all"
-            >
-                Sign In
-            </Link>
-            <Link href="/sign-up">
-              <Button>Sign Up</Button>
-            </Link>
+            <SignInButton
+              redirectUrl={redirectUrl}
+              afterSignInUrl={redirectUrl}
+            />
+            <div className=" bg-black text-white rounded p-2 mx-2 sm:mx-4 capitalize tracking-wide transition-all">
+              <SignUpButton
+                redirectUrl={redirectUrl}
+                afterSignUpUrl={redirectUrl}
+              />
+            </div>
           </>
         )}
       </div>

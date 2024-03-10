@@ -34,7 +34,6 @@ const formSchema = z.object({
   summary: z.string().min(1, {
     message: "Summary is required",
   }),
-  summaryHindi: z.string(),
 });
 
 export const ChapterSummaryForm = ({
@@ -97,25 +96,6 @@ export const ChapterSummaryForm = ({
               {!initialData.summary && "No summary"}
               {initialData.summary && <Preview value={initialData.summary} />}
             </p>
-            <span className="text-muted-foreground text-xs italic">
-              (English)
-            </span>
-          </div>
-          <div className="border rounded shadow-sm bg-blue-100 p-2">
-            <p
-              className={cn(
-                "text-sm mt-2",
-                !initialData?.summaryHindi && "text-slate-500 italic"
-              )}
-            >
-              {!initialData.summaryHindi && "No summary"}
-              {initialData.summaryHindi && (
-                <Preview value={initialData.summaryHindi} />
-              )}
-            </p>
-            <span className="text-muted-foreground text-xs italic">
-              (Hindi)
-            </span>
           </div>
         </>
       ) : (
@@ -129,20 +109,6 @@ export const ChapterSummaryForm = ({
               name="summary"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>For English</FormLabel>
-                  <FormControl>
-                    <Editor disabled={isSubmitting} {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="summaryHindi"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>For Hindi</FormLabel>
                   <FormControl>
                     <Editor disabled={isSubmitting} {...field} />
                   </FormControl>

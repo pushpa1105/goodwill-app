@@ -45,7 +45,7 @@ export const CourseCarousel = ({ items }: CourseCarouselProps) => {
         {items.map((item) => (
           <SwiperSlide key={item.id}>
             <CourseCard
-              id={item.id}
+              slug={item.slug}
               title={item.title}
               imageUrl={item.imageUrl!}
               chaptersLength={item.chapters.length}
@@ -57,10 +57,10 @@ export const CourseCarousel = ({ items }: CourseCarouselProps) => {
             />
           </SwiperSlide>
         ))}
-                {items.map((item) => (
+        {items.map((item) => (
           <SwiperSlide key={item.id}>
             <CourseCard
-              id={item.id}
+              slug={item.slug}
               title={item.title}
               imageUrl={item.imageUrl!}
               chaptersLength={item.chapters.length}
@@ -72,10 +72,10 @@ export const CourseCarousel = ({ items }: CourseCarouselProps) => {
             />
           </SwiperSlide>
         ))}
-                {items.map((item) => (
+        {items.map((item) => (
           <SwiperSlide key={item.id}>
             <CourseCard
-              id={item.id}
+              slug={item.slug}
               title={item.title}
               imageUrl={item.imageUrl!}
               chaptersLength={item.chapters.length}

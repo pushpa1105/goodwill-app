@@ -3,6 +3,7 @@ import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
 import { db } from "@/lib/db";
+import { generateSlug } from "@/lib/slug";
 
 const { Video } = new Mux(
   process.env.MUX_TOKEN_ID!,
@@ -113,6 +114,12 @@ export async function PATCH(
 
     if (!courseCreator) {
       return new NextResponse("Unauthorized", { status: 401 });
+    }
+
+    if (values.title) {
+      values["chapterSlug"] = `${generateSlug(
+        values.title
+      )}-${new Date().getTime()}`;
     }
 
     const chapter = await db.chapter.update({

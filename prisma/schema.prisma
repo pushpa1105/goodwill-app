@@ -34,6 +34,7 @@ model User {
 model Course {
   id               String  @id @default(uuid())
   userId           String
+  slug             String  @unique
   title            String  @db.Text
   description      String? @db.Text
   learnings        String? @db.Text
@@ -90,6 +91,7 @@ model Attachment {
 model Chapter {
   id               String  @id @default(uuid())
   title            String
+  chapterSlug      String
   description      String? @db.Text
   summary          String? @db.Text
   titleHindi       String?
@@ -110,6 +112,7 @@ model Chapter {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  @@unique([courseId, chapterSlug])
   @@index([courseId])
 }
 
@@ -194,12 +197,14 @@ model Review {
 model Blog {
   id          String  @id @default(uuid())
   userId      String
+  slug        String  @unique
   title       String  @db.Text
   description String? @db.Text
   imageUrl    String?
   readTime    Int?
   content     Json?
   isPublished Boolean @default(false)
+  viewCount   Int?    @default(0)
 
   categoryId String?
   category   BlogCategory? @relation(fields: [categoryId], references: [id])
@@ -288,6 +293,7 @@ model ProductData {
 model Webinar {
   id          String    @id @default(uuid())
   userId      String
+  slug        String    @unique
   title       String    @db.Text
   description String?   @db.Text
   imageUrl    String?

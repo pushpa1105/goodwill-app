@@ -5,7 +5,7 @@ export const getBlogTOC = (blocks: any) => {
     (block: any) => block.type === "heading"
   );
 
-  console.log(filteredBlocks);
+  // console.log(filteredBlocks);
 
   const toc: any = [];
   filteredBlocks.forEach((block: any, index: number) => {

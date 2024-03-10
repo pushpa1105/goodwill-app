@@ -4,13 +4,18 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { UserButton, useAuth } from "@clerk/nextjs";
+import { SignInButton, SignUpButton, UserButton, useAuth } from "@clerk/nextjs";
 import { Logo } from "@/components/logo";
+import { usePathname } from "next/navigation";
 
 const NavBar = () => {
   const { userId } = useAuth();
   const [activeLink, setActiveLink] = useState<string | null>(null);
   const [scrollActive, setScrollActive] = useState(false);
+
+  const pathname = usePathname();
+
+  const redirectUrl = `${process.env.NEXT_PUBLIC_APP_URL}${pathname}`;
   useEffect(() => {
     window.addEventListener("scroll", () => {
       setScrollActive(window.scrollY > 20);
@@ -26,7 +31,7 @@ const NavBar = () => {
       >
         <nav className="max-w-screen-xl px-6 sm:px-8 lg:px-16 mx-auto grid grid-flow-col py-3 sm:py-4">
           <div className="col-start-1 col-end-2 flex items-center w-10 lg:w-20">
-            <Logo/>
+            <Logo />
           </div>
           {/* <ul className="hidden lg:flex col-start-4 col-end-8 text-black-500  items-center">
             <Link
@@ -91,15 +96,16 @@ const NavBar = () => {
             {userId && <UserButton afterSignOutUrl="/" />}
             {!userId && (
               <>
-                <Link
-                  href="/sign-in"
-                  className="text-black-600 mx-2 sm:mx-4 capitalize tracking-wide hover:text-slate-500 transition-all"
-                >
-                    Sign In
-                </Link>
-                <Link href="/sign-up">
-                  <Button>Sign Up</Button>
-                </Link>
+            <SignInButton
+              redirectUrl={redirectUrl}
+              afterSignInUrl={redirectUrl}
+            />
+            <div className=" bg-black text-white rounded p-2 mx-2 sm:mx-4 capitalize tracking-wide transition-all">
+              <SignUpButton
+                redirectUrl={redirectUrl}
+                afterSignUpUrl={redirectUrl}
+              />
+            </div>
               </>
             )}
           </div>

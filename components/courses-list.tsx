@@ -12,7 +12,6 @@ type CourseWithProgressWithCategory = Course & {
 
 interface CoursesListProps {
   items: CourseWithProgressWithCategory[];
-  lang?: string | null;
   latestBlogs: Array<
     Blog & {
       category: BlogCategory;
@@ -20,7 +19,7 @@ interface CoursesListProps {
   >;
 }
 
-export const CoursesList = ({ items, lang, latestBlogs }: CoursesListProps) => {
+export const CoursesList = ({ items, latestBlogs }: CoursesListProps) => {
   return (
     <div className="flex flex-col lg:flex-row flex-col-reverse">
       <div className="w-full lg:w-[70%]">
@@ -30,7 +29,7 @@ export const CoursesList = ({ items, lang, latestBlogs }: CoursesListProps) => {
             {items.map((item) => (
               <CourseCard
                 key={item.id}
-                id={item.id}
+                slug={item.slug}
                 title={item.title}
                 imageUrl={item.imageUrl!}
                 chaptersLength={item.chapters.length}
@@ -55,7 +54,7 @@ export const CoursesList = ({ items, lang, latestBlogs }: CoursesListProps) => {
         <div className="text-2xl font-bold ">Lastest Blogs</div>
         <div className="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-1 2xl:grid-cols-1 gap-4">
           {latestBlogs.map((blog) => (
-            <Link key={blog.id} href={`/blogs/${blog.id}`}>
+            <Link key={blog.id} href={`/blogs/${blog.slug}`}>
               <MiniBlogCard
                 key={blog.id}
                 imageUrl={blog.imageUrl!}

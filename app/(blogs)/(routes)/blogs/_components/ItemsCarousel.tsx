@@ -55,7 +55,7 @@ export const ItemCarousel = ({ blogs }: ItemCarouselProps) => {
         >
           {blogs.map((blog) => (
             <SwiperSlide key={blog.id} className="p-4">
-              <Link href={`/blogs/${blog.id}`}>
+              <Link href={`/blogs/${blog.slug}`}>
                 <MiniBlogCard
                   imageUrl={blog.imageUrl!}
                   title={blog.title}

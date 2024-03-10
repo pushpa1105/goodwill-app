@@ -93,7 +93,7 @@ const CourseIdPage = async ({ params }: { params: { blogId: string } }) => {
             <div>
               <div className="flex items-center gap-x-2">
                 <IconBadge icon={ListChecks} />
-                <h2 className="text-xl">Course Description</h2>
+                <h2 className="text-xl">Blog Description</h2>
               </div>
               <DescriptionForm initialData={blog} blogId={params.blogId} />
             </div>

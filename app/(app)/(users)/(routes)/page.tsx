@@ -87,13 +87,11 @@ const LandingPage = async () => {
         </div>
         <CourseCarousel items={courses || []} />
       </div>
-      <div className="p-16 bg-linear-landing">
+      {/* <div className="p-16 bg-linear-landing">
         <div className="w-full m-auto flex items-center justify-center mb-16 text-black text-2xl font-bold">
           Upcoming Webinars
         </div>
-        TODO: webinars
-        {/* <LandingCarousel /> */}
-      </div>
+      </div> */}
     </>
   );
 };

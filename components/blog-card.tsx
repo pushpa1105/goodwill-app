@@ -7,6 +7,7 @@ import { formatDate } from "@/lib/format";
 
 interface BlogCardProps {
   id: string;
+  slug: string;
   title: string | null;
   imageUrl: string;
   readTime: number;
@@ -25,9 +26,10 @@ export const BlogCard = ({
   description,
   createdAt,
   updatedAt,
+  slug
 }: BlogCardProps) => {
   return (
-    <Link href={`/blogs/${id}`}>
+    <Link href={`/blogs/${slug}`}>
       <div className="group hover:shadow-2xl transition overflow-hidden border rounded-lg p-3 h-full">
         <div className="mb-6 mt-4 text-center">
           <div className="flex flex-wrap justify-center">

@@ -1,4 +1,5 @@
 import { db } from "@/lib/db";
+import { generateSlug } from "@/lib/slug";
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
@@ -34,11 +35,14 @@ export async function POST(
 
     const newPosition = lastChapter ? lastChapter.position + 1 : 1;
 
+    const chapterSlug = `${generateSlug(title)}-${new Date().getTime()}`;
+
     const chapter = await db.chapter.create({
       data: {
         title,
         courseId,
         position: newPosition,
+        chapterSlug,
       },
     });
 

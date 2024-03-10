@@ -46,14 +46,16 @@ export const TitleForm = ({ initialData, blogId }: TitleFormProps) => {
   const { isSubmitting, isValid } = form.formState;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    try {
-      await axios.patch(`/api/blogs/${blogId}`, values);
-      toast.success("Title updated succesfully.");
-      toggleEdit();
-      router.refresh();
-    } catch (error) {
-      toast.error("Something went wrong");
-    }
+    await axios
+      .patch(`/api/blogs/${blogId}`, values)
+      .then((res) => {
+        toast.success("Title updated succesfully.");
+        toggleEdit();
+        router.refresh();
+      })
+      .catch((err) => {
+        toast.error(err?.response?.data || "Something went wrong");
+      });
   };
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4">

@@ -21,28 +21,13 @@ interface CoursesPageProps {
 }
 
 const Courses = async ({ searchParams }: CoursesPageProps) => {
-  const { userId } = auth();
-
-  const user = await db.user.findFirst({
-    where: {
-      externalId: userId as string,
-    },
-  });
-
-  const language = user?.lang || null;
-
-  if (!userId) return redirect("/");
-
   const categories = await db.category.findMany({
     orderBy: {
       name: "asc",
     },
   });
 
-  const courses = await getCourses({
-    userId,
-    ...searchParams,
-  });
+  const courses = await getCourses({...searchParams});
 
   const latestBlogs = (await getBlogs({})) as Array<
     Blog & {
@@ -57,9 +42,9 @@ const Courses = async ({ searchParams }: CoursesPageProps) => {
       </div>
       <main className="pt-[80px] h-full">
         <>
-          {!language ? (
+          {/* {!language ? (
             <LanguagePreference />
-          ) : (
+          ) : ( */}
             <div className="p-6 w-full lg:w-[75%] m-auto">
               {/* <BackButton path="/" /> */}
 
@@ -68,18 +53,17 @@ const Courses = async ({ searchParams }: CoursesPageProps) => {
                   Browse Courses
                 </div>
                 <div className="flex flex-wrap w-full md:w-auto">
-                  <SwitchLanguage lang={language} />
+                  {/* <SwitchLanguage lang={language} /> */}
                   <SearchInput />
                 </div>
               </div>
               <Categories items={categories} />
               <CoursesList
                 items={courses}
-                lang={user?.lang}
                 latestBlogs={latestBlogs.slice(0, 4)}
               />
             </div>
-          )}
+          // )}
           <Footer />
         </>
       </main>

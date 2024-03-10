@@ -7,7 +7,7 @@ import { CourseProgress } from "./course-progress";
 import { Badge } from "./ui/badge";
 
 interface CourseCardProps {
-  id: string;
+  slug: string;
   title: string | null;
   imageUrl: string;
   chaptersLength: number;
@@ -19,7 +19,7 @@ interface CourseCardProps {
 }
 
 export const CourseCard = ({
-  id,
+  slug,
   title,
   imageUrl,
   chaptersLength,
@@ -30,7 +30,7 @@ export const CourseCard = ({
   description,
 }: CourseCardProps) => {
   return (
-    <Link href={`/courses/${id}`}>
+    <Link href={`/courses/${slug}`}>
       <div className="group hover:shadow-2xl transition overflow-hidden border rounded-lg p-3 h-full">
         <div className="relative w-full aspect-video rounded-md overflow-hidden">
           <Image
@@ -54,7 +54,7 @@ export const CourseCard = ({
               </span>
             </div>
           </div>
-          {progress !== null && (
+          {progress !== null && progress && (
             <CourseProgress
               size="sm"
               variant={progress === 100 ? "success" : "default"}

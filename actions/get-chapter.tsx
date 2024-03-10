@@ -4,13 +4,13 @@ import { Attachment, Chapter } from "@prisma/client";
 interface GetChapterProps {
   userId: string;
   courseId: string;
-  chapterId: string;
+  chapterSlug: string;
 }
 
 export const getChapter = async ({
   userId,
   courseId,
-  chapterId,
+  chapterSlug,
 }: GetChapterProps) => {
   try {
     const purchase = await db.purchase.findUnique({
@@ -26,17 +26,15 @@ export const getChapter = async ({
       where: {
         isPublished: true,
         id: courseId,
-      },
-      select: {
-        price: true,
-        isFree: true,
-      },
+      }
     });
 
     const chapter = await db.chapter.findUnique({
       where: {
-        id: chapterId,
-        isPublished: true,
+        courseId_chapterSlug: {
+          courseId,
+          chapterSlug,
+        },
       },
     });
 
@@ -57,7 +55,7 @@ export const getChapter = async ({
     if (course.isFree || chapter.isFree || purchase) {
       muxData = await db.muxData.findUnique({
         where: {
-          chapterId,
+          chapterId: chapter.id,
         },
       });
 
@@ -75,12 +73,11 @@ export const getChapter = async ({
       });
     }
 
-    console.log('---------------------idFree------', course.isFree)
     const userProgress = await db.userProgress.findUnique({
       where: {
         userId_chapterId: {
           userId,
-          chapterId,
+          chapterId: chapter.id,
         },
       },
     });

@@ -1,13 +1,15 @@
 "use client";
 
-import { UserButton, useAuth } from "@clerk/nextjs";
+import { useAuth } from "@clerk/nextjs";
 import { usePathname, useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 import { LogOut } from "lucide-react";
 import Link from "next/link";
 import { isAdmin } from "@/lib/admin";
+import { User } from "@prisma/client";
+import { UserButton } from "./user-button";
 
-export const NavbarRoutes = () => {
+export const NavbarRoutes = ({ user }: { user: User | null }) => {
   const pathname = usePathname();
   const router = useRouter();
 
@@ -33,7 +35,7 @@ export const NavbarRoutes = () => {
           </Link>
         )
       )}
-      <UserButton afterSignOutUrl="/" />
+      <UserButton user={user} />
     </div>
   );
 };

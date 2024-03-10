@@ -44,13 +44,15 @@ const CreateCourse = () => {
   const { isSubmitting, isValid } = form.formState;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    try {
-      const res = await axios.post("/api/blogs", values);
-      router.push(`/admin/blogs/${res.data.id}`);
-      toast.success("New Blog Created.");
-    } catch (error) {
-      toast.error("Something went wrong");
-    }
+    await axios
+      .post("/api/blogs", values)
+      .then((res) => {
+        router.push(`/admin/blogs/${res.data.id}`);
+        toast.success("New Blog Created.");
+      })
+      .catch((err) => {
+        toast.error(err?.response?.data || "Something went wrong");
+      });
   };
 
   return (
