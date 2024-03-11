@@ -132,9 +132,11 @@ export const SectionFour = () => {
               </div>
             </div>
             <div className="flex justify-between pt-3.5">
-              <p className="text-[#777777] font-CircularMedium text-sm">
-                No hidden charges, ever!
-              </p>
+              <Link href="https://brokerage-calculator.gwcindia.in/#tab-Equity" target="_blank">
+                <p className="text-[#777777] font-CircularMedium text-sm hover:underline hover:text-blue-800">
+                  Free brokerage Calculator
+                </p>
+              </Link>
             </div>
           </div>
         </section>
