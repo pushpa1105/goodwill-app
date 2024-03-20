@@ -12,7 +12,7 @@ export async function PATCH(
     const { userId } = auth();
     const { webinarId } = params;
 
-    const isAuthorized = isAdmin(userId);
+    const isAuthorized = await isAdmin();
 
 
     if (!userId || !isAuthorized) {

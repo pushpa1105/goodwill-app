@@ -5,7 +5,6 @@ import { usePathname, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { LogOut } from "lucide-react";
 import Link from "next/link";
-import { isAdmin } from "@/lib/admin";
 import { useState } from "react";
 import { Logo } from "@/components/logo";
 import { UserButton } from "@/components/user-button";
@@ -47,6 +46,8 @@ export const NavbarRoutes = ({ user }: { user: User | null }) => {
   const redirectUrl = `${process.env.NEXT_PUBLIC_APP_URL}${pathname}`;
 
   const { userId } = useAuth();
+  const isAdmin = user?.isAdmin || user?.isSuperAdmin;
+
   const isAdminPage = pathname?.startsWith("/admin");
   return (
     <div className="flex justify-between w-[88%] mx-auto">
@@ -83,7 +84,7 @@ export const NavbarRoutes = ({ user }: { user: User | null }) => {
             </Button>
           </Link>
         ) : (
-          isAdmin(userId) && (
+          isAdmin && (
             <Link href="/admin/blogs">
               <Button size="sm" variant="ghost">
                 Admin Mode

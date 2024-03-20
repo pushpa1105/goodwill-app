@@ -1,4 +1,3 @@
-import { auth } from "@clerk/nextjs";
 import {
   CircleDollarSign,
   Eye,
@@ -18,16 +17,8 @@ import { CategoryForm } from "./_components/category-form";
 import { Banner } from "@/components/banner";
 import { Actions } from "./_components/actions";
 import { BlogContentForm } from "./_components/blog-content-form";
-import { isAdmin } from "@/lib/admin";
 
 const CourseIdPage = async ({ params }: { params: { blogId: string } }) => {
-  const { userId } = auth();
-
-  if (!userId && isAdmin(userId)) {
-    // toast.error("Login Required.");
-    return redirect("/");
-  }
-
   const blog = await db.blog.findUnique({
     where: {
       id: params.blogId,

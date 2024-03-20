@@ -12,7 +12,7 @@ export async function PATCH(
       const { productId } = params;
       const values = await req.json();
   
-      const isAuthorized = isAdmin(userId);
+      const isAuthorized = await isAdmin();
   
       if (!userId || !isAuthorized) {
         return new NextResponse("Unauthorized", { status: 401 });

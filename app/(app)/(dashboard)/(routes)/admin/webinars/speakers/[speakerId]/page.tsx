@@ -15,7 +15,6 @@ import { IconBadge } from "@/components/icon-badge";
 import { NameForm } from "./_components/name-form";
 import { Banner } from "@/components/banner";
 import { Actions } from "./_components/actions";
-import { isAdmin } from "@/lib/admin";
 import { AboutForm } from "./_components/about-form";
 import { EducationForm } from "./_components/education-form";
 import { ExperienceForm } from "./_components/experience-form";
@@ -23,13 +22,6 @@ import { AchievementForm } from "./_components/achievement-form";
 import { ImageForm } from "./_components/image-form";
 
 const CourseIdPage = async ({ params }: { params: { speakerId: string } }) => {
-  const { userId } = auth();
-
-  if (!userId && isAdmin(userId)) {
-    // toast.error("Login Required.");
-    return redirect("/");
-  }
-
   const speaker = await db.speaker.findUnique({
     where: {
       id: params.speakerId,

@@ -12,7 +12,7 @@ export async function DELETE(
     const { userId } = auth();
     const { speakerId } = params;
 
-    const isAuthorized = isAdmin(userId);
+    const isAuthorized = await isAdmin();
 
     if (!userId || !isAuthorized) {
       return new NextResponse("Unauthorized", { status: 401 });
@@ -50,7 +50,7 @@ export async function PATCH(
     const { speakerId } = params;
     const values = await req.json();
 
-    const isAuthorized = isAdmin(userId);
+    const isAuthorized = await isAdmin();
 
     if (!userId || !isAuthorized) {
       return new NextResponse("Unauthorized", { status: 401 });

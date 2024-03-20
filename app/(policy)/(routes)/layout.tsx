@@ -7,7 +7,12 @@ const WebinarLayout = ({ children }: { children: React.ReactNode }) => {
       <div className="h-[80px] fixed inset-y-0 w-full z-50 ">
         <NavBar />
       </div>
-      <main className="pt-[80px] h-full">{children}</main>
+      <main className="pt-[80px] h-full">
+        <>
+          {children}
+          <Footer />
+        </>
+      </main>
     </div>
   );
 };

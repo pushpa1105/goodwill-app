@@ -8,7 +8,8 @@ export async function POST(req: Request) {
     const { userId } = auth();
     const { values, collection } = await req.json();
 
-    const isAuthorized = isAdmin(userId);
+    const isAuthorized = await isAdmin();
+    console.log('---------------------------', isAuthorized);
 
     if (!userId || !isAuthorized) {
       return new NextResponse("Unauthorized", { status: 401 });

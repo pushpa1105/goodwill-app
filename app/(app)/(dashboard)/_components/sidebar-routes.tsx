@@ -29,6 +29,11 @@ const guestRoutes = [
 
 const adminRoutes = [
   {
+    icon: Users,
+    label: "Users",
+    href: "/admin/users",
+  },
+  {
     icon: BookOpen,
     label: "Courses",
     href: "/admin/courses",

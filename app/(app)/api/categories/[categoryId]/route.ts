@@ -12,7 +12,7 @@ export async function PATCH(
     const { categoryId } = params;
     const { values, collection } = await req.json();
 
-    const isAuthorized = isAdmin(userId);
+    const isAuthorized = await isAdmin();
 
     if (!userId || !isAuthorized) {
       return new NextResponse("Unauthorized", { status: 401 });
@@ -51,7 +51,7 @@ export async function DELETE(
     const { categoryId } = params;
     const { collection } = await req.json();
 
-    const isAuthorized = isAdmin(userId);
+    const isAuthorized = await isAdmin();
 
     if (!userId || !isAuthorized) {
       return new NextResponse("Unauthorized", { status: 401 });

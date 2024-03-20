@@ -1,8 +1,4 @@
-import { auth } from "@clerk/nextjs";
 import {
-  CircleDollarSign,
-  Eye,
-  File,
   LayoutDashboard,
   ListChecks,
 } from "lucide-react";
@@ -17,8 +13,6 @@ import { DescriptionForm } from "./_components/description-form";
 import { StatusForm } from "./_components/status-form";
 import { Banner } from "@/components/banner";
 import { Actions } from "./_components/actions";
-import { BlogContentForm } from "./_components/blog-content-form";
-import { isAdmin } from "@/lib/admin";
 import { ImageForm } from "./_components/image-form";
 import { LevelForm } from "./_components/level-form";
 import { LanguageForm } from "./_components/lang-form";
@@ -32,12 +26,6 @@ import { MeetingUrlForm } from "./_components/meeting-url-form";
 import { WebinarAccessForm } from "./_components/webinar-access-form";
 
 const CourseIdPage = async ({ params }: { params: { webinarId: string } }) => {
-  const { userId } = auth();
-
-  if (!userId && isAdmin(userId)) {
-    // toast.error("Login Required.");
-    return redirect("/");
-  }
 
   const webinar = await db.webinar.findUnique({
     where: {

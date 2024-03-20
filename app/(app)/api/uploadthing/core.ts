@@ -4,10 +4,10 @@ import { createUploadthing, type FileRouter } from "uploadthing/next";
 
 const f = createUploadthing();
 
-const handleAuth = () => {
+const handleAuth = async () => {
   const { userId } = auth();
 
-  const isAuthorized = isAdmin(userId);
+  const isAuthorized = await isAdmin();
 
   if (!userId || !isAuthorized) throw new Error("Unauthorized");
   return { userId };
@@ -16,16 +16,16 @@ const handleAuth = () => {
 // FileRouter for your app, can contain multiple FileRoutes
 export const ourFileRouter = {
   courseImage: f({ image: { maxFileSize: "4MB", maxFileCount: 1 } })
-    .middleware(() => handleAuth())
+    .middleware(async () => await handleAuth())
     .onUploadComplete(() => {}),
   courseAttachment: f(["text", "image", "video", "audio", "pdf"])
-    .middleware(() => handleAuth())
+    .middleware(async () => await handleAuth())
     .onUploadComplete(() => {}),
   chapterVideo: f({ video: { maxFileCount: 1, maxFileSize: "512GB" } })
-    .middleware(() => handleAuth())
+    .middleware(async () => await handleAuth())
     .onUploadComplete(() => {}),
   courseVideo: f({ video: { maxFileCount: 1, maxFileSize: "512GB" } })
-    .middleware(() => handleAuth())
+    .middleware(async () => await handleAuth())
     .onUploadComplete(() => {}),
 } satisfies FileRouter;
 
