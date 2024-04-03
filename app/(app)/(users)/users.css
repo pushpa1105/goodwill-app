@@ -1,4 +1,5 @@
 .bg-linear-landing,
+.bg-btn-main,
 .bg-landing {
   background: linear-gradient(90deg, #7f66e9 0%, #083996 100%) !important;
 }
@@ -44,11 +45,6 @@
   }
 }
 
-/* For collapsible */
-
-/* #083996
-#7F66E9  */
-
 .webinar-text-theme {
   background: -webkit-linear-gradient(90deg, #07021c 0%, #083996 100%);
   -webkit-background-clip: text;
@@ -61,11 +57,22 @@
   -webkit-text-fill-color: transparent;
 }
 
-.ql-editor{
-  padding: 0 !important;
-  text-align: justify !important;
+
+/* main page styles */
+
+.courses_box_wrapper {
+  display: block;
+  background: linear-gradient(white, #fff) padding-box,
+    linear-gradient(to bottom, #bcdefc, rgba(255, 141, 33, 0.58)) border-box;
+  border: 2px solid transparent;
+  border-radius: 15px;
+  overflow: hidden;
+  margin-bottom: 30px;
+  box-shadow: 0 10px 30px rgba(29, 69, 138, 0.2);
+  transition: 0.3s;
 }
 
-.ql-editor ul{
-  padding: 0 !important;
+.courses_box_wrapper:hover {
+  box-shadow: 0 15px 30px rgba(29, 69, 138, 0.3);
 }
+/* main page styles */

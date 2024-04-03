@@ -10,15 +10,10 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const isLandingPage = pathname === "/";
   return (
     <div className={cn("h-full", isLandingPage && "bg-linear-landing")}>
-      <div className="h-[80px] fixed inset-y-0 w-full z-50">
+      <div className="h-[50px] fixed inset-y-0 w-full z-50">
         <NavBar />
       </div>
-      {/* <div className="hidden md:flex h-full w-56 flex-col fixed inset-y-0 z-50">
-        <Sidebar />
-      </div> */}
-      <main
-        className={cn("pt-[80px]", isLandingPage && "bg-linear-landing")}
-      >
+      <main className={cn("pt-[80px]", isLandingPage && "bg-linear-landing")}>
         {children}
       </main>
     </div>

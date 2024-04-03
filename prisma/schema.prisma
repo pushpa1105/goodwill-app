@@ -51,6 +51,7 @@ model Course {
   price            Float?
   isFree           Boolean @default(false)
   isPublished      Boolean @default(false)
+  rating            Float?
 
   categoryId String?
   category   Category? @relation(fields: [categoryId], references: [id])

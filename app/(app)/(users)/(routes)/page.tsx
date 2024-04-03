@@ -6,28 +6,47 @@ import { LandingCarousel } from "../_components/landing-carousel";
 import { db } from "@/lib/db";
 import { CourseCarousel } from "../_components/course-carousel";
 import Link from "next/link";
+import { CourseSection } from "./_components/course-section";
+import { WebinarSection } from "./_components/webinar-section";
+import { BlogSection } from "./_components/blog-section";
 
 const LandingPage = async () => {
-  // const { userId } = auth();
-  // if (!userId) redirect("/");
-  // await db.blog.deleteMany({});
   const courses = await db.course.findMany({
+    where: {
+      isPublished: true,
+    },
+    orderBy: {
+      rating: "desc",
+    },
+    include: {
+      category: true,
+    },
+    take: 3,
+  });
+
+  const webinars = await db.webinar.findMany({
+    where: {
+      isPublished: true,
+    },
+    include: {
+      speaker: true,
+    },
+    take: 4,
+  });
+
+  const blogs = await db.blog.findMany({
     where: {
       isPublished: true,
     },
     include: {
       category: true,
-      chapters: {
-        where: {
-          isPublished: true,
-        },
-        select: {
-          id: true,
-        },
-      },
+    },
+    orderBy: {
+      createdAt: "desc",
     },
     take: 8,
   });
+
   return (
     <>
       <div
@@ -45,7 +64,7 @@ const LandingPage = async () => {
             <h1 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-white leading-normal lg:mt-4">
               with free courses
             </h1>
-            <Link href="/courses" >
+            <Link href="/courses">
               <Button
                 size="lg"
                 className="rounded-full mt-4 bg-gradient-to-r from-custompurlple to-custompurlplelight shadow-lg text-xl font-bold"
@@ -67,31 +86,11 @@ const LandingPage = async () => {
             </div>
           </div>
         </div>
-        <div className="relative w-full pb-8">
-          {/* <div className="rounded-lg w-full grid grid-flow-row sm:grid-flow-row grid-cols-1 sm:grid-cols-3 py-9 divide-y-2 sm:divide-y-0 sm:divide-x-2 divide-gray-100 bg-white-500 z-10"> */}
-          {/* <h1>TODO: CAROUSEL HERE!!!</h1> */}
-          <div className="w-full m-auto flex items-center justify-center mb-4 text-white text-2xl font-bold">
-            Explore More
-          </div>
-          <LandingCarousel />
-          {/* </div> */}
-          <div
-            className="absolute bg-black-600 opacity-5 w-11/12 roudned-lg h-64 sm:h-48 top-0 mt-8 mx-auto left-0 right-0"
-            style={{ filter: "blur(114px)" }}
-          ></div>
-        </div>
       </div>
-      <div className="bg-white mt-6 px-2 md:p-16">
-        <div className="w-full m-auto flex items-center justify-center mb-16 text-black text-2xl font-bold">
-          Top Free Courses
-        </div>
-        <CourseCarousel items={courses || []} />
-      </div>
-      {/* <div className="p-16 bg-linear-landing">
-        <div className="w-full m-auto flex items-center justify-center mb-16 text-black text-2xl font-bold">
-          Upcoming Webinars
-        </div>
-      </div> */}
+
+      <CourseSection courses={courses || []} />
+      <WebinarSection webinars={webinars || []} />
+      <BlogSection blogs={blogs || []} />
     </>
   );
 };

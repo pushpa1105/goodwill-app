@@ -2,6 +2,7 @@ import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
 import { db } from "@/lib/db";
+import { getReviews } from "@/actions/get-review-data";
 
 export async function PATCH(
   req: Request,
@@ -42,6 +43,17 @@ export async function PATCH(
         stars,
         courseId,
         reviewText,
+      },
+    });
+
+    const reviewData = await getReviews({ courseId });
+
+    await db.course.update({
+      where: {
+        id: courseId,
+      },
+      data: {
+        rating: reviewData.average || 0,
       },
     });
 
