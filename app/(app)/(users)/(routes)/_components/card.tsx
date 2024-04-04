@@ -21,7 +21,7 @@ export const Card = ({ blog }: { blog: BlogWithCategory }) => {
                   <img
                     loading="lazy"
                     src={blog?.imageUrl || "/blog.png"}
-                    alt="Masterclass on Short-term Momentum Trading"
+                    alt="Blog"
                     width="350px"
                     height="210px"
                     className="img-fluid"
@@ -31,11 +31,9 @@ export const Card = ({ blog }: { blog: BlogWithCategory }) => {
               <div className="col-lg-12 mt-4">
                 <div className="course_details_middle">
                   <p className="text-[#404040] text-[12px] lg:text-[14px]">
-                   {blog.category?.name}
+                    {blog.category?.name}
                   </p>
-                  <h4 className="courses-name">
-                    Masterclass on Short-term Momentum Trading
-                  </h4>
+                  <h4 className="courses-name">{blog.title}</h4>
                   <div className="flex justify-between mt-4">
                     <div className="flex">
                       <p className="flex text-muted-foreground text-sm font-light">
