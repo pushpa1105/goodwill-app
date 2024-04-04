@@ -108,7 +108,7 @@ export const AttachmentForm = ({ initialData, courseId }: ImageFormProps) => {
       {isEditing && (
         <div>
           <FileUpload
-            endpoint="courseAttachment"
+            fileType="document"
             onChange={(url) => {
               if (url) {
                 onSubmit({ url: url });

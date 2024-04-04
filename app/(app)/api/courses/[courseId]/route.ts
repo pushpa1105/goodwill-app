@@ -42,15 +42,15 @@ export async function DELETE(
       return new NextResponse("Course not found", { status: 404 });
     }
 
-    for (const chapter of course.chapters) {
-      if (chapter.muxData?.assetId) {
-        await Video.Assets.del(chapter.muxData.assetId);
-      }
-    }
+    // for (const chapter of course.chapters) {
+    //   if (chapter.muxData?.assetId) {
+    //     await Video.Assets.del(chapter.muxData.assetId);
+    //   }
+    // }
 
-    if (course.courseVideo?.assetId) {
-      await Video.Assets.del(course.courseVideo.assetId);
-    }
+    // if (course.courseVideo?.assetId) {
+    //   await Video.Assets.del(course.courseVideo.assetId);
+    // }
 
     const deletedCourse = await db.course.delete({
       where: {
@@ -106,7 +106,7 @@ export async function PATCH(
       });
 
       if (existingMuxData) {
-        await Video.Assets.del(existingMuxData.assetId);
+        // await Video.Assets.del(existingMuxData.assetId);
         await db.courseVideo.delete({
           where: {
             id: existingMuxData.id,
@@ -114,17 +114,17 @@ export async function PATCH(
         });
       }
 
-      const asset = await Video.Assets.create({
-        input: values.videoUrl,
-        playback_policy: "public",
-        test: false,
-      });
+      // const asset = await Video.Assets.create({
+      //   input: values.videoUrl,
+      //   playback_policy: "public",
+      //   test: false,
+      // });
 
       await db.courseVideo.create({
         data: {
           courseId,
-          assetId: asset.id,
-          playbackId: asset.playback_ids?.[0]?.id,
+          assetId: values.videoUrl,
+          playbackId: values.videoUrl,
         },
       });
     }

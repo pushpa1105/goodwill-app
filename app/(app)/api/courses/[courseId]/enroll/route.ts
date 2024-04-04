@@ -11,15 +11,16 @@ export async function PUT(
 
     if (!userId) return new NextResponse("Unauthorized", { status: 401 });
 
-    const { phone } = await req.json();
 
-    if (phone) {
+    const values = await req.json();
+
+    if (values?.phone) {
       const user = await db.user.update({
         where: {
           externalId: userId,
         },
         data: {
-          phone,
+          phone: values.phone,
         },
       });
     }

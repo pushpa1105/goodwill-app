@@ -1,20 +1,19 @@
 "use client";
 
-import { useState } from "react";
-import MuxPlayer from "@mux/mux-player-react";
+import { useEffect, useState } from "react";
 import * as z from "zod";
 import axios from "axios";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import { ImageIcon, Pencil, PlusCircle, Video } from "lucide-react";
+import { Pencil, PlusCircle, Video } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Course, CourseVideo } from "@prisma/client";
 import { FileUpload } from "@/components/file-upload";
+import ReactPlayer from "react-player";
 
 interface CourseVideoFormProps {
-  initialData: Course & { courseVideo?: CourseVideo| null };
+  initialData: Course & { courseVideo?: CourseVideo | null };
   courseId: string;
 }
 
@@ -27,6 +26,12 @@ export const CourseVideoForm = ({
   courseId,
 }: CourseVideoFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
+  const [hasWindow, setHasWindow] = useState(false);
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setHasWindow(true);
+    }
+  }, []);
 
   const toggleEdit = () => setIsEditing((current) => !current);
 
@@ -34,10 +39,7 @@ export const CourseVideoForm = ({
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.patch(
-        `/api/courses/${courseId}`,
-        values
-      );
+      await axios.patch(`/api/courses/${courseId}`, values);
       toast.success("Course Video updated succesfully.");
       toggleEdit();
       router.refresh();
@@ -72,13 +74,20 @@ export const CourseVideoForm = ({
           </div>
         ) : (
           <div className="relative aspect-video mt-2">
-            <MuxPlayer playbackId={initialData?.courseVideo?.playbackId || ""} />
+            {hasWindow && (
+              <ReactPlayer
+                url={initialData.videoUrl}
+                controls
+                width="100%"
+                height="100%"
+              />
+            )}
           </div>
         ))}
       {isEditing && (
         <div>
           <FileUpload
-            endpoint="courseVideo"
+            fileType="video"
             onChange={(url) => {
               if (url) {
                 onSubmit({ videoUrl: url });

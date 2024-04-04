@@ -37,7 +37,7 @@ export const CourseDetails = ({
   const redirectUrl = `${process.env.NEXT_PUBLIC_APP_URL}/courses/${course.slug}`;
   const enrollAction = async () => {
     try {
-      await axios.put(`/api/courses/${course.id}/enroll`);
+      await axios.put(`/api/courses/${course.id}/enroll`, {});
 
       router.refresh();
 

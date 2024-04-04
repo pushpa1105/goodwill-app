@@ -1,9 +1,8 @@
 "use client";
 
-import { cn } from "@/lib/utils";
-import MuxPlayer from "@mux/mux-player-react";
 import { Loader2 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import ReactPlayer from "react-player";
 
 interface CourseVideoProps {
   playbackId: string;
@@ -18,6 +17,12 @@ export const CourseVideoComponent = ({
   title,
   autoPlay = false,
 }: CourseVideoProps) => {
+  const [hasWindow, setHasWindow] = useState(false);
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setHasWindow(true);
+    }
+  }, []);
   const [isReady, setIsReady] = useState(false);
 
   return (
@@ -27,13 +32,21 @@ export const CourseVideoComponent = ({
           <Loader2 className="h-8 w-8 animate-spin text-secondary" />
         </div>
       )}
-      <MuxPlayer
-        title={title}
-        className={cn(!isReady && "hidden")}
-        onCanPlay={() => setIsReady(true)}
-        autoPlay={autoPlay}
-        playbackId={playbackId}
-      />
+
+      {hasWindow && (
+        <div>
+          <ReactPlayer
+            url={playbackId}
+            controls
+            autoPlay={autoPlay}
+            width="100%"
+            height="100%"
+            onReady={() => {
+              setIsReady(true);
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 };

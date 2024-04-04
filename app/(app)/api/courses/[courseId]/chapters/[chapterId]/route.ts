@@ -52,7 +52,7 @@ export async function DELETE(
       });
 
       if (existingMuxData) {
-        await Video.Assets.del(existingMuxData.assetId);
+        // await Video.Assets.del(existingMuxData.assetId);
         await db.muxData.delete({
           where: {
             id: existingMuxData.id,
@@ -140,7 +140,7 @@ export async function PATCH(
       });
 
       if (existingMuxData) {
-        await Video.Assets.del(existingMuxData.assetId);
+        // await Video.Assets.del(existingMuxData.assetId);
         await db.muxData.delete({
           where: {
             id: existingMuxData.id,
@@ -148,17 +148,17 @@ export async function PATCH(
         });
       }
 
-      const asset = await Video.Assets.create({
-        input: values.videoUrl,
-        playback_policy: "public",
-        test: false,
-      });
+      // const asset = await Video.Assets.create({
+      //   input: values.videoUrl,
+      //   playback_policy: "public",
+      //   test: false,
+      // });
 
       await db.muxData.create({
         data: {
           chapterId,
-          assetId: asset.id,
-          playbackId: asset.playback_ids?.[0]?.id,
+          assetId: values.videoUrl,
+          playbackId: values.videoUrl,
         },
       });
     }

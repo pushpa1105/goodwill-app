@@ -1,13 +1,13 @@
 "use client";
 
 import { useConfettiStore } from "@/hooks/use-confetti-store";
-import { cn } from "@/lib/utils";
-import MuxPlayer from "@mux/mux-player-react";
 import axios from "axios";
 import { Loader2, Lock } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import React from "react";
+import ReactPlayer from "react-player";
 
 interface VideoPlayerProps {
   playbackId: string;
@@ -30,6 +30,12 @@ export const VideoPlayer = ({
   title,
   slug,
 }: VideoPlayerProps) => {
+  const [hasWindow, setHasWindow] = useState(false);
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setHasWindow(true);
+    }
+  }, []);
   const [isReady, setIsReady] = useState(false);
 
   const router = useRouter();
@@ -74,14 +80,16 @@ export const VideoPlayer = ({
           <p className="text-sm">This chapter is locked.</p>
         </div>
       )}
-      {!isLocked && (
-        <MuxPlayer
-          title={title}
-          className={cn(!isReady && "hidden")}
-          onCanPlay={() => setIsReady(true)}
-          onEnded={onEnd}
-          autoPlay
-          playbackId={playbackId}
+      {!isLocked && hasWindow && (
+        <ReactPlayer
+          url={playbackId}
+          controls
+          width="100%"
+          height="100%"
+          onReady={() => setIsReady(true)}
+          onEnded={() => {
+            onEnd();
+          }}
         />
       )}
     </div>

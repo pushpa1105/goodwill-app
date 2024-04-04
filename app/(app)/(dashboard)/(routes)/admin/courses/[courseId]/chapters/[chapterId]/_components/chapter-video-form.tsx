@@ -1,17 +1,16 @@
 "use client";
 
-import { useState } from "react";
-import MuxPlayer from "@mux/mux-player-react";
+import { useEffect, useState } from "react";
 import * as z from "zod";
 import axios from "axios";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import { ImageIcon, Pencil, PlusCircle, Video } from "lucide-react";
+import { Pencil, PlusCircle, Video } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Chapter, MuxData } from "@prisma/client";
 import { FileUpload } from "@/components/file-upload";
+import ReactPlayer from "react-player";
 
 interface ChapterVideoFormProps {
   initialData: Chapter & { muxData?: MuxData | null };
@@ -29,6 +28,12 @@ export const ChapterVideoForm = ({
   chapterId,
 }: ChapterVideoFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
+  const [hasWindow, setHasWindow] = useState(false);
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setHasWindow(true);
+    }
+  }, []);
 
   const toggleEdit = () => setIsEditing((current) => !current);
 
@@ -74,13 +79,20 @@ export const ChapterVideoForm = ({
           </div>
         ) : (
           <div className="relative aspect-video mt-2">
-            <MuxPlayer playbackId={initialData?.muxData?.playbackId || ""} />
+            {hasWindow && (
+              <ReactPlayer
+                url={initialData.videoUrl}
+                controls
+                width="100%"
+                height="100%"
+              />
+            )}
           </div>
         ))}
       {isEditing && (
         <div>
           <FileUpload
-            endpoint="chapterVideo"
+            fileType="video"
             onChange={(url) => {
               if (url) {
                 onSubmit({ videoUrl: url });

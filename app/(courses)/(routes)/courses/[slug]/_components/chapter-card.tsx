@@ -52,7 +52,7 @@ export const ChapterCard = ({
   const router = useRouter();
   const enrollCourse = async () => {
     try {
-      const res = await axios.put(`/api/courses/${courseId}/enroll`);
+      const res = await axios.put(`/api/courses/${courseId}/enroll`, {});
 
       router.refresh();
 

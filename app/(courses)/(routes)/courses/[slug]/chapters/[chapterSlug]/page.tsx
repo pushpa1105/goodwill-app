@@ -41,7 +41,7 @@ const ChapterPage = async ({
   if (!chapter || !course) redirect("/");
 
   const isLocked = !course.isFree && !chapter.isFree && !purchase;
-  const completeOnEnd = !!purchase && !userProgress?.isCompleted;
+  const completeOnEnd = (!!purchase || course.isFree) && !userProgress?.isCompleted;
 
   return (
     <div>

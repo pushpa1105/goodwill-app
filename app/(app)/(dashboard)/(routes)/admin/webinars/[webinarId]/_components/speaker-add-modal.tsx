@@ -144,7 +144,7 @@ export const SpeakerAddModal = ({ children }: SpeakerAddModalProps) => {
                     ) : (
                       <>
                         <FileUpload
-                          endpoint="courseImage"
+                          fileType="image"
                           onChange={(url) => {
                             if (url) {
                               setimageUrl(url);

@@ -23,7 +23,10 @@ const formSchema = z.object({
   }),
 });
 
-export const ProductImageForm = ({ initialData, productId }: ProductImageFormProps) => {
+export const ProductImageForm = ({
+  initialData,
+  productId,
+}: ProductImageFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const toggleEdit = () => setIsEditing((current) => !current);
@@ -78,7 +81,7 @@ export const ProductImageForm = ({ initialData, productId }: ProductImageFormPro
       {isEditing && (
         <div>
           <FileUpload
-            endpoint="courseImage"
+            fileType="image"
             onChange={(url) => {
               if (url) {
                 onSubmit({ imageUrl: url });
