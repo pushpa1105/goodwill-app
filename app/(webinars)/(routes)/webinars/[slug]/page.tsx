@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { Speaker, Webinar } from "@prisma/client";
 import Image from "next/image";
 import { SubscriptionModal } from "./_components/subscription-modal";
+import { BackButton } from "@/components/back-button";
 
 type WebinarWithSpeaker = Webinar & {
   speaker: Speaker;
@@ -23,6 +24,7 @@ const WebinarPage = async ({ params }: { params: { slug: string } }) => {
     <div className="bg-theme min-h-[98.4vh]">
       {webinar && (
         <div className="max-w-auto md:max-w-[75%] m-auto p-4 h-full">
+          <BackButton path="/webinars"/>
           <div className="flex flex-wrap gap-x-4 gap-y-2 py-4">
             <div className="bg-theme border border-indigo-400 text-white text-sm font-medium rounded-full px-4 py-2">
               {webinar.level}

@@ -10,6 +10,7 @@ export default authMiddleware({
     "/",
     "/api/uploadthing",
     "/api/webinars/:slug/subscribe",
+    "/api/blogs/:id/views",
     "/blogs",
     "/blogs/:slug",
     "/products",

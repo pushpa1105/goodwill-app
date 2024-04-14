@@ -65,13 +65,16 @@ const Sidebar = ({
           "overflow-y-scroll": !collapsed,
         })}
       >
+        <div className="pl-2 pt-4">
+        <BackButton path="/blogs"/>
+        </div>
         {/* logo and collapse button */}
         <div
           className={cn({
             "flex items-center border-b border-b-indigo-800 transition-none":
               true,
-            "p-4 justify-between": !collapsed,
-            "py-4 justify-center": collapsed,
+            "p-4 pt-0 justify-between": !collapsed,
+            "pb-4 justify-center": collapsed,
           })}
         >
           {!collapsed && (
@@ -178,24 +181,7 @@ const Sidebar = ({
             "grid place-content-stretch p-4 ": true,
           })}
         >
-          {/* <div className="flex gap-4 items-center h-11 overflow-hidden">
-            <Image
-              src={"/logo.jpeg"}
-              height={36}
-              width={36}
-              alt="profile image"
-              className="rounded-full"
-            />
-            {!collapsed && (
-              <div className="flex flex-col ">
-                <span className="text-indigo-50 my-0">Tom Cook</span>
-                <Link href="/" className="text-indigo-200 text-sm">
-                  View Profile
-                </Link>
-              </div>
-            )}
-          </div> */}
-          <div className="flex gap-x-4 items-center h-15 overflow-hidden px-2 border-t border-t-indigo-800 pt-4">
+          <div className="flex gap-x-4 items-center justify-center h-15 overflow-hidden px-2 border-t border-t-indigo-800 pt-4">
             {userId && <UserButton user={user} />}
             {!userId && (
               <>
@@ -211,9 +197,6 @@ const Sidebar = ({
                 </div>
               </>
             )}
-            <div className="ml-auto mt-auto">
-              <BackButton path="/blogs" />
-            </div>
           </div>
         </div>
       </div>

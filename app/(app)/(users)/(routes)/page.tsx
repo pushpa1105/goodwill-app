@@ -76,7 +76,7 @@ const LandingPage = async () => {
           <div className="flex w-full">
             <div className="h-full w-full">
               <Image
-                src="https://next-landing-vpn.vercel.app/_next/image?url=%2Fassets%2FIllustration1.png&w=1920&q=100"
+                src="/main-wall.png"
                 alt="VPN Illustrasi"
                 quality={100}
                 width={612}

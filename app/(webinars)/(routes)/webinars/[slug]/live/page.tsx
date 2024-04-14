@@ -1,11 +1,12 @@
+import { BackButton } from "@/components/back-button";
 import { Chat } from "./_components/chat";
 
 const WebinarLivePage = () => {
   return (
     <div className="bg-theme">
       <div className=" m-auto py lg:p-4">
+        <BackButton path="/webinars"/>
         <div className="grid grid-cols-2 lg:grid-cols-4 lg:gap-4">
-          {/* <div className="h-[65vh] lg:h-[85vh] w-full lg:w-[75%]"> */}
           <div className="col-span-3 h-[35vh] lg:h-[88vh] lg:rounded-2xl">
             <iframe
               width="100%"
