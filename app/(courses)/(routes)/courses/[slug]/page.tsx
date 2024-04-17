@@ -13,6 +13,7 @@ import { NavBar } from "@/app/(courses)/_components/navbar";
 import { hasEnrolled } from "@/actions/has-enrolled";
 import { Footer } from "@/components/footer";
 import { BackButton } from "@/components/back-button";
+import { UpcomingWebinarBar } from "./_components/upcoming-webinars-list";
 
 const CoursePage = async ({ params }: { params: { slug: string } }) => {
   const { userId } = auth();
@@ -34,7 +35,7 @@ const CoursePage = async ({ params }: { params: { slug: string } }) => {
     },
   });
 
-  if(userId) {
+  if (userId) {
     user = await db.user.findUnique({
       where: {
         externalId: userId,
@@ -50,6 +51,26 @@ const CoursePage = async ({ params }: { params: { slug: string } }) => {
   const enrollerCount = await getStudents(course.id);
   const enrolled = await hasEnrolled(course.id);
 
+  const webinars = await db.webinar.findMany({
+    where: {
+      status: "upcoming",
+      isPublished: true,
+      OR: [
+        {
+          startAt: null,
+        },
+        {
+          startAt: {
+            gt: new Date(),
+          },
+        },
+      ],
+    },
+    take: 3,
+  });
+
+
+
   return (
     <div className="h-full">
       <div className="h-[80px] fixed inset-y-0 w-full z-50 ">
@@ -58,6 +79,9 @@ const CoursePage = async ({ params }: { params: { slug: string } }) => {
       <main className="pt-[80px] h-full">
         <div className="p-6 w-full lg:w-[85%] m-auto">
           <BackButton path="/courses" />
+          {webinars && webinars.length > 0 && (
+            <UpcomingWebinarBar webinars={webinars} />
+          )}
           <div className="flex flex-wrap items-center justify-between p-2 bg-linear-landing rounded mb-4">
             <div className="h-full flex-1 flex-col space-y-8 p-2 md:p-8 md:flex">
               <div className="flex items-center justify-between space-y-2 flex-wrap">
