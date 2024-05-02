@@ -46,7 +46,7 @@ const WebinarPage = async ({ params }: { params: { slug: string } }) => {
             </div>
           </div>
           <div>
-            <h1 className="text-2xl md:text-4xl font-bold text-white">
+            <h1 className="text-2xl md:text-5xl font-bold text-white">
               {webinar.title}
             </h1>
           </div>
@@ -65,7 +65,7 @@ const WebinarPage = async ({ params }: { params: { slug: string } }) => {
                   What you will learn
                 </h1>
               </div>
-              <div>
+              <div className="!text-white">
                 <Preview value={webinar.learnings!} />
               </div>
               <div className="mt-4">

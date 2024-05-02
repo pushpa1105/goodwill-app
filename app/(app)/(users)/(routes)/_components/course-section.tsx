@@ -20,9 +20,6 @@ export const CourseSection = ({ courses }: CourseSectionProps) => {
             <h2 className="text-3xl lg:text-4xl font-extrabold">
               Bestselling Courses on Stock Market
             </h2>
-            <p className="text-[13px] lg:text-[16px] text-[#404040]">
-              Heres our best-selling courses, hand-picked for you.
-            </p>
           </div>
         </div>
         <div className="flex justify-center flex-wrap gap-2 lg:gap-4">

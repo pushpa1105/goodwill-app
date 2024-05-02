@@ -108,8 +108,8 @@ body,
 .text-theme {
   background: -webkit-linear-gradient(90deg, #7f66e9 0%, #083996 100%);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
+  -webkit-text-fill-color: transparent; /*do not change this to white */
+} 
 /* For blogs */
 
 /* Custom styles */

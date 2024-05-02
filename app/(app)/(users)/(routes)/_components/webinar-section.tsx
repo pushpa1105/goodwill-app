@@ -26,7 +26,7 @@ export const WebinarSection = ({ webinars }: WebinarSectionProps) => {
                 Webinars For Stock Market Traders & Investors
               </span>
             </h2>
-            <p className="text-[13px] lg:text-[16px] text-[#404040]">
+            <p className="text-[13px] lg:text-[16px] text-white">
               Gain valuable insights and learn from stock market superheroes in
               our most popular webinars.
             </p>
