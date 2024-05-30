@@ -9,8 +9,8 @@ import ChatwootWidget from "@/components/chatwoot";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Blogs",
-  description: "Goodwill App - Blogs",
+  title: "Products",
+  description: "Goodwill App - Products",
 };
 
 export default function RootLayout({

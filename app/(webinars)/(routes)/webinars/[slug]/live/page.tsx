@@ -3,15 +3,15 @@ import { Chat } from "./_components/chat";
 
 const WebinarLivePage = () => {
   return (
-    <div className="bg-theme">
-      <div className=" m-auto py lg:p-4">
+    <div className="bg-theme h-full w-full">
+      <div className=" m-auto py lg:p-4 h-full w-full">
         <BackButton path="/webinars"/>
-        <div className="grid grid-cols-2 lg:grid-cols-4 lg:gap-4">
-          <div className="col-span-3 h-[35vh] lg:h-[88vh] lg:rounded-2xl">
+        <div className="block lg:flex h-full w-full gap-2">
+          <div className="lg:rounded-2xl h-[50%] lg:h-[95%] w-full lg:w-[64%]">
             <iframe
               width="100%"
               height="100%"
-              src="https://www.youtube.com/embed/P_Ke3ktMeGg?si=du6qR1kmFZlQomrc"
+              src="https://vid.gwcindia.live/embed/video"
               title="YouTube video player"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -19,7 +19,7 @@ const WebinarLivePage = () => {
               className="lg:rounded-2xl"
             ></iframe>
           </div>
-          <div className="col-span-2 lg:col-span-1 h-[55vh] lg:h-[88vh]">
+          <div className="h-[50%] lg:h-[98%] w-full lg:w-[34%]">
             <Chat/>
           </div>
         </div>

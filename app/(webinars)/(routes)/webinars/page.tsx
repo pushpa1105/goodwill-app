@@ -1,3 +1,4 @@
+import { Footer } from "@/components/footer";
 import { columns } from "./_components/columns";
 import { DataTable } from "./_components/data-table";
 import { WebinarLists } from "./_components/webinar-lists";
@@ -51,6 +52,7 @@ const WebinarPage = async () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

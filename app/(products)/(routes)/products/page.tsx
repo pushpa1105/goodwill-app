@@ -28,7 +28,7 @@ const ProductsPage = async ({ searchParams }: BlogPageProps) => {
             <div className="mt-12">
               <div className="flex flex-wrap gap-y-8 justify-center max-w-auto md:max-w-[85%] m-auto mt-4">
                 <div className="p-4 w-[85%] lg:w-[47%] m-auto">
-                  <div className="text-5xl font-bold">
+                  <div className="text-3xl md:text-5xl font-bold">
                     {productPageContent?.mainHeading}
                   </div>
                   <div>
@@ -42,7 +42,7 @@ const ProductsPage = async ({ searchParams }: BlogPageProps) => {
                     </Link>
                   </div>
                 </div>
-                <div className="mt-8 w-[85%] lg:w-auto p-4">
+                <div className="mt-8 w-[85%] lg:w-[50%] p-4">
                   <Image
                     src={productPageContent?.mainImageUrl!}
                     alt="VPN Illustrasi"
