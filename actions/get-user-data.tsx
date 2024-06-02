@@ -4,8 +4,9 @@ import { User } from "@prisma/client";
 
 export const GetUserData = async (): Promise<User | null> => {
   try {
-    const { userId } = auth();
-    if (!userId) return null;
+    const authData = auth();
+    if (!authData || !authData?.userId) return null;
+    const userId = authData?.userId;
     const user = await db.user.findFirst({
       where: {
         externalId: userId as string,

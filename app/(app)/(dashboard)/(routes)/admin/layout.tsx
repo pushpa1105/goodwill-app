@@ -1,10 +1,8 @@
-import { GetUserData } from "@/actions/get-user-data";
-import { isAdmin } from "@/lib/admin";
-import { auth } from "@clerk/nextjs";
+import { isAdmin, isBlogAdmin, isCourseAdmin, isWebinarAdmin } from "@/lib/admin";
 import { redirect } from "next/navigation";
 
 const AdminLayout = async ({ children }: { children: React.ReactNode }) => {
-  if (!await isAdmin()) return redirect("/");
+  if (!await isAdmin() && !await isBlogAdmin() && !await isCourseAdmin()) return redirect("/");
   return <>{children}</>;
 };
 

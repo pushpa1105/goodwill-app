@@ -1,14 +1,7 @@
 "use client ";
 
 import Link from "next/link";
-import { IconBadge } from "@/components/icon-badge";
-import {
-  ArrowDown,
-  BookOpen,
-  ChevronDown,
-  ChevronUp,
-  PlayCircleIcon,
-} from "lucide-react";
+import { ChevronDown, ChevronUp, PlayCircleIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Collapsible,
@@ -17,12 +10,12 @@ import {
 } from "@radix-ui/react-collapsible";
 import { useState } from "react";
 import { EnrollConfirmModal } from "@/components/modals/enroll-confirm-modal";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { User } from "@prisma/client";
 import { EnrollModal } from "./enroll-modal";
-import { TooltipComponent } from "@/components/custom-ui/tooltip-ui";
+import { SignInButton } from "@clerk/nextjs";
 
 interface ChapterCardProps {
   id: string;
@@ -50,6 +43,9 @@ export const ChapterCard = ({
   const [open, setOpen] = useState(false);
 
   const router = useRouter();
+  const pathname = usePathname();
+
+  const redirectUrl = `${process.env.NEXT_PUBLIC_APP_URL}${pathname}`;
   const enrollCourse = async () => {
     try {
       const res = await axios.put(`/api/courses/${courseId}/enroll`, {});
@@ -86,14 +82,15 @@ export const ChapterCard = ({
             <div>{description}</div>
             <div>
               {!user && (
-                <TooltipComponent text="You need to sign in first.">
-                  <div className="cursor-pointer">
-                  <Button className="w-[100%] mt-2" disabled>
-                    <span className="text-md font-bold">Watch it</span>
-                    <PlayCircleIcon className="ml-2" />
-                  </Button>
+                <div className="text-muted-foreground font-light flex mt-2">
+                  You need to sign in first to watch it.
+                  <div className="ml-[5px] font-medium px-2 bg-theme rounded-full text-white">
+                    <SignInButton
+                      afterSignUpUrl={redirectUrl}
+                      afterSignInUrl={redirectUrl}
+                    />
                   </div>
-                </TooltipComponent>
+                </div>
               )}
               {user && enrolled && (
                 <Link href={`/courses/${slug}/chapters/${chapterSlug}`}>

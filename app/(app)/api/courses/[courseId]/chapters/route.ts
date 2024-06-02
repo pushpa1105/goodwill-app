@@ -1,3 +1,4 @@
+import { isCourseAdmin } from "@/lib/admin";
 import { db } from "@/lib/db";
 import { generateSlug } from "@/lib/slug";
 import { auth } from "@clerk/nextjs";
@@ -12,17 +13,20 @@ export async function POST(
     const { courseId } = params;
     const { title } = await req.json();
 
-    if (!userId) return new NextResponse("Unauthorized", { status: 401 });
+    const isAuthorized = await isCourseAdmin();
 
-    const courseCreator = await db.course.findUnique({
+    if (!userId || !isAuthorized) {
+      return new NextResponse("Unauthorized", { status: 401 });
+    }
+
+    const course = await db.course.findUnique({
       where: {
         id: courseId,
-        userId,
       },
     });
 
-    if (!courseCreator)
-      return new NextResponse("Unauthorized", { status: 401 });
+    if (!course)
+      return new NextResponse("Course not found", { status: 404 });
 
     const lastChapter = await db.chapter.findFirst({
       where: {

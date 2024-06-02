@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 
 import { db } from "@/lib/db";
 import { generateSlug } from "@/lib/slug";
+import { isCourseAdmin } from "@/lib/admin";
 
 const { Video } = new Mux(
   process.env.MUX_TOKEN_ID!,
@@ -18,19 +19,21 @@ export async function DELETE(
     const { userId } = auth();
     const { courseId, chapterId } = params;
 
-    if (!userId) {
+
+    const isAuthorized = await isCourseAdmin();
+
+    if (!userId || !isAuthorized) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const courseCreator = await db.course.findUnique({
+    const course = await db.course.findUnique({
       where: {
         id: courseId,
-        userId,
       },
     });
 
-    if (!courseCreator) {
-      return new NextResponse("Unauthorized", { status: 401 });
+    if (!course) {
+      return new NextResponse("Course not found", { status: 404 });
     }
 
     const chapter = await db.chapter.findUnique({
@@ -97,22 +100,22 @@ export async function PATCH(
   { params }: { params: { courseId: string; chapterId: string } }
 ) {
   try {
-    const { userId } = auth();
     const { courseId, chapterId } = params;
     const { isPublished, ...values } = await req.json();
 
-    if (!userId) {
+    const isAuthorized = await isCourseAdmin();
+
+    if (!isAuthorized) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const courseCreator = await db.course.findUnique({
+    const course = await db.course.findUnique({
       where: {
-        id: courseId,
-        userId,
+        id: courseId
       },
     });
 
-    if (!courseCreator) {
+    if (!course) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 

@@ -1,3 +1,4 @@
+import { isCourseAdmin } from "@/lib/admin";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
@@ -10,18 +11,9 @@ export async function DELETE(
     const { userId } = auth();
     const { courseId, attachmentId } = params;
 
-    if (!userId) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
+    const isAuthorized = await isCourseAdmin();
 
-    const courseCreator = await db.course.findUnique({
-      where: {
-        userId,
-        id: courseId,
-      },
-    });
-
-    if (!courseCreator) {
+    if (!userId || !isAuthorized) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 

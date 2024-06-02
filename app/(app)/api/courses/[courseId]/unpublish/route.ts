@@ -2,29 +2,29 @@ import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
 import { db } from "@/lib/db";
+import { isCourseAdmin } from "@/lib/admin";
 
 export async function PATCH(
   req: Request,
   { params }: { params: { courseId: string } }
 ) {
   try {
-    const { userId } = auth();
     const { courseId } = params;
+    const isAuthorized = await isCourseAdmin();
 
-    if (!userId) {
+    if (!isAuthorized) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const courseCreator = await db.course.findUnique({
+    const course = await db.course.findUnique({
       where: {
         id: courseId,
-        userId,
       },
     });
 
-    if (!courseCreator) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
+    if (!course)
+      return new NextResponse("Course not found", { status: 404 });
+
 
     const unpublishedCourse = await db.course.update({
       where: {

@@ -2,27 +2,17 @@ import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
 import { db } from "@/lib/db";
+import { isBlogAdmin } from "@/lib/admin";
 
 export async function PATCH(
   req: Request,
   { params }: { params: { blogId: string } }
 ) {
   try {
-    const { userId } = auth();
     const { blogId } = params;
+    const isAuthorized = await isBlogAdmin();
 
-    if (!userId) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
-
-    const blogCreator = await db.blog.findUnique({
-      where: {
-        id: blogId,
-        userId,
-      },
-    });
-
-    if (!blogCreator) {
+    if (!isAuthorized) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
@@ -33,24 +23,8 @@ export async function PATCH(
     });
 
     if (!blog) {
-      return new NextResponse("Course not found", { status: 404 });
+      return new NextResponse("Blog not found", { status: 404 });
     }
-
-    // const hasPublishedChapter = course?.chapters.some(
-    //   (chapter) => chapter.isPublished
-    // );
-
-    // if (
-    //   !course?.title ||
-    //   !course.description ||
-    //   !course.imageUrl ||
-    //   !course.categoryId ||
-    //   !hasPublishedChapter
-    // ) {
-    //   return new NextResponse("Some required fields are missing.", {
-    //     status: 400,
-    //   });
-    // }
 
     const publishedBlog = await db.blog.update({
       where: {

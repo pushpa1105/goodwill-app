@@ -1,20 +1,18 @@
 import { EnrollConfirmModal } from "@/components/modals/enroll-confirm-modal";
 import { Button } from "@/components/ui/button";
-import { Course, User } from "@prisma/client";
+import { User } from "@prisma/client";
 import axios from "axios";
 import {
   PlayIcon,
   KeyIcon,
   FileStack,
-  MedalIcon,
-  Play,
   PlayCircle,
 } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { EnrollModal } from "./enroll-modal";
-import { TooltipComponent } from "@/components/custom-ui/tooltip-ui";
+import { SignInButton } from "@clerk/nextjs";
 
 interface CourseDetailsProps {
   id: string;
@@ -34,7 +32,9 @@ export const CourseDetails = ({
   user,
 }: CourseDetailsProps) => {
   const router = useRouter();
-  const redirectUrl = `${process.env.NEXT_PUBLIC_APP_URL}/courses/${course.slug}`;
+  const pathname = usePathname();
+
+  const redirectUrl = `${process.env.NEXT_PUBLIC_APP_URL}${pathname}`;
   const enrollAction = async () => {
     try {
       await axios.put(`/api/courses/${course.id}/enroll`, {});
@@ -98,13 +98,15 @@ export const CourseDetails = ({
       )}
 
       {!user && (
-        <TooltipComponent text="You need to sign in first.">
-          <div className="cursor-pointer">
-            <Button className="w-full" disabled>
-              Enroll Now
-            </Button>
-          </div>
-        </TooltipComponent>
+        <div className="text-muted-foreground font-light flex">
+          You need to sign in first to enroll course.
+            <div className="ml-[5px] font-medium px-2 bg-theme rounded-full text-white">
+              <SignInButton
+                afterSignUpUrl={redirectUrl}
+                afterSignInUrl={redirectUrl}
+              />
+            </div>
+        </div>
       )}
       {user && !user?.phone && !enrolled && (
         <EnrollModal

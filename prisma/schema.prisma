@@ -24,6 +24,8 @@ model User {
   phoneNumber String?
   isAdmin Boolean?
   isSuperAdmin Boolean?
+  isBlogAdmin  Boolean?
+  isCourseAdmin  Boolean?
 
   createdAt        DateTime            @default(now())
   updatedAt        DateTime            @updatedAt

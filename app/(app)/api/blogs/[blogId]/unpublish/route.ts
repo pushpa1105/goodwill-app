@@ -2,6 +2,7 @@ import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
 import { db } from "@/lib/db";
+import { isBlogAdmin } from "@/lib/admin";
 
 export async function PATCH(
   req: Request,
@@ -11,18 +12,9 @@ export async function PATCH(
     const { userId } = auth();
     const { blogId } = params;
 
-    if (!userId) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
+    const isAuthorized = await isBlogAdmin();
 
-    const blogCreator = await db.blog.findUnique({
-      where: {
-        id: blogId,
-        userId,
-      },
-    });
-
-    if (!blogCreator) {
+    if (!userId || !isAuthorized) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 

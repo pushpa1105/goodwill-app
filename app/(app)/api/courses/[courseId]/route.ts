@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
-import { isAdmin } from "@/lib/admin";
+import { isAdmin, isCourseAdmin } from "@/lib/admin";
 import { generateSlug } from "@/lib/slug";
 
 const { Video } = new Mux(
@@ -16,19 +16,16 @@ export async function DELETE(
   { params }: { params: { courseId: string } }
 ) {
   try {
-    const { userId } = auth();
     const { courseId } = params;
+    const isAuthorized = await isCourseAdmin();
 
-    const isAuthorized = await isAdmin();
-
-    if (!userId || !isAuthorized) {
+    if (isAuthorized) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
     const course = await db.course.findUnique({
       where: {
         id: courseId,
-        userId,
       },
       include: {
         chapters: {
@@ -74,7 +71,7 @@ export async function PATCH(
     const { courseId } = params;
     const values = await req.json();
 
-    const isAuthorized = await isAdmin();
+    const isAuthorized = await isCourseAdmin();
 
     if (!userId || !isAuthorized) {
       return new NextResponse("Unauthorized", { status: 401 });
@@ -131,8 +128,7 @@ export async function PATCH(
 
     const course = await db.course.update({
       where: {
-        id: courseId,
-        userId,
+        id: courseId
       },
       data: {
         ...values,

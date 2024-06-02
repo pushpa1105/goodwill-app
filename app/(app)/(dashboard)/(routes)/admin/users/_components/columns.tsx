@@ -62,6 +62,84 @@ export const columns: ColumnDef<User>[] = [
     },
   },
   {
+    accessorKey: "isBlogAdmin",
+    header: 'Blog Admin',
+    cell: ({ row }) => {
+      const { id, isBlogAdmin= false} = row.original;
+
+      const onUpdate = async () => {
+        try {
+          await axios.patch(`/api/user/${id}/blog-admin`);
+          toast.success("User updated");
+          location.reload();
+        } catch (error) {
+          if (error?.response?.data) toast.error(error?.response?.data);
+          else toast.error("Something went wrong");
+        }
+      };
+
+      return (
+        <>
+          <div className="flex flex-wrap">
+            <Switch checked={isBlogAdmin as boolean} onCheckedChange={onUpdate} />
+          </div>
+        </>
+      );
+    },
+  },
+  {
+    accessorKey: "isCourseAdmin",
+    header: 'Course Admin',
+    cell: ({ row }) => {
+      const { id, isCourseAdmin= false} = row.original;
+
+      const onUpdate = async () => {
+        try {
+          await axios.patch(`/api/user/${id}/course-admin`);
+          toast.success("User updated");
+          location.reload();
+        } catch (error) {
+          if (error?.response?.data) toast.error(error?.response?.data);
+          else toast.error("Something went wrong");
+        }
+      };
+
+      return (
+        <>
+          <div className="flex flex-wrap">
+            <Switch checked={isCourseAdmin as boolean} onCheckedChange={onUpdate} />
+          </div>
+        </>
+      );
+    },
+  },
+  {
+    accessorKey: "isWebinarAdmin",
+    header: 'Webinar Admin',
+    cell: ({ row }) => {
+      const { id, isWebinarAdmin = false} = row.original;
+
+      const onUpdate = async () => {
+        try {
+          await axios.patch(`/api/user/${id}/webinar-admin`);
+          toast.success("User updated");
+          location.reload();
+        } catch (error) {
+          if (error?.response?.data) toast.error(error?.response?.data);
+          else toast.error("Something went wrong");
+        }
+      };
+
+      return (
+        <>
+          <div className="flex flex-wrap">
+            <Switch checked={isWebinarAdmin as boolean} onCheckedChange={onUpdate} />
+          </div>
+        </>
+      );
+    },
+  },
+  {
     id: "actions",
     cell: ({ row }) => {
       const { id, isAdmin: isUserAdmin = false } = row.original;
@@ -87,6 +165,6 @@ export const columns: ColumnDef<User>[] = [
         </>
       );
     },
-    header: "Actions",
+    header: "isAdmin",
   },
 ];

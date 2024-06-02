@@ -1,4 +1,4 @@
-import { isAdmin } from "@/lib/admin";
+import { isBlogAdmin } from "@/lib/admin";
 import { db } from "@/lib/db";
 import { generateSlug } from "@/lib/slug";
 import { auth } from "@clerk/nextjs";
@@ -9,7 +9,7 @@ export async function POST(req: Request) {
     const { userId } = auth();
     const { title, description } = await req.json();
 
-    const isAuthorized = await isAdmin();
+    const isAuthorized = await isBlogAdmin();
 
     if (!userId || !isAuthorized) {
       return new NextResponse("Unauthorized", { status: 401 });

@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
-import { isAdmin } from "@/lib/admin";
+import { isAdmin, isBlogAdmin } from "@/lib/admin";
 import { generateSlug } from "@/lib/slug";
 
 const { Video } = new Mux(
@@ -19,7 +19,7 @@ export async function DELETE(
     const { userId } = auth();
     const { blogId } = params;
 
-    const isAuthorized = await isAdmin();
+    const isAuthorized = await isBlogAdmin();
 
     if (!userId || !isAuthorized) {
       return new NextResponse("Unauthorized", { status: 401 });
@@ -57,9 +57,9 @@ export async function PATCH(
     const { blogId } = params;
     const values = await req.json();
 
-    const isAuthorized = await isAdmin();
+    const isAuthorized = await isBlogAdmin();
 
-    if (!userId || !isAuthorized) {
+    if (!isAuthorized) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
@@ -81,7 +81,6 @@ export async function PATCH(
     const blog = await db.blog.update({
       where: {
         id: blogId,
-        userId,
       },
       data: {
         ...values,

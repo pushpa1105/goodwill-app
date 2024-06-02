@@ -12,9 +12,6 @@ const CoursePage = async () => {
   if (!userId) return redirect("/");
 
   const courses = await db.course.findMany({
-    where: {
-      userId,
-    },
     orderBy: {
       createdAt: "desc",
     },
