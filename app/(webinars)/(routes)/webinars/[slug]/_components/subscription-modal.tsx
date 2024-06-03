@@ -4,26 +4,21 @@ import { useState } from "react";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { SubscriptionForm } from "./subscription-form";
 import { Webinar } from "@prisma/client";
 import { formatDate } from "@/lib/format";
-import { Logo } from "@/components/logo";
 
 interface SubscribeModalProps {
   children: React.ReactNode;
   webinar: Webinar;
-  //   title: string;
 }
 
 export const SubscriptionModal = ({
   children,
   webinar,
-}: //   title,
+}:
 SubscribeModalProps) => {
   const [open, setOpen] = useState(false);
   return (

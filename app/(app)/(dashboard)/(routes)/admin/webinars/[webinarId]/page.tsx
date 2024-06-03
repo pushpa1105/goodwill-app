@@ -24,6 +24,7 @@ import { MeetingPasswordForm } from "./_components/meeting-password-form";
 import { MeetingLeaveUrlForm } from "./_components/meeting-leave-url-form";
 import { MeetingUrlForm } from "./_components/meeting-url-form";
 import { WebinarAccessForm } from "./_components/webinar-access-form";
+import { EndDateForm } from "./_components/end-date-form";
 
 const CourseIdPage = async ({ params }: { params: { webinarId: string } }) => {
 
@@ -36,7 +37,7 @@ const CourseIdPage = async ({ params }: { params: { webinarId: string } }) => {
   const speakers = await db.speaker.findMany();
 
   if (!webinar) {
-    toast.error("Course not found.");
+    toast.error("Webinar not found.");
     return redirect("/");
   }
 
@@ -47,6 +48,7 @@ const CourseIdPage = async ({ params }: { params: { webinarId: string } }) => {
     webinar.learnings,
     webinar.level,
     webinar.startAt,
+    webinar.endAt,
     webinar.status,
     webinar.imageUrl,
   ];
@@ -124,6 +126,11 @@ const CourseIdPage = async ({ params }: { params: { webinarId: string } }) => {
                 initialData={webinar}
                 webinarId={params.webinarId}
                 startDate={webinar.startAt || new Date()}
+              />
+              <EndDateForm
+                initialData={webinar}
+                webinarId={params.webinarId}
+                endDate={webinar.endAt || new Date()}
               />
             </div>
           </div>

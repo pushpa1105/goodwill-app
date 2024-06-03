@@ -3,6 +3,7 @@ import { columns } from "./_components/columns";
 import { DataTable } from "./_components/data-table";
 import { WebinarLists } from "./_components/webinar-lists";
 import { db } from "@/lib/db";
+import { LiveWebinarLists } from "./_components/live-webinar-lists";
 
 interface Webinar {
   id: Number;
@@ -38,6 +39,7 @@ const WebinarPage = async () => {
       <div className="bg-[#083996] min-h-[98.4vh]">
         <div className="flex flex-col justify-center max-w-auto md:max-w-[85%] m-auto">
           <div>
+            <LiveWebinarLists/>
             <WebinarLists />
             <div className="md:w-50 max-w-[1200px] m-4 md:m-auto">
               <div className="mt-16">

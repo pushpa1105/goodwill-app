@@ -16,21 +16,21 @@ import "react-datepicker/dist/react-datepicker.css";
 
 interface TitleFormProps {
   initialData: Webinar;
-  startDate: Date;
+  endDate: Date;
   webinarId: string;
 }
 
 const formSchema = z.object({
-  startAt: z.date(),
+  endDate: z.date(),
 });
 
-export const StartDateForm = ({
+export const EndDateForm = ({
   initialData,
   webinarId,
-  startDate,
+  endDate,
 }: TitleFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [webinarDate, setwebinarDate] = useState<Date>(startDate || new Date());
+  const [webinarDate, setwebinarDate] = useState<Date>(endDate || new Date());
 
   const toggleEdit = () => setIsEditing((current) => !current);
 
@@ -39,7 +39,7 @@ export const StartDateForm = ({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      startAt: startDate || new Date(),
+      endDate: endDate || new Date(),
     },
   });
 
@@ -47,9 +47,8 @@ export const StartDateForm = ({
 
   const onSubmit = async () => {
     try {
-      console.log(new Date(webinarDate).toISOString());
       await axios.patch(`/api/webinars/${webinarId}`, {
-        startAt: new Date(webinarDate).toISOString(),
+        endAt: new Date(webinarDate).toISOString(),
       });
       toast.success("Start Date updated succesfully.");
       toggleEdit();
@@ -61,7 +60,7 @@ export const StartDateForm = ({
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
-        Webinar Start Date
+        Webinar End Date
         <Button variant="ghost" onClick={toggleEdit}>
           {isEditing ? (
             <>Cancel</>
@@ -77,11 +76,9 @@ export const StartDateForm = ({
         <>
           <div className="border rounded shadow-sm bg-violet-100 p-2 mb-2">
             <p className="text-sm mt-2">
-              {/* {
-                webinarDate.toLocaleDateString()
-              } */}
               {new Date(webinarDate.getTime() + 1000).toLocaleString("en-US", {
                 // timeZone: "Asia/Kolkata",
+                timeZone:"Asia/Kathmandu"
               })}
             </p>
           </div>
@@ -92,6 +89,14 @@ export const StartDateForm = ({
             onSubmit={form.handleSubmit(onSubmit)}
             className="space-y-4 mt-4"
           >
+            {/* <input
+              onChange={(event) => {
+                setwebinarDate(new Date(event.target.value));
+              }}
+              value={webinarDate.toISOString().slice(0, 16)}
+              type="datetime-local"
+              name="endDate"
+            /> */}
             <DatePicker
               selected={webinarDate}
               onChange={(date: Date) => setwebinarDate(date)}
