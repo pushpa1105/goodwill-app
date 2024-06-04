@@ -54,7 +54,6 @@ const WebinarPage = async () => {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 };
