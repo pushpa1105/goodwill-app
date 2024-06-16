@@ -21,6 +21,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
+      <meta name="google-site-verification" content="iNFOpJoRD8LF5URbfwXuSNrLJh9odI9kFzhmAWt2fb0" />
         <body className={inter.className}>
           <ConfettiProvider />
           <ToastProvider />
