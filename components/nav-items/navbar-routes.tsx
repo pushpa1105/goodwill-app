@@ -1,14 +1,13 @@
 "use client";
 
-import { SignInButton, SignUpButton, useAuth } from "@clerk/nextjs";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { LogOut } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { Logo } from "@/components/logo";
-import { UserButton } from "@/components/user-button";
 import { User } from "@prisma/client";
+import { AuthBox } from "./auth";
 
 const pageRoutes = [
   {
@@ -37,15 +36,10 @@ const pageRoutes = [
   },
 ];
 
-export const NavbarRoutes = ({ user }: { user: User | null }) => {
+export const NavbarRoutes = ({ user }: { user: Partial<User | null> }) => {
   const [activeLink, setActiveLink] = useState<string | null>(null);
 
   const pathname = usePathname();
-  const router = useRouter();
-
-  const redirectUrl = `${process.env.NEXT_PUBLIC_APP_URL}${pathname}`;
-
-  const { userId } = useAuth();
   const isAdmin = user?.isAdmin || user?.isSuperAdmin;
 
   const isAdminPage = pathname?.startsWith("/admin");
@@ -92,21 +86,7 @@ export const NavbarRoutes = ({ user }: { user: User | null }) => {
             </Link>
           )
         )}
-        {userId && <UserButton user={user} />}
-        {!userId && (
-          <>
-            <SignInButton
-              redirectUrl={redirectUrl}
-              afterSignInUrl={redirectUrl}
-            />
-            <div className=" bg-black text-white rounded p-2 mx-2 sm:mx-4 capitalize tracking-wide transition-all">
-              <SignUpButton
-                redirectUrl={redirectUrl}
-                afterSignUpUrl={redirectUrl}
-              />
-            </div>
-          </>
-        )}
+        <AuthBox/>
       </div>
     </div>
   );

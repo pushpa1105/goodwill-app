@@ -1,15 +1,8 @@
-import Mux from "@mux/mux-node";
 import { NextResponse } from "next/server";
 
 import { db } from "@/lib/db";
-import { auth } from "@clerk/nextjs";
-import { isAdmin, isCourseAdmin } from "@/lib/admin";
 import { generateSlug } from "@/lib/slug";
-
-const { Video } = new Mux(
-  process.env.MUX_TOKEN_ID!,
-  process.env.MUX_TOKEN_SECRET!
-);
+import { authMiddleware } from "@/app/(app)/api/_utils/middleware";
 
 export async function DELETE(
   req: Request,
@@ -17,11 +10,8 @@ export async function DELETE(
 ) {
   try {
     const { courseId } = params;
-    const isAuthorized = await isCourseAdmin();
-
-    if (isAuthorized) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
+    const response = await authMiddleware("course");
+    if (response.status !== 200) return response;
 
     const course = await db.course.findUnique({
       where: {
@@ -38,16 +28,6 @@ export async function DELETE(
     if (!course) {
       return new NextResponse("Course not found", { status: 404 });
     }
-
-    // for (const chapter of course.chapters) {
-    //   if (chapter.muxData?.assetId) {
-    //     await Video.Assets.del(chapter.muxData.assetId);
-    //   }
-    // }
-
-    // if (course.courseVideo?.assetId) {
-    //   await Video.Assets.del(course.courseVideo.assetId);
-    // }
 
     const deletedCourse = await db.course.delete({
       where: {
@@ -67,15 +47,11 @@ export async function PATCH(
   { params }: { params: { courseId: string } }
 ) {
   try {
-    const { userId } = auth();
+    const response = await authMiddleware("course");
+    if (response.status !== 200) return response;
+
     const { courseId } = params;
     const values = await req.json();
-
-    const isAuthorized = await isCourseAdmin();
-
-    if (!userId || !isAuthorized) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
 
     if (values?.title) {
       const checkTitle = await db.course.findFirst({
@@ -103,19 +79,12 @@ export async function PATCH(
       });
 
       if (existingMuxData) {
-        // await Video.Assets.del(existingMuxData.assetId);
         await db.courseVideo.delete({
           where: {
             id: existingMuxData.id,
           },
         });
       }
-
-      // const asset = await Video.Assets.create({
-      //   input: values.videoUrl,
-      //   playback_policy: "public",
-      //   test: false,
-      // });
 
       await db.courseVideo.create({
         data: {

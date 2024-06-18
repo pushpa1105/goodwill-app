@@ -1,6 +1,5 @@
 import { getChapter } from "@/actions/get-chapter";
 import { Banner } from "@/components/banner";
-import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import { VideoPlayer } from "./_components/video-player";
 import { CourseEnrollButton } from "./_components/course-enroll-button";
@@ -10,23 +9,25 @@ import { File } from "lucide-react";
 import { CourseProgressButton } from "./_components/course-progress-button";
 import { CourseReviewButton } from "./_components/course-review-button";
 import { db } from "@/lib/db";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/(app)/api/auth/[...nextauth]/route";
 
 const ChapterPage = async ({
   params,
 }: {
   params: { slug: string; chapterSlug: string };
 }) => {
-  const { userId } = auth();
   const { chapterSlug, slug } = params;
+  const session = await getServerSession(authOptions)
+  const userId = session?.user.id;
 
-  if (!userId) return redirect("/");
   const currentCourse = await db.course.findUnique({
     where: {
       slug: params.slug,
     },
   });
 
-  if (!currentCourse) return redirect("/");
+  if (!currentCourse || !userId) return redirect("/");
 
   const {
     chapter,

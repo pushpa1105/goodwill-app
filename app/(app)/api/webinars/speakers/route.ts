@@ -1,18 +1,13 @@
-import { isAdmin } from "@/lib/admin";
 import { db } from "@/lib/db";
-import { auth } from "@clerk/nextjs";
+import { authMiddleware } from "@/app/(app)/api/_utils/middleware";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
-    const { userId } = auth();
+    const response = await authMiddleware("admin");
+    if (response.status !== 200) return response;
+
     const values = await req.json();
-
-    const isAuthorized = await isAdmin();
-
-    if (!userId || !isAuthorized) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
 
     const speaker = await db.speaker.create({
       data: values,

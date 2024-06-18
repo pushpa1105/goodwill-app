@@ -33,21 +33,8 @@ export const AboutCarousel = () => {
           stretch: 0,
           depth: 100,
           modifier: 2.5,
-          //   scale: 1,
-          //   slideShadows: true,
         }}
-        // coverflowEffect={{
-        //     rotate: 5,
-        //     stretch: 5,
-        //     depth: 150,
-        //     modifier: 2,
-        //     slideShadows: true
-        //   }}
         pagination={{ el: ".swiper-pagination", clickable: true }}
-        // navigation={{
-        //   nextEl: ".swiper-button-next",
-        //   prevEl: ".swiper-button-prev",
-        // }}
         modules={[EffectCoverflow, Pagination, Navigation, Autoplay]}
         className="swiper_container"
       >

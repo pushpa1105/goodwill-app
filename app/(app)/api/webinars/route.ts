@@ -1,18 +1,21 @@
-import { isAdmin } from "@/lib/admin";
 import { db } from "@/lib/db";
 import { generateSlug } from "@/lib/slug";
-import { auth } from "@clerk/nextjs";
+import { authMiddleware } from "@/app/(app)/api/_utils/middleware";
+import { getUser } from "@/app/(app)/api/_utils/get-user";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
-    const { userId } = auth();
+    const response = await authMiddleware("admin");
+    if (response.status !== 200) return response;
+
+    const { userId } = await getUser()
     const { title, description } = await req.json();
 
-    const isAuthorized = await isAdmin();
-
-    if (!userId || !isAuthorized) {
-      return new NextResponse("Unauthorized", { status: 401 });
+    if (!userId) {
+      return new NextResponse("Unauthorized", {
+        status: 401,
+      });
     }
 
     const checkTitle = await db.webinar.findFirst({
@@ -21,7 +24,7 @@ export async function POST(req: Request) {
       },
     });
     if (checkTitle) {
-      return new NextResponse("Course with this title already exists", {
+      return new NextResponse("Webinar with this title already exists", {
         status: 402,
       });
     }

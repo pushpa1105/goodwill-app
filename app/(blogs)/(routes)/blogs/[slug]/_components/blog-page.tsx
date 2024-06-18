@@ -64,7 +64,7 @@ export const BlogPageComponent = ({
             <div className="flex gap-4 flex-wrap rounded p-2 text-[12px]">
               <div className="flex gap-2">
                 <UserIcon size={18} />{" "}
-                {author?.name !== "null null" ? author.name : "Admin"}
+                {!["null null", null, undefined].includes(author?.name) ? author.name : "Admin"}
               </div>
               <div className="flex gap-2">
                 <CalendarDays size={18} /> {formatDate(blog.createdAt)}

@@ -1,16 +1,19 @@
-import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
 import { db } from "@/lib/db";
-import { isAdmin } from "@/lib/admin";
 import { WebinarEnrollment } from "@prisma/client";
+import { authMiddleware } from "@/app/(app)/api/_utils/middleware";
+import { getUser } from "@/app/(app)/api/_utils/get-user";
 
 export async function PATCH(
   req: Request,
   { params }: { params: { webinarId: string } }
 ) {
   try {
-    const { userId } = auth();
+    const response = await authMiddleware("user");
+    if (response.status !== 200) return response;
+
+    const { userId } = await getUser()
     const { webinarId } = params;
     const { name, email, phone } = await req.json();
 

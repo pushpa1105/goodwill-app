@@ -15,7 +15,6 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { User } from "@prisma/client";
 import { EnrollModal } from "./enroll-modal";
-import { SignInButton } from "@clerk/nextjs";
 
 interface ChapterCardProps {
   id: string;
@@ -85,10 +84,9 @@ export const ChapterCard = ({
                 <div className="text-muted-foreground font-light flex mt-2">
                   You need to sign in first to watch it.
                   <div className="ml-[5px] font-medium px-2 bg-theme rounded-full text-white">
-                    <SignInButton
-                      afterSignUpUrl={redirectUrl}
-                      afterSignInUrl={redirectUrl}
-                    />
+                    <Link href={"/sign-in"}>
+                    Sign in
+                    </Link>
                   </div>
                 </div>
               )}

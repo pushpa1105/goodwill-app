@@ -1,22 +1,18 @@
 import { NextResponse } from "next/server";
 
 import { db } from "@/lib/db";
-import { auth } from "@clerk/nextjs";
-import { isAdmin } from "@/lib/admin";
+import { authMiddleware } from "@/app/(app)/api/_utils/middleware";
+
 
 export async function DELETE(
   req: Request,
   { params }: { params: { speakerId: string } }
 ) {
   try {
-    const { userId } = auth();
+    const response = await authMiddleware("admin");
+    if (response.status !== 200) return response;
+
     const { speakerId } = params;
-
-    const isAuthorized = await isAdmin();
-
-    if (!userId || !isAuthorized) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
 
     const speaker = await db.speaker.findUnique({
       where: {
@@ -46,15 +42,11 @@ export async function PATCH(
   { params }: { params: { speakerId: string } }
 ) {
   try {
-    const { userId } = auth();
+    const response = await authMiddleware("admin");
+    if (response.status !== 200) return response;
+
     const { speakerId } = params;
     const values = await req.json();
-
-    const isAuthorized = await isAdmin();
-
-    if (!userId || !isAuthorized) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
 
     const speaker = await db.speaker.update({
       where: {

@@ -1,6 +1,5 @@
-import { isCourseAdmin } from "@/lib/admin";
 import { db } from "@/lib/db";
-import { auth } from "@clerk/nextjs";
+import { authMiddleware } from "@/app/(app)/api/_utils/middleware";
 import { NextResponse } from "next/server";
 
 export async function DELETE(
@@ -8,15 +7,10 @@ export async function DELETE(
   { params }: { params: { courseId: string; attachmentId: string } }
 ) {
   try {
-    const { userId } = auth();
+    const response = await authMiddleware("course");
+    if (response.status !== 200) return response;
+    
     const { courseId, attachmentId } = params;
-
-    const isAuthorized = await isCourseAdmin();
-
-    if (!userId || !isAuthorized) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
-
     const attachment = await db.attachment.delete({
       where: {
         id: attachmentId,

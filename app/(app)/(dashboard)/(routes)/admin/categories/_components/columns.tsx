@@ -1,6 +1,6 @@
 "use client";
 
-import { Category, Course } from "@prisma/client";
+import { Category } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, Pencil, Trash } from "lucide-react";
 

@@ -25,9 +25,6 @@ import {
 import { Button } from "@/components/ui/button";
 
 import { Input } from "@/components/ui/input";
-import { Editor } from "@/components/editor";
-import { FileUpload } from "@/components/file-upload";
-import { BlogCategory, Category } from "@prisma/client";
 
 interface CategoryModalProps {
   children: React.ReactNode;

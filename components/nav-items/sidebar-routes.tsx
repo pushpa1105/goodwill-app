@@ -22,12 +22,7 @@ const adminRoutes = [
     icon: List,
     label: "Courses",
     href: "/admin/courses",
-  },
-  {
-    icon: BarChart,
-    label: "Analytics",
-    href: "/admin/analytics",
-  },
+  }
 ];
 
 const pageRoutes = [

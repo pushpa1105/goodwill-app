@@ -1,30 +1,18 @@
-import Mux from "@mux/mux-node";
-import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
 import { db } from "@/lib/db";
 import { generateSlug } from "@/lib/slug";
-import { isCourseAdmin } from "@/lib/admin";
-
-const { Video } = new Mux(
-  process.env.MUX_TOKEN_ID!,
-  process.env.MUX_TOKEN_SECRET!
-);
+import { authMiddleware } from "@/app/(app)/api/_utils/middleware";
 
 export async function DELETE(
   req: Request,
   { params }: { params: { courseId: string; chapterId: string } }
 ) {
   try {
-    const { userId } = auth();
+    const response = await authMiddleware("course");
+    if (response.status !== 200) return response;
+
     const { courseId, chapterId } = params;
-
-
-    const isAuthorized = await isCourseAdmin();
-
-    if (!userId || !isAuthorized) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
 
     const course = await db.course.findUnique({
       where: {
@@ -55,7 +43,6 @@ export async function DELETE(
       });
 
       if (existingMuxData) {
-        // await Video.Assets.del(existingMuxData.assetId);
         await db.muxData.delete({
           where: {
             id: existingMuxData.id,
@@ -100,14 +87,11 @@ export async function PATCH(
   { params }: { params: { courseId: string; chapterId: string } }
 ) {
   try {
+    const response = await authMiddleware("course");
+    if (response.status !== 200) return response;
+
     const { courseId, chapterId } = params;
     const { isPublished, ...values } = await req.json();
-
-    const isAuthorized = await isCourseAdmin();
-
-    if (!isAuthorized) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
 
     const course = await db.course.findUnique({
       where: {
@@ -143,19 +127,12 @@ export async function PATCH(
       });
 
       if (existingMuxData) {
-        // await Video.Assets.del(existingMuxData.assetId);
         await db.muxData.delete({
           where: {
             id: existingMuxData.id,
           },
         });
       }
-
-      // const asset = await Video.Assets.create({
-      //   input: values.videoUrl,
-      //   playback_policy: "public",
-      //   test: false,
-      // });
 
       await db.muxData.create({
         data: {

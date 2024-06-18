@@ -1,18 +1,10 @@
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { columns } from "./_components/columns";
-import { auth } from "@clerk/nextjs";
-import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
 import { CourseEnrollmentDataTable } from "./_components/data-table";
 import { WebinarEnrollmentDataTable } from "./_components/webinar-enrollment-data-table";
 import { webinarEnrollmentsColumns } from "./_components/webinar-enrollment-columns";
 
 const CoursePage = async () => {
-  const { userId } = auth();
-
-  if (!userId) return redirect("/");
-
   const enrollments = await db.courseEnrollment.findMany({
     include: {
       user: true,

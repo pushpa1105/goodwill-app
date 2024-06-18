@@ -1,17 +1,12 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { SignInButton, SignUpButton, UserButton, useAuth } from "@clerk/nextjs";
 import { Logo } from "@/components/logo";
-import { usePathname } from "next/navigation";
+import { AuthBox } from "@/components/nav-items/auth";
 
 const NavBar = () => {
-  const { userId } = useAuth();
   const [scrollActive, setScrollActive] = useState(false);
 
-  const pathname = usePathname();
-
-  const redirectUrl = `${process.env.NEXT_PUBLIC_APP_URL}${pathname}`;
   useEffect(() => {
     window.addEventListener("scroll", () => {
       setScrollActive(window.scrollY > 20);
@@ -31,21 +26,7 @@ const NavBar = () => {
           </div>
 
           <div className="col-start-10 col-end-12 font-medium flex justify-end items-center">
-            {userId && <UserButton afterSignOutUrl="/" />}
-            {!userId && (
-              <>
-                <SignInButton
-                  redirectUrl={redirectUrl}
-                  afterSignInUrl={redirectUrl}
-                />
-                <div className=" bg-black text-white rounded p-2 mx-2 sm:mx-4 capitalize tracking-wide transition-all">
-                  <SignUpButton
-                    redirectUrl={redirectUrl}
-                    afterSignUpUrl={redirectUrl}
-                  />
-                </div>
-              </>
-            )}
+            <AuthBox/>
           </div>
         </nav>
       </header>

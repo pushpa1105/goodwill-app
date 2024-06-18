@@ -1,6 +1,5 @@
 import { db } from "@/lib/db";
-import { Category, Course, Review } from "@prisma/client";
-import { getProgress } from "./get-progress";
+import { Review } from "@prisma/client";
 
 type GetReviewsData = {
   courseId?: string;
@@ -23,7 +22,7 @@ export const getReviews = async ({
           select: {
             name: true,
             email: true,
-            imageUrl: true,
+            image: true,
           },
         },
       },

@@ -1,6 +1,5 @@
-import { isSuperAdmin } from "@/lib/admin";
 import { db } from "@/lib/db";
-import { auth } from "@clerk/nextjs";
+import { authMiddleware } from "@/app/(app)/api/_utils/middleware";
 import { NextResponse } from "next/server";
 
 export async function PATCH(
@@ -8,21 +7,19 @@ export async function PATCH(
   { params }: { params: { id: string } }
 ) {
   try {
-    const { userId } = auth();
+    const response = await authMiddleware("superAdmin");
+    if (response.status !== 200) return response;
     const { id } = params;
 
-    if (!(await isSuperAdmin())) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
     const userData = await db.user.findUnique({
       where: {
-        id: parseInt(id),
+        id,
       },
     });
 
     const user = await db.user.update({
       where: {
-        id: parseInt(id),
+        id,
       },
       data: {
         isAdmin: !userData?.isAdmin,

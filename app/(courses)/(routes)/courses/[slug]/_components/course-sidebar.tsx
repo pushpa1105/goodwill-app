@@ -1,4 +1,3 @@
-import { auth } from "@clerk/nextjs";
 import { Chapter, Course, UserProgress } from "@prisma/client";
 import { redirect } from "next/navigation";
 
@@ -6,10 +5,10 @@ import { db } from "@/lib/db";
 import { CourseSidebarItem } from "./course-sidebar-item";
 import { CourseProgress } from "@/components/course-progress";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { SidebarPageItem } from "./sidebar-page-item";
+import { getUser } from "@/app/(app)/api/_utils/get-user";
 
 interface CourseSidebarProps {
   course: Course & {
@@ -24,7 +23,7 @@ export const CourseSidebar = async ({
   course,
   progressCount,
 }: CourseSidebarProps) => {
-  const { userId } = auth();
+  const { userId } = await getUser();
 
   if (!userId) return redirect("/");
 

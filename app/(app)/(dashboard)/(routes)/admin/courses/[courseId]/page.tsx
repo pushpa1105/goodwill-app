@@ -1,4 +1,3 @@
-import { auth } from "@clerk/nextjs";
 import {
   CircleDollarSign,
   Eye,
@@ -7,7 +6,6 @@ import {
   ListChecks,
 } from "lucide-react";
 import { redirect } from "next/navigation";
-import toast from "react-hot-toast";
 
 import { db } from "@/lib/db";
 import { IconBadge } from "@/components/icon-badge";
@@ -29,12 +27,6 @@ import { CourseRequirementsForm } from "./_components/course-requirements-form";
 import { CourseCoverageForm } from "./_components/course-coverage-form";
 
 const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
-  const { userId } = auth();
-
-  if (!userId) {
-    // toast.error("Login Required.");
-    return redirect("/");
-  }
 
   const course = await db.course.findUnique({
     where: {
@@ -60,7 +52,6 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
   });
 
   if (!course) {
-    // toast.error("Course not found.");
     return redirect("/");
   }
 

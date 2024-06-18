@@ -1,21 +1,17 @@
-import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
 import { db } from "@/lib/db";
-import { isCourseAdmin } from "@/lib/admin";
+import { authMiddleware } from "@/app/(app)/api/_utils/middleware";
 
 export async function PATCH(
   req: Request,
   { params }: { params: { courseId: string } }
 ) {
   try {
+    const response = await authMiddleware("course");
+    if (response.status !== 200) return response;
+
     const { courseId } = params;
-
-    const isAuthorized = await isCourseAdmin();
-
-    if (!isAuthorized) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
 
     const course = await db.course.findUnique({
       where: {

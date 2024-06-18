@@ -1,20 +1,20 @@
-import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
 import { db } from "@/lib/db";
+import { authMiddleware } from "@/app/(app)/api/_utils/middleware";
+import { getUser } from "@/app/(app)/api/_utils/get-user";
 
 export async function POST(
   req: Request,
   { params }: { params: { blogId: string } }
 ) {
   try {
-    const { userId } = auth();
+    const response = await authMiddleware("blog");
+    if (response.status !== 200) return response;
+
+    const { userId } = await getUser();
     const { blogId } = params;
     const { message, parentCommentId } = await req.json();
-
-    if (!userId) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
 
     const blog = await db.blog.findUnique({
       where: {
@@ -50,13 +50,12 @@ export async function PATCH(
   { params }: { params: { blogId: string } }
 ) {
   try {
-    const { userId } = auth();
+    const response = await authMiddleware("user");
+    if (response.status !== 200) return response;
+
+    const { userId } = await getUser();
     const { blogId } = params;
     const { message, commentId } = await req.json();
-
-    if (!userId) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
 
     const blog = await db.blog.findUnique({
       where: {
@@ -101,13 +100,12 @@ export async function DELETE(
   { params }: { params: { blogId: string } }
 ) {
   try {
-    const { userId } = auth();
-    const { blogId } = params;
-    const { message, commentId } = await req.json();
+    const response = await authMiddleware("blog");
+    if (response.status !== 200) return response;
 
-    if (!userId) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
+    const { userId } = await getUser();
+    const { blogId } = params;
+    const { commentId } = await req.json();
 
     const blog = await db.blog.findUnique({
       where: {

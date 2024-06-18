@@ -1,29 +1,22 @@
-import Mux from "@mux/mux-node";
 import { NextResponse } from "next/server";
 
 import { db } from "@/lib/db";
-import { auth } from "@clerk/nextjs";
-import { isAdmin, isBlogAdmin } from "@/lib/admin";
+import { isBlogAdmin } from "@/lib/admin";
 import { generateSlug } from "@/lib/slug";
-
-const { Video } = new Mux(
-  process.env.MUX_TOKEN_ID!,
-  process.env.MUX_TOKEN_SECRET!
-);
+import { getServerSession } from "next-auth";
+import { authOptions } from "../../auth/[...nextauth]/route";
+import { authMiddleware } from "../../_utils/middleware";
+import { getUser } from "../../_utils/get-user";
 
 export async function DELETE(
   req: Request,
   { params }: { params: { blogId: string } }
 ) {
   try {
-    const { userId } = auth();
+    const response = await authMiddleware("blog");
+    if (response.status !== 200) return response;
+
     const { blogId } = params;
-
-    const isAuthorized = await isBlogAdmin();
-
-    if (!userId || !isAuthorized) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
 
     const blog = await db.blog.findUnique({
       where: {
@@ -32,7 +25,7 @@ export async function DELETE(
     });
 
     if (!blog) {
-      return new NextResponse("Course not found", { status: 404 });
+      return new NextResponse("Blog not found", { status: 404 });
     }
 
     const deletedBlog = await db.blog.delete({
@@ -53,15 +46,11 @@ export async function PATCH(
   { params }: { params: { blogId: string } }
 ) {
   try {
-    const { userId } = auth();
+    const response = await authMiddleware("blog");
+    if (response.status !== 200) return response;
+
     const { blogId } = params;
     const values = await req.json();
-
-    const isAuthorized = await isBlogAdmin();
-
-    if (!isAuthorized) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
 
     if (values?.title) {
       const checkTitle = await db.blog.findFirst({

@@ -1,8 +1,3 @@
-import { getAnalytics } from "@/actions/get-analytics";
-import { auth } from "@clerk/nextjs";
-import { redirect } from "next/navigation";
-import { DataCard } from "./_components/data-card";
-import { Chart } from "./_components/chart";
 import { db } from "@/lib/db";
 import { TitleForm } from "./_components/title-form";
 import { ImageForm } from "./_components/image-form";
@@ -15,8 +10,6 @@ import { VideoUrlForm } from "./_components/video-url-form";
 import { VideoTextForm } from "./_components/video-text-form";
 
 const ProductsPage = async () => {
-  const { userId } = auth();
-  if (!userId) redirect("/");
 
   const productPageDetails = await db.productPageContent.findFirst();
   const products = await db.productData.findMany({ where: { isActive: true } });

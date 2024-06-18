@@ -137,3 +137,30 @@ body::-webkit-scrollbar-thumb:hover {
   padding: 30px;
   border-radius: 4px;
 }
+
+.sign-up {
+  box-sizing: inherit;
+  display: flex;
+  flex-flow: column;
+  -webkit-box-align: stretch;
+  align-items: stretch;
+  -webkit-box-pack: start;
+  justify-content: flex-start;
+  gap: 2rem;
+  will-change: transform, opacity, height;
+  border-radius: 1rem;
+  background-color: white;
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+  transition-duration: 200ms;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 24px 48px;
+  border: 1px solid transparent;
+  width: 25rem;
+  max-width: calc(-5rem + 100vw);
+  margin: 0px 1.75rem;
+  padding: 2.375rem 2rem 3rem;
+}
+
+
+.bg-theme {
+  background: linear-gradient(90deg, #7f66e9 0%, #083996 100%) !important;
+}

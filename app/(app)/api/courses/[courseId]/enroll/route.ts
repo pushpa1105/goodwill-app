@@ -1,23 +1,30 @@
 import { db } from "@/lib/db";
-import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
+import { authMiddleware } from "@/app/(app)/api/_utils/middleware";
+import { getUser } from "@/app/(app)/api/_utils/get-user";
 
 export async function PUT(
   req: Request,
   { params }: { params: { courseId: string } }
 ) {
   try {
-    const { userId } = auth();
+    const response = await authMiddleware("user");
+    if (response.status !== 200) return response;
 
-    if (!userId) return new NextResponse("Unauthorized", { status: 401 });
+    const { userId } = await getUser();
 
+    if (!userId) {
+      return new NextResponse("Unauthorized", {
+        status: 401,
+      });
+    }
 
     const values = await req.json();
 
     if (values?.phone) {
       const user = await db.user.update({
         where: {
-          externalId: userId,
+          id: userId,
         },
         data: {
           phone: values.phone,
@@ -25,7 +32,7 @@ export async function PUT(
       });
     }
 
-    const user = await db.user.findUnique({ where: { externalId: userId } });
+    const user = await db.user.findUnique({ where: { id: userId } });
 
     if (!user?.phone) {
       return new NextResponse("User need to have phone number", {
