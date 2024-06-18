@@ -1,20 +1,17 @@
-import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
 import { db } from "@/lib/db";
-import { isBlogAdmin } from "@/lib/admin";
+import { authMiddleware } from "@/app/(app)/api/_utils/middleware";
 
 export async function PATCH(
   req: Request,
   { params }: { params: { blogId: string } }
 ) {
   try {
-    const { blogId } = params;
-    const isAuthorized = await isBlogAdmin();
+    const response = await authMiddleware("blog");
+    if (response.status !== 200) return response;
 
-    if (!isAuthorized) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
+    const { blogId } = params;
 
     const blog = await db.blog.findUnique({
       where: {

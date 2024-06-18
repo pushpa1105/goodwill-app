@@ -1,7 +1,4 @@
 import {
-  CircleDollarSign,
-  Eye,
-  File,
   LayoutDashboard,
   ListChecks,
 } from "lucide-react";
@@ -93,11 +90,6 @@ const CourseIdPage = async ({ params }: { params: { blogId: string } }) => {
         <BlogContentForm initialData={blog} blogId={params.blogId} />
       </div>
     </>
-    // <>
-    //   <div>
-    //     <h1>Blog page here</h1>
-    //   </div>
-    // </>
   );
 };
 

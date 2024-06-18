@@ -9,10 +9,9 @@ import {
   PlayCircle,
 } from "lucide-react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { EnrollModal } from "./enroll-modal";
-import { SignInButton } from "@clerk/nextjs";
 
 interface CourseDetailsProps {
   id: string;
@@ -32,9 +31,7 @@ export const CourseDetails = ({
   user,
 }: CourseDetailsProps) => {
   const router = useRouter();
-  const pathname = usePathname();
 
-  const redirectUrl = `${process.env.NEXT_PUBLIC_APP_URL}${pathname}`;
   const enrollAction = async () => {
     try {
       await axios.put(`/api/courses/${course.id}/enroll`, {});
@@ -101,10 +98,9 @@ export const CourseDetails = ({
         <div className="text-muted-foreground font-light flex">
           You need to sign in first to enroll course.
             <div className="ml-[5px] font-medium px-2 bg-theme rounded-full text-white">
-              <SignInButton
-                afterSignUpUrl={redirectUrl}
-                afterSignInUrl={redirectUrl}
-              />
+              <Link href={"/sign-in"}>
+              Sign in
+              </Link>
             </div>
         </div>
       )}

@@ -1,13 +1,5 @@
-import { auth } from "@clerk/nextjs";
-import {
-  CircleDollarSign,
-  Eye,
-  File,
-  LayoutDashboard,
-  ListChecks,
-} from "lucide-react";
+import { LayoutDashboard, ListChecks } from "lucide-react";
 import { redirect } from "next/navigation";
-import toast from "react-hot-toast";
 
 import { db } from "@/lib/db";
 import { IconBadge } from "@/components/icon-badge";
@@ -29,7 +21,6 @@ const CourseIdPage = async ({ params }: { params: { speakerId: string } }) => {
   });
 
   if (!speaker) {
-    toast.error("Speaker not found.");
     return redirect("/");
   }
 

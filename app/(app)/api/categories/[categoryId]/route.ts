@@ -1,22 +1,17 @@
-import { isAdmin } from "@/lib/admin";
 import { db } from "@/lib/db";
-import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
+import { authMiddleware } from "../../_utils/middleware";
 
 export async function PATCH(
   req: Request,
   { params }: { params: { categoryId: string } }
 ) {
   try {
-    const { userId } = auth();
+    const response = await authMiddleware("admin");
+    if (response.status !== 200) return response;
+    
     const { categoryId } = params;
     const { values, collection } = await req.json();
-
-    const isAuthorized = await isAdmin();
-
-    if (!userId || !isAuthorized) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
 
     let category;
     if (collection === "Category") {
@@ -47,15 +42,12 @@ export async function DELETE(
   { params }: { params: { categoryId: string } }
 ) {
   try {
-    const { userId } = auth();
+    const response = await authMiddleware("admin");
+
+    if (response.status !== 200) return response;
+
     const { categoryId } = params;
     const { collection } = await req.json();
-
-    const isAuthorized = await isAdmin();
-
-    if (!userId || !isAuthorized) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
 
     let category;
     if (collection === "Category") {
@@ -85,7 +77,6 @@ export async function DELETE(
         },
       });
     } else {
-
       const cat = await db.blogCategory.findUnique({
         where: {
           id: categoryId,

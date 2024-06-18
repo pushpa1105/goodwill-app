@@ -2,9 +2,7 @@ import React from "react";
 import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
-import { LandingCarousel } from "../_components/landing-carousel";
 import { db } from "@/lib/db";
-import { CourseCarousel } from "../_components/course-carousel";
 import Link from "next/link";
 import { CourseSection } from "./_components/course-section";
 import { WebinarSection } from "./_components/webinar-section";

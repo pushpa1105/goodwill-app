@@ -1,19 +1,14 @@
 "use client";
 
-import React, { useRef } from "react";
+import React from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { ChevronLeft, ChevronRight, Cross, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { NavItem, defaultNavItems } from "./default-nav-items";
-import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
-import { SignInButton, SignUpButton, useAuth } from "@clerk/nextjs";
-import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/logo";
 import { BackButton } from "@/components/back-button";
 import { User } from "@prisma/client";
-import { UserButton } from "@/components/user-button";
-import { usePathname } from "next/navigation";
+import { AuthBox } from "@/components/nav-items/auth";
 
 // add NavItem prop to component prop
 type Props = {
@@ -38,11 +33,6 @@ const Sidebar = ({
   closeMenu,
   user,
 }: Props) => {
-  const { userId } = useAuth();
-
-  const pathname = usePathname();
-  const redirectUrl = `${process.env.NEXT_PUBLIC_APP_URL}${pathname}`;
-
   const Icon = collapsed ? ChevronRight : ChevronLeft;
   const goToSection = (id: string) => {
     const ele = document.querySelector(`[data-id="${id}"]`);
@@ -66,7 +56,7 @@ const Sidebar = ({
         })}
       >
         <div className="pl-2 pt-4">
-        <BackButton path="/blogs"/>
+          <BackButton path="/blogs" />
         </div>
         {/* logo and collapse button */}
         <div
@@ -182,7 +172,7 @@ const Sidebar = ({
           })}
         >
           <div className="flex gap-x-4 items-center justify-center h-15 overflow-hidden px-2 border-t border-t-indigo-800 pt-4">
-            {userId && <UserButton user={user} />}
+            {/* {userId && <UserButton user={user} />}
             {!userId && (
               <>
                 <SignInButton
@@ -196,7 +186,8 @@ const Sidebar = ({
                   />
                 </div>
               </>
-            )}
+            )} */}
+            <AuthBox/>
           </div>
         </div>
       </div>

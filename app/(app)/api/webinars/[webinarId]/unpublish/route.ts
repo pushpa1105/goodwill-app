@@ -1,29 +1,26 @@
-import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
 import { db } from "@/lib/db";
-import { isAdmin } from "@/lib/admin";
+import { authMiddleware } from "@/app/(app)/api/_utils/middleware";
 
 export async function PATCH(
   req: Request,
   { params }: { params: { webinarId: string } }
 ) {
   try {
-    const { userId } = auth();
+    const response = await authMiddleware("admin");
+    if (response.status !== 200) return response;
     const { webinarId } = params;
-
-    const isAuthorized = await isAdmin();
-
-
-    if (!userId || !isAuthorized) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
 
     const webinar = await db.webinar.findUnique({
       where: {
         id: webinarId,
       },
     });
+
+    if (!webinar) {
+      return new NextResponse("Webinar not found", { status: 404 });
+    }
 
     const unpublishedWebinar = await db.webinar.update({
       where: {

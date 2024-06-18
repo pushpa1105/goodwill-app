@@ -62,12 +62,7 @@ const adminRoutes = [
     icon: List,
     label: "Category",
     href: "/admin/categories",
-  },
-  {
-    icon: BarChart,
-    label: "Analytics",
-    href: "/admin/analytics",
-  },
+  }
 ];
 
 export const SidebarRoutes = () => {

@@ -1,22 +1,23 @@
 import { getProgress } from "@/actions/get-progress";
 import { db } from "@/lib/db";
-import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import { IconBadge } from "@/components/icon-badge";
-import { BookOpen, Star, UsersIcon } from "lucide-react";
+import { BookOpen, UsersIcon } from "lucide-react";
 import { getReviews } from "@/actions/get-review-data";
 import { StarIcon } from "@/components/icons/star-icon";
 import { getStudents } from "@/actions/get-students";
 import { CourseContent } from "./_components/course-content";
 import { CourseReviews } from "./_components/course-reviews";
-import { NavBar } from "@/app/(courses)/_components/navbar";
+
 import { hasEnrolled } from "@/actions/has-enrolled";
 import { Footer } from "@/components/footer";
 import { BackButton } from "@/components/back-button";
 import { UpcomingWebinarBar } from "./_components/upcoming-webinars-list";
+import { getUser } from "@/app/(app)/api/_utils/get-user";
+import { NavBar } from "@/components/nav-items/navbar";
 
 const CoursePage = async ({ params }: { params: { slug: string } }) => {
-  const { userId } = auth();
+  const { userId } = await getUser();
   let user = null;
   const course = await db.course.findUnique({
     where: {
@@ -38,7 +39,7 @@ const CoursePage = async ({ params }: { params: { slug: string } }) => {
   if (userId) {
     user = await db.user.findUnique({
       where: {
-        externalId: userId,
+        id: userId,
       },
     });
   }

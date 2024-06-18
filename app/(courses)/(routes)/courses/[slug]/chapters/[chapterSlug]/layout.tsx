@@ -1,11 +1,11 @@
 import { getProgress } from "@/actions/get-progress";
 import { db } from "@/lib/db";
-import { auth } from "@clerk/nextjs";
-import { redirect, usePathname } from "next/navigation";
+import { redirect } from "next/navigation";
 import { CourseSidebar } from "../../_components/course-sidebar";
 import React from "react";
 import { CourseNavbar } from "../../_components/course-navbar";
 import { Footer } from "@/components/footer";
+import { getUser } from "@/app/(app)/api/_utils/get-user";
 
 const CourseLayout = async ({
   params,
@@ -14,7 +14,7 @@ const CourseLayout = async ({
   children: React.ReactNode;
   params: { slug: string };
 }) => {
-  const { userId } = auth();
+  const { userId } = await getUser();
   if (!userId) redirect("/");
 
   const course = await db.course.findUnique({

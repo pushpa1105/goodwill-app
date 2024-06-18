@@ -1,7 +1,6 @@
-import { isCourseAdmin } from "@/lib/admin";
 import { db } from "@/lib/db";
 import { generateSlug } from "@/lib/slug";
-import { auth } from "@clerk/nextjs";
+import { authMiddleware } from "@/app/(app)/api/_utils/middleware";
 import { NextResponse } from "next/server";
 
 export async function POST(
@@ -9,15 +8,10 @@ export async function POST(
   { params }: { params: { courseId: string } }
 ) {
   try {
-    const { userId } = auth();
+    const response = await authMiddleware("course");
+    if (response.status !== 200) return response;
     const { courseId } = params;
     const { title } = await req.json();
-
-    const isAuthorized = await isCourseAdmin();
-
-    if (!userId || !isAuthorized) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
 
     const course = await db.course.findUnique({
       where: {

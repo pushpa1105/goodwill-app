@@ -1,7 +1,7 @@
 import { db } from "@/lib/db";
 import { Category, Course } from "@prisma/client";
 import { getProgress } from "./get-progress";
-import { auth } from "@clerk/nextjs";
+import { getUser } from "@/app/(app)/api/_utils/get-user";
 
 type CourseWithProgressWithCategory = Course & {
   category: Category | null;
@@ -19,7 +19,7 @@ export const getCourses = async ({
   categoryId,
 }: GetCourses): Promise<CourseWithProgressWithCategory[]> => {
   try {
-    const { userId } = auth();
+    const { userId } = await getUser();
     
 
     const query: any = {

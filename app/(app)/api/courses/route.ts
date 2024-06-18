@@ -1,18 +1,21 @@
-import { isCourseAdmin } from "@/lib/admin";
 import { db } from "@/lib/db";
 import { generateSlug } from "@/lib/slug";
-import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
+import { authMiddleware } from "@/app/(app)/api/_utils/middleware";
+import { getUser } from "@/app/(app)/api/_utils/get-user";
 
 export async function POST(req: Request) {
   try {
-    const { userId } = auth();
+    const response = await authMiddleware("course");
+    if (response.status !== 200) return response;
+
+    const { userId } = await getUser();
     const { title } = await req.json();
 
-    const isAuthorized = await isCourseAdmin();
-
-    if (!userId || !isAuthorized) {
-      return new NextResponse("Unauthorized", { status: 401 });
+    if (!userId) {
+      return new NextResponse("Unauthorized", {
+        status: 401,
+      });
     }
 
     const checkTitle = await db.course.findFirst({

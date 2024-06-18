@@ -1,12 +1,11 @@
-import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
-import { isAdmin } from "@/lib/admin";
+import { checkAccess, getUserForServer } from "@/data/get-user";
 
 const EnrollmentPageLayout = async  ({ children }: { children: React.ReactNode }) => {
-  const { userId } = auth();
-  if (!userId) redirect("/");
+  const user = await getUserForServer();
+  if (!user) return redirect("/sign-in");
 
-  const hasAccess = await isAdmin();
+  const hasAccess = checkAccess(user, "admin");
 
   return (
     <div className="p-6">

@@ -1,19 +1,20 @@
-import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
-import { isAdmin } from "@/lib/admin";
+import { getUserForServer, checkAccess } from "@/data/get-user";
 
-const CategoryPageLayout = async  ({ children }: { children: React.ReactNode }) => {
-  const { userId } = auth();
-  if (!userId) redirect("/");
+const CategoryPageLayout = async ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
+  const user = await getUserForServer();
+  if (!user) return redirect("/sign-in");
 
-  const hasAccess = await isAdmin();
+  const hasAccess = checkAccess(user, "admin");
 
   return (
     <div className="p-6">
       {hasAccess ? (
-        <>
-        {children}
-        </>
+        <>{children}</>
       ) : (
         <div>You do not have permission for this.</div>
       )}

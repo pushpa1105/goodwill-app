@@ -73,3 +73,14 @@ export const getTimeDifferenceString = (inputDate: Date | string) => {
     return `${years} year${years === 1 ? "" : "s"} ago`;
   }
 };
+
+export const getInitials = (fullName = "Anonymous"): string => {
+  // Split the full name by spaces
+  const nameParts = fullName.split(" ");
+
+  // Map the array of name parts to their first letters
+  const initials = nameParts.map((part) => part.charAt(0).toUpperCase());
+
+  // Join the initials into a single string
+  return initials.join("");
+};

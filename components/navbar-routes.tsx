@@ -1,18 +1,15 @@
 "use client";
 
-import { useAuth } from "@clerk/nextjs";
 import { usePathname, useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 import { LogOut } from "lucide-react";
 import Link from "next/link";
 import { User } from "@prisma/client";
-import { UserButton } from "./user-button";
+import { AuthBox } from "./nav-items/auth";
 
-export const NavbarRoutes = ({ user }: { user: User | null }) => {
+export const NavbarRoutes = ({ user }: { user?: Partial<User | null> }) => {
   const pathname = usePathname();
-  const router = useRouter();
 
-  const { userId } = useAuth();
   const isAdmin = user?.isAdmin || user?.isSuperAdmin;
 
   const isAdminPage = pathname?.startsWith("/admin");
@@ -35,7 +32,7 @@ export const NavbarRoutes = ({ user }: { user: User | null }) => {
           </Link>
         )
       )}
-      <UserButton user={user} />
+      <AuthBox />
     </div>
   );
 };

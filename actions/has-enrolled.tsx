@@ -1,9 +1,9 @@
 import { db } from "@/lib/db";
-import { auth } from "@clerk/nextjs";
+import { getUser } from "@/app/(app)/api/_utils/get-user";
 
 export const hasEnrolled = async (courseId: string): Promise<boolean> => {
   try {
-    const { userId } = auth();
+    const { userId } = await getUser()
     if (!userId) return false;
 
     const enroll = await db.courseEnrollment.findUnique({

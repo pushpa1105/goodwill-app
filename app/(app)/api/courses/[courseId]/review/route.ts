@@ -1,20 +1,26 @@
-import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
 import { db } from "@/lib/db";
 import { getReviews } from "@/actions/get-review-data";
+import { authMiddleware } from "@/app/(app)/api/_utils/middleware";
+import { getUser } from "@/app/(app)/api/_utils/get-user";
 
 export async function PATCH(
   req: Request,
   { params }: { params: { courseId: string } }
 ) {
   try {
-    const { userId } = auth();
+    const response = await authMiddleware("user");
+    if (response.status !== 200) return response;
+
+    const { userId } = await getUser();
     const { courseId } = params;
     const { stars, reviewText } = await req.json();
 
     if (!userId) {
-      return new NextResponse("Unauthorized", { status: 401 });
+      return new NextResponse("Unauthorized", {
+        status: 401,
+      });
     }
 
     const course = await db.course.findUnique({

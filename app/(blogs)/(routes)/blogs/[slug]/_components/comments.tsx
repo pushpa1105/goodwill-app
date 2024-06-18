@@ -1,9 +1,9 @@
 import { PostCommentForm } from "./post-comment";
 import { CommentCard } from "./CommentCard";
 import { Blog, Comment, User } from "@prisma/client";
-import { useAuth } from "@clerk/nextjs";
 import Link from "next/link";
 import { MessageSquare } from "lucide-react";
+import { useSession } from "next-auth/react";
 
 interface BlogCommentsProps {
   blog: Blog;
@@ -14,14 +14,16 @@ interface BlogCommentsProps {
 }
 
 export const BlogComments = ({ blog, comments }: BlogCommentsProps) => {
-  const { userId } = useAuth();
+  const { data: session } = useSession();
+  const user = session?.user;
+
   return (
     <div className="p-2 border rounded">
       <h1 className="text-2xl md:text-3xl font-bold text-theme ml-8 flex items-center">
         <MessageSquare className="text-theme mr-2" />
         Comments
       </h1>
-      {userId ? (
+      {user ? (
         <PostCommentForm blogId={blog.id} />
       ) : (
         <div className="text-center text-muted-foreground text-md">

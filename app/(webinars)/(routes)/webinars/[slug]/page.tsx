@@ -56,7 +56,7 @@ const WebinarPage = async ({ params }: { params: { slug: string } }) => {
                 fill
                 className="object-cover group-hover:scale-110 transition duration-250 rounded"
                 alt="blog"
-                src={webinar.imageUrl as string}
+                src={webinar.imageUrl as string || '/webinar.jpg'}
               />
             </div>
             <div>
@@ -69,7 +69,7 @@ const WebinarPage = async ({ params }: { params: { slug: string } }) => {
                 <Preview value={webinar.learnings!} />
               </div>
               <div className="mt-4">
-                {new Date(webinar.startAt!!) > new Date() && (
+                {new Date(webinar.startAt!!) < new Date() && (
                   <SubscriptionModal webinar={webinar}>
                     <Button className="rounded-full bg-theme border border-violet-800 before:ease relative h-full w-full xl:h-35 xl:w-40 font-semibold shadow-lg text-md shadow-xl  overflow-hidden text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-green-500 hover:before:-translate-x-40">
                       <span className="relative z-10">Subscribe</span>

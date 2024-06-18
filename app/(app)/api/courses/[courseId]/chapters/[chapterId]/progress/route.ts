@@ -1,16 +1,24 @@
 import { db } from "@/lib/db";
-import { auth } from "@clerk/nextjs";
+import { authMiddleware } from "@/app/(app)/api/_utils/middleware";
 import { NextResponse } from "next/server";
+import { getUser } from "@/app/(app)/api/_utils/get-user";
 
 export async function PUT(
   req: Request,
   { params }: { params: { courseId: string; chapterId: string } }
 ) {
   try {
-    const { userId } = auth();
+    const response = await authMiddleware("user");
+    if (response.status !== 200) return response;
     const { isCompleted } = await req.json();
 
-    if (!userId) return new NextResponse("Unauthorized", { status: 401 });
+    const { userId } = await getUser();
+
+    if (!userId) {
+      return new NextResponse("Unauthorized", {
+        status: 401,
+      });
+    }
 
     const userProgress = await db.userProgress.upsert({
       where: {

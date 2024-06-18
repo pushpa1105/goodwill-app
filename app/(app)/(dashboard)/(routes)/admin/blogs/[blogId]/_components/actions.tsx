@@ -27,9 +27,9 @@ export const Actions = ({ disabled, blogId, isPublished }: ActionsProps) => {
     try {
       setIsLoading(true);
       await axios.delete(`/api/blogs/${blogId}`);
-      toast.success("Course deleted");
+      toast.success("Blog deleted");
       router.refresh();
-      router.push(`/admin/courses`);
+      router.push(`/admin/blogs`);
     } catch (error) {
       toast.error("Something went wrong");
     } finally {
