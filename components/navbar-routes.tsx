@@ -17,7 +17,7 @@ export const NavbarRoutes = ({ user }: { user?: Partial<User | null> }) => {
   return (
     <div className="flex gap-x-2 ml-auto">
       {isAdminPage || isUserPage ? (
-        <Link href="/courses">
+        <Link href="/courses" className="flex items-center">
           <Button>
             <LogOut className="h-4 w-4 mr-2" />
             Exit

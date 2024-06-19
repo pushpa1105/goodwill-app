@@ -1,16 +1,14 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { AlertTriangle, Loader2 } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
 import * as z from "zod";
-import axios, { AxiosError } from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { SyntheticEvent, useState } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import {
   Form,
@@ -36,6 +34,7 @@ export function SignInForm({ className, ...props }: UserAuthFormProps) {
   const [verificationError, setVerificationError] = useState<boolean>(false);
   const router = useRouter();
   const searchParams = useSearchParams();
+  const urlToRedirect = searchParams.get("callbackUrl") || '/'
 
   const urlError =
     searchParams.get("error") === "OAuthAccountNotLinked"
@@ -52,15 +51,6 @@ export function SignInForm({ className, ...props }: UserAuthFormProps) {
 
   const { isSubmitting, isValid } = form.formState;
 
-  //   async function onSubmit(event: SyntheticEvent) {
-  //     event.preventDefault();
-  //     setIsLoading(true);
-
-  //     setTimeout(() => {
-  //       setIsLoading(false);
-  //     }, 3000);
-  //   }
-
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setVerificationError(false);
     await signIn("credentials", {
@@ -68,15 +58,14 @@ export function SignInForm({ className, ...props }: UserAuthFormProps) {
       redirect: false,
     })
       .then((res) => {
-        console.log(res);
         if (res?.error === "AccessDenied") {
           toast.error("Email not verified");
           setVerificationError(true);
         } else if (res?.error) {
           toast.error("Invalid credentials");
         } else {
-          toast.success("User signed in.")
-          router.push('/')
+          toast.success("User signed in.");
+          router.push(urlToRedirect);
         }
       })
       .catch((error: any) => {
@@ -86,10 +75,12 @@ export function SignInForm({ className, ...props }: UserAuthFormProps) {
   };
 
   const onGoogleAuth = async () => {
+    setIsLoading(true);
     setVerificationError(false);
     await signIn("google", {
-      callbackUrl: "/",
+      callbackUrl: urlToRedirect,
     });
+    setIsLoading(false);
   };
 
   return (
@@ -123,12 +114,20 @@ export function SignInForm({ className, ...props }: UserAuthFormProps) {
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input
-                        disabled={isSubmitting}
-                        placeholder="Test@123"
-                        type="password"
-                        {...field}
-                      />
+                      <div>
+                        <Input
+                          disabled={isSubmitting}
+                          placeholder="Test@123"
+                          type="password"
+                          {...field}
+                        />
+                        <Link
+                          href={"/auth/reset-password"}
+                          className="hover:text-blue-600 text-gray-600 hover:underline text-xs w-auto mr-auto"
+                        >
+                          Forgot password?
+                        </Link>
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -142,15 +141,18 @@ export function SignInForm({ className, ...props }: UserAuthFormProps) {
               </div>
             )}
             {verificationError && (
-                <div className="text-xs font-medium py-2">
-                  Did not get email?
-                  <Link href={"/auth/resend-verification-email"} className="ml-2 text-blue-800 hover:underline">
-                    Resend email
-                  </Link>
+              <div className="text-xs font-medium py-2">
+                Did not get email?
+                <Link
+                  href={"/auth/resend-verification-email"}
+                  className="ml-2 text-blue-800 hover:underline"
+                >
+                  Resend email
+                </Link>
               </div>
             )}
-            <Button disabled={isLoading} className="bg-theme">
-              {isLoading && (
+            <Button disabled={isLoading || isSubmitting} className="bg-theme">
+              {(isLoading || isSubmitting) && (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin text-secondary" />
               )}
               Sign in with Email
@@ -171,11 +173,11 @@ export function SignInForm({ className, ...props }: UserAuthFormProps) {
       <Button
         variant="outline"
         type="button"
-        disabled={isLoading}
+        disabled={isLoading || isSubmitting}
         className="font-[300]"
         onClick={() => onGoogleAuth()}
       >
-        {isLoading ? (
+        {(isLoading || isSubmitting) ? (
           <Loader2 className="mr-2 h-4 w-4 animate-spin text-secondary" />
         ) : (
           <FcGoogle className="mr-2 h-4 w-4" />

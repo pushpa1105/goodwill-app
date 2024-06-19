@@ -42,7 +42,10 @@ export async function POST(req: Request) {
 
     const verificationToken = await generateVerificationToken(email);
 
-    await sendVerificationEmail(verificationToken.email, verificationToken.token);
+    await sendVerificationEmail(
+      verificationToken.email,
+      verificationToken.token
+    );
 
     const { password: newUserPassword, ...rest } = user;
 
@@ -58,27 +61,30 @@ export async function POST(req: Request) {
 
 export async function PUT(req: Request) {
   try {
-    const response = await authMiddleware("admin");
-    if (response.status !== 200) return response;
-
-    const {userId} = await getUser();
+    const { userId } = await getUser();
     const values = await req.json();
 
-    if (!userId) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
-
-    const existingUser = await db.user.findUnique({where:{
-      id: userId
-    }})
+    const existingUser = await db.user.findUnique({
+      where: {
+        id: userId,
+      },
+    });
 
     if (!existingUser) {
       return new NextResponse("User not found", { status: 404 });
     }
+    console.log(values.password);
 
+    if (values?.password) {
+    console.log(values.password);
+      const hashedPassword = await hash(values.password, 10);
+      values.password = hashedPassword;
+    }
+
+    console.log(values.password);
     const user = await db.user.update({
       where: {
-        id: userId
+        id: userId,
       },
       data: {
         ...values,

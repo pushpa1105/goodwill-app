@@ -1,9 +1,8 @@
 import { PostCommentForm } from "./post-comment";
 import { CommentCard } from "./CommentCard";
 import { Blog, Comment, User } from "@prisma/client";
-import Link from "next/link";
 import { MessageSquare } from "lucide-react";
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 
 interface BlogCommentsProps {
   blog: Blog;
@@ -28,12 +27,12 @@ export const BlogComments = ({ blog, comments }: BlogCommentsProps) => {
       ) : (
         <div className="text-center text-muted-foreground text-md">
           <div>Login to post comment</div>
-          <Link
-            href="/sign-in"
-            className="transition-all ease-in-out duration-150 text-theme hover:underline"
+          <div
+            onClick={() => signIn()}
+            className="transition-all ease-in-out duration-150 text-theme cursor-pointer hover:underline"
           >
             Login now
-          </Link>
+          </div>
         </div>
       )}
       {comments.length > 0 ? (

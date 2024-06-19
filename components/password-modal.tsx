@@ -23,47 +23,57 @@ import {
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 
-import PhoneInputWithCountry from "react-phone-number-input/react-hook-form";
 import "react-phone-number-input/style.css";
-import { useSession } from "next-auth/react";
+import { Input } from "./ui/input";
 
 interface CategoryModalProps {
   children: React.ReactNode;
 }
 
-const formSchema = z.object({
-  phone: z.string().min(10, {
-    message: "Phone Number is required",
-  }),
-});
-
-export const PhoneModal = ({ children }: CategoryModalProps) => {
+const formSchema = z
+  .object({
+    password: z.string().min(1, {
+      message: "Password is required",
+    }),
+    confirmPassword: z.string().min(1, {
+      message: "Confirm Password is required",
+    }),
+  })
+  .superRefine(({ confirmPassword, password }, ctx) => {
+    if (confirmPassword !== password) {
+      ctx.addIssue({
+        code: "custom",
+        message: "The passwords did not match",
+        path: ["confirmPassword"],
+      });
+    }
+  });
+export const ChangePasswordModal = ({ children }: CategoryModalProps) => {
   const router = useRouter();
-  const { data: session, update } = useSession();
   const [open, setOpen] = useState(false);
+  const [passwordMismatchError, setpasswordMismatchError] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      phone: session?.user?.phone || "",
+      password: "",
+      confirmPassword: "",
     },
   });
   const { isSubmitting, isValid } = form.formState;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const res = await axios.put(`/api/user`, values);
-      const updateUser = {
-        ...session,
-        user: {
-          ...res.data,
-        },
-      };
+      const { password, confirmPassword } = values;
 
-      await update(updateUser);
+      if (password !== confirmPassword) {
+        return setpasswordMismatchError(true);
+      }
+
+      await axios.put(`/api/user`, { password });
 
       setOpen(false);
-      toast.success("Phone Number updated successfully");
+      toast.success("Password changed successfully");
 
       router.refresh();
     } catch (error) {
@@ -79,7 +89,7 @@ export const PhoneModal = ({ children }: CategoryModalProps) => {
         <DialogContent className="w-auto DialogContent">
           <DialogHeader className="">
             <DialogTitle className="font-extrabold text-2xl">
-              Edit Phone Number
+              Change Password
             </DialogTitle>
           </DialogHeader>
           <Form {...form}>
@@ -87,16 +97,37 @@ export const PhoneModal = ({ children }: CategoryModalProps) => {
               <div className="space-y-4 p-2">
                 <FormField
                   control={form.control}
-                  name="phone"
+                  name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="  text-md">Phone Number</FormLabel>
+                      <FormLabel className="  text-md">New Password</FormLabel>
                       <FormControl className="phone-input">
-                        <PhoneInputWithCountry
-                          placeholder="Enter phone number"
+                        <Input
+                          placeholder="Enter new password"
                           disabled={isSubmitting}
-                          country="IN"
-                          className="h-[50px] text-xl rounded-lg shadow-xl"
+                          className=""
+                          type="password"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="confirmPassword"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="  text-md">
+                        Confirm Password
+                      </FormLabel>
+                      <FormControl className="phone-input">
+                        <Input
+                          placeholder="Re-enter new password"
+                          disabled={isSubmitting}
+                          className=""
+                          type="password"
                           {...field}
                         />
                       </FormControl>
@@ -105,12 +136,19 @@ export const PhoneModal = ({ children }: CategoryModalProps) => {
                   )}
                 />
               </div>
-
+              {passwordMismatchError && (
+                <div className="text-xs p-2 bg-red-100 text-red-600 rounded">
+                  Password did not match.
+                </div>
+              )}
+              <div className="text-xs p-2 bg-gray-200">
+                Password must match with each other.
+              </div>
               <div className="flex items-center gap-x-2 rounded-lg w-full">
                 <Button
                   disabled={!isValid || isSubmitting}
                   type="submit"
-                  className="w-full m-auto text-md font-semibold bg-black hover:bg-black"
+                  className="w-full m-auto text-md font-semibold bg-theme"
                 >
                   Save
                 </Button>

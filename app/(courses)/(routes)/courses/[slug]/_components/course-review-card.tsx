@@ -1,6 +1,6 @@
 import { Rating } from "@/components/rating";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { formatDate } from "@/lib/format";
+import { formatDate, getInitials } from "@/lib/format";
 
 export const CourseReviewCard = ({ review }: { review: any }) => {
   return (
@@ -9,8 +9,8 @@ export const CourseReviewCard = ({ review }: { review: any }) => {
         <div className="flex items-center">
           <div>
             <Avatar>
-              <AvatarImage src={review.user.imageUrl} />
-              <AvatarFallback>CN</AvatarFallback>
+              <AvatarImage src={review.user.image} />
+              <AvatarFallback>{getInitials(review.user.name)}</AvatarFallback>
             </Avatar>
           </div>
           <div className="ml-4">

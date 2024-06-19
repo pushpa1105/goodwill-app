@@ -1,5 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { formatDate } from "@/lib/format";
+import { formatDate, getInitials } from "@/lib/format";
 import { Comment, User } from "@prisma/client";
 
 interface CommentCardProps {
@@ -16,9 +16,9 @@ export const CommentCard = ({ comment }: CommentCardProps) => {
         <div className="flex items-center">
           <div>
             <Avatar>
-              <AvatarImage src={comment.user.imageUrl!} />
+              <AvatarImage src={comment.user.image!} />
               <AvatarFallback className="bg-theme text-white">
-                CN
+                {getInitials(comment.user.name!)}
               </AvatarFallback>
             </Avatar>
           </div>

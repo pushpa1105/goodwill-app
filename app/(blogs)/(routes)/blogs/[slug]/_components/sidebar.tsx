@@ -172,21 +172,6 @@ const Sidebar = ({
           })}
         >
           <div className="flex gap-x-4 items-center justify-center h-15 overflow-hidden px-2 border-t border-t-indigo-800 pt-4">
-            {/* {userId && <UserButton user={user} />}
-            {!userId && (
-              <>
-                <SignInButton
-                  redirectUrl={redirectUrl}
-                  afterSignInUrl={redirectUrl}
-                />
-                <div className=" bg-black text-white rounded p-2 mx-2 sm:mx-4 capitalize tracking-wide transition-all">
-                  <SignUpButton
-                    redirectUrl={redirectUrl}
-                    afterSignUpUrl={redirectUrl}
-                  />
-                </div>
-              </>
-            )} */}
             <AuthBox/>
           </div>
         </div>

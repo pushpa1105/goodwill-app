@@ -1,8 +1,8 @@
 "use client";
 
-import { Course, CourseEnrollment, User } from "@prisma/client";
+import { User } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, Pencil, Trash } from "lucide-react";
+import { ArrowUpDown, CheckCircle } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
@@ -62,10 +62,47 @@ export const columns: ColumnDef<User>[] = [
     },
   },
   {
-    accessorKey: "isBlogAdmin",
-    header: 'Blog Admin',
+    accessorKey: "emailVerified",
+    header: "Verify Email",
     cell: ({ row }) => {
-      const { id, isBlogAdmin= false} = row.original;
+      const { id, emailVerified = null } = row.original;
+
+      const isVerified = !!emailVerified;
+
+      const onUpdate = async () => {
+        try {
+          await axios.patch(`/api/user/${id}/verify-user`);
+          toast.success("User verified");
+          location.reload();
+        } catch (error) {
+          if (error?.response?.data) toast.error(error?.response?.data);
+          else toast.error("Something went wrong");
+        }
+      };
+
+      return (
+        <>
+          <div className="flex flex-wrap">
+            <Button
+              disabled={isVerified}
+              onClick={onUpdate}
+              className="text-xs p m-0"
+              variant={"success"}
+            >
+              {isVerified && <CheckCircle />}
+              {isVerified ? "Verified" : "Verify"}
+            </Button>
+            {/* <Switch checked={isVerified as boolean} onCheckedChange={onUpdate} /> */}
+          </div>
+        </>
+      );
+    },
+  },
+  {
+    accessorKey: "isBlogAdmin",
+    header: "Blog Admin",
+    cell: ({ row }) => {
+      const { id, isBlogAdmin = false } = row.original;
 
       const onUpdate = async () => {
         try {
@@ -81,7 +118,10 @@ export const columns: ColumnDef<User>[] = [
       return (
         <>
           <div className="flex flex-wrap">
-            <Switch checked={isBlogAdmin as boolean} onCheckedChange={onUpdate} />
+            <Switch
+              checked={isBlogAdmin as boolean}
+              onCheckedChange={onUpdate}
+            />
           </div>
         </>
       );
@@ -89,9 +129,9 @@ export const columns: ColumnDef<User>[] = [
   },
   {
     accessorKey: "isCourseAdmin",
-    header: 'Course Admin',
+    header: "Course Admin",
     cell: ({ row }) => {
-      const { id, isCourseAdmin= false} = row.original;
+      const { id, isCourseAdmin = false } = row.original;
 
       const onUpdate = async () => {
         try {
@@ -107,33 +147,10 @@ export const columns: ColumnDef<User>[] = [
       return (
         <>
           <div className="flex flex-wrap">
-            <Switch checked={isCourseAdmin as boolean} onCheckedChange={onUpdate} />
-          </div>
-        </>
-      );
-    },
-  },
-  {
-    accessorKey: "isWebinarAdmin",
-    header: 'Webinar Admin',
-    cell: ({ row }) => {
-      const { id, isWebinarAdmin = false} = row.original;
-
-      const onUpdate = async () => {
-        try {
-          await axios.patch(`/api/user/${id}/webinar-admin`);
-          toast.success("User updated");
-          location.reload();
-        } catch (error) {
-          if (error?.response?.data) toast.error(error?.response?.data);
-          else toast.error("Something went wrong");
-        }
-      };
-
-      return (
-        <>
-          <div className="flex flex-wrap">
-            <Switch checked={isWebinarAdmin as boolean} onCheckedChange={onUpdate} />
+            <Switch
+              checked={isCourseAdmin as boolean}
+              onCheckedChange={onUpdate}
+            />
           </div>
         </>
       );
@@ -160,7 +177,10 @@ export const columns: ColumnDef<User>[] = [
       return (
         <>
           <div className="flex flex-wrap">
-            <Switch checked={isUserAdmin as boolean} onCheckedChange={onUpdate} />
+            <Switch
+              checked={isUserAdmin as boolean}
+              onCheckedChange={onUpdate}
+            />
           </div>
         </>
       );

@@ -58,6 +58,8 @@ export const authOptions: NextAuthOptions = {
           isAdmin: user.isAdmin || false,
           isBlogAdmin: user.isBlogAdmin || false,
           isCourseAdmin: user.isCourseAdmin || false,
+          phone: user.phone || null,
+          joinedDate: user.createdAt || new Date(),
           randomKey: "Hey cool",
         };
       },
@@ -108,10 +110,17 @@ export const authOptions: NextAuthOptions = {
           isAdmin: token.isAdmin || false,
           isBlogAdmin: token.isBlogAdmin || false,
           isCourseAdmin: token.isCourseAdmin || false,
+          phone: token.phone || null,
+          joinedDate: token.joinedDate || new Date(),
         },
       };
     },
-    jwt: ({ token, user }) => {
+    jwt: ({ token, user, trigger, session }) => {
+
+      if (trigger === "update" && session) {
+        return { ...token, ...session?.user };
+      }
+
       if (user) {
         const u = user as User;
         return {
@@ -121,6 +130,9 @@ export const authOptions: NextAuthOptions = {
       }
       return token;
     },
+    async redirect({url, baseUrl}) {
+      return Promise.resolve(url)
+    }
   },
 };
 

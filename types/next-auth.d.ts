@@ -16,6 +16,8 @@ declare module "next-auth" {
       isAdmin: boolean;
       isBlogAdmin: boolean;
       isCourseAdmin: boolean;
+      phone: string | undefined;
+      joinedDate: Date;
     };
   }
 }

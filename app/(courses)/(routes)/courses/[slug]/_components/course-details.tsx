@@ -12,6 +12,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { EnrollModal } from "./enroll-modal";
+import { signIn } from "next-auth/react";
 
 interface CourseDetailsProps {
   id: string;
@@ -98,9 +99,7 @@ export const CourseDetails = ({
         <div className="text-muted-foreground font-light flex">
           You need to sign in first to enroll course.
             <div className="ml-[5px] font-medium px-2 bg-theme rounded-full text-white">
-              <Link href={"/sign-in"}>
-              Sign in
-              </Link>
+            <div className="cursor-pointer" onClick={() => signIn()}>Sign in</div>
             </div>
         </div>
       )}

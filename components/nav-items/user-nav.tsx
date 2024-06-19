@@ -1,4 +1,3 @@
-import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -6,26 +5,28 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { signOut } from "next-auth/react";
 import { getInitials } from "@/lib/format";
 import { UserProfileModal } from "./user-profile";
-import { Button } from "../ui/button";
+import { PhoneModal } from "../phone-modal";
+import { ChangePasswordModal } from "../password-modal";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { LogOut } from "lucide-react";
 
 export function UserNav({ session }: { session: any }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <div className="relative h-8 w-8 rounded-full">
+        <div className="flex justify-center items-center relative h-20 w-20 rounded-full">
           <Avatar>
             <AvatarImage
               src={session.user.image}
               alt="user-image"
               className="rounded-full cursor-pointer"
             />
-            <AvatarFallback className="rounded-full cursor-pointer bg-red-400 p-2">
+            <AvatarFallback className="rounded-full cursor-pointer bg-theme text-white text-xl p-2">
               {getInitials(session.user.name)}
             </AvatarFallback>
           </Avatar>
@@ -45,11 +46,30 @@ export function UserNav({ session }: { session: any }) {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <UserProfileModal>
-            <div className="px-2 py-2 rounded-sm  items-center text-sm cursor-pointer">Profile</div>
+            <div className="px-2 py-2 rounded-sm  items-center text-xs cursor-pointer hover:bg-slate-100">
+              Profile
+            </div>
           </UserProfileModal>
+          <DropdownMenuSeparator />
+          <UserProfileModal>
+            <ChangePasswordModal>
+              <div className="px-2 py-2 rounded-sm  items-center text-xs cursor-pointer hover:bg-slate-100">
+                Change Password
+              </div>
+            </ChangePasswordModal>
+          </UserProfileModal>
+          <DropdownMenuSeparator />
+          <PhoneModal>
+            <div className="px-2 py-2 rounded-sm  items-center text-xs cursor-pointer hover:bg-slate-100">
+              Change Phone Number
+            </div>
+          </PhoneModal>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="cursor-pointer" onClick={() => signOut()}>Log out</DropdownMenuItem>
+        <DropdownMenuItem className="cursor-pointer" onClick={() => signOut()}>
+          <LogOut className="h-4 w-4 mr-2" />
+          Log out
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
