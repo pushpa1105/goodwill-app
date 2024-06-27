@@ -1,10 +1,17 @@
+import Mailjet from "node-mailjet";
 import {
   passwordResetEmailTemplate,
   verificationEmailTemplate,
 } from "@/data/get-email-template";
-import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const mailjet = Mailjet.apiConnect(
+  process.env.MAILJET_API_PUBLIC_KEY!,
+  process.env.MAILJET_API_PRIVATE_KEY!,
+  {
+    config: {},
+    options: {},
+  }
+);
 
 interface SendEmailInterface {
   subject: string;
@@ -17,11 +24,23 @@ export const sendEmail = async ({
   toEmail,
   html,
 }: SendEmailInterface) => {
-  await resend.emails.send({
-    from: "onboarding@resend.dev",
-    to: toEmail,
-    subject,
-    html,
+  const request = await mailjet.post("send", { version: "v3.1" }).request({
+    Messages: [
+      {
+        From: {
+          Email: "projectinfo1105@gmail.com",
+          Name: "Pushpa Lama",
+        },
+        To: [
+          {
+            Email: toEmail,
+            Name: toEmail
+          },
+        ],
+        Subject: subject,
+        HTMLPart: html,
+      },
+    ],
   });
 };
 

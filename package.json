@@ -51,6 +51,7 @@
     "lucide-react": "^0.286.0",
     "next": "14.0.1",
     "next-auth": "^4.24.7",
+    "node-mailjet": "^6.0.5",
     "query-string": "^8.1.0",
     "react": "^18.2.0",
     "react-confetti": "^6.1.0",
